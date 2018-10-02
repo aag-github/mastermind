@@ -2,88 +2,96 @@
 #define _TOKENSET_H
 
 #include <vector>
-#include <string>
-#include <string.h>
 #include <time.h>
 
 namespace Mastermind
 {
 
+typedef uint8_t TokenId;
+
 class TokenSet {
 private:
-	static constexpr char emptyToken = ' ';
+    static constexpr TokenId emptyToken = 0;
+    static constexpr TokenId defaultMaxTokenId = 6;
+    static constexpr size_t defaultNumTokens = 4;
 
-	static constexpr size_t defaultNumTokens = 4;
+    std::vector<TokenId> tokens;
 
-	std::string tokenColors;  // TODO: duplicated in every TokenSet
-
-	std::string tokens;
+    TokenId maxTokenId;
 
 public:
-	TokenSet(size_t numTokens = defaultNumTokens):
-	tokenColors("RGBYOM"),
-	tokens(numTokens, emptyToken)
+    TokenSet():
+    tokens(defaultNumTokens, emptyToken),
+    maxTokenId(defaultMaxTokenId)
     {
-	}
+    }
 
-	void clear()
-	{
-		tokens = std::string(tokens.length(), emptyToken);
-	}
+    TokenSet(size_t numTokens, size_t maxTokenId):
+    tokens(numTokens, emptyToken),
+    maxTokenId(maxTokenId)
+    {
+    }
 
-	void set(const std::string &newTokens)
-	{
-		tokens = newTokens;
-	}
+    void clear()
+    {
+        tokens = std::vector<TokenId>(tokens.size(), emptyToken);
+    }
 
-	TokenMatches match(const TokenSet &target) const
-	{
-		uint8_t fullMatches = 0;
-		uint8_t colorMatches = 0;
+    void addToken(size_t pos, TokenId token)
+    {
+        tokens[pos] = token;
+    }
+
+    TokenMatches match(const TokenSet &target) const
+    {
+        uint8_t fullMatches = 0;
+        uint8_t colorMatches = 0;
         std::vector<uint8_t> targetColorCounters;
         std::vector<uint8_t> myColorCounters;
 
-        targetColorCounters.resize(tokenColors.length(), 0);
-        myColorCounters.resize(tokenColors.length(), 0);
+        targetColorCounters.resize(maxTokenId, 0);
+        myColorCounters.resize(maxTokenId, 0);
 
-		for (size_t i = 0;
-				    i < std::min(tokens.length(), target.tokens.length());  // TODO defensive: replace with assert?
-				    i++) {
-			const char myColor = tokens[i];
-			const char targetColor = target.tokens[i];
+        for (size_t i = 0;
+                    i < std::min(tokens.size(), target.tokens.size());  // TODO defensive: replace with assert?
+                    i++) {
+            const TokenId myToken = tokens[i];
+            const TokenId targetToken = target.tokens[i];
 
-			if (tokenColors.find(myColor) == std::string::npos ||    // TODO defensive: replace with assert?
-				tokenColors.find(targetColor) == std::string::npos) {
-				continue;
-			}
+            if (myToken == emptyToken || targetToken == emptyToken) {
+                continue;
+            }
 
-			if (myColor == targetColor){
-				fullMatches++;
-			} else {
-		        targetColorCounters[tokenColors.find(targetColor)]++;
-		        myColorCounters[tokenColors.find(myColor)]++;
-			}
-		}
+            if (myToken == targetToken){
+                fullMatches++;
+            } else if (targetToken < maxTokenId && myToken < maxTokenId){  // TODO defensive: replace with assert?
+                targetColorCounters[targetToken]++;
+                myColorCounters[myToken]++;
+            }
+        }
 
-		for(size_t i = 0; i < targetColorCounters.size(); i++){
-			colorMatches += std::min(targetColorCounters[i], myColorCounters[i]);
-		}
+        for(size_t i = 0; i < targetColorCounters.size(); i++){
+            colorMatches += std::min(targetColorCounters[i], myColorCounters[i]);
+        }
 
-		return TokenMatches(fullMatches, colorMatches);
-	}
+        return TokenMatches(fullMatches, colorMatches);
+    }
 
-	void random()
-	{
-		const size_t maxColors = tokenColors.size();
-		for (auto &c : tokens){
-			c = tokenColors.c_str()[rand()%maxColors];
-		}
-	}
+    void random()
+    {
+        for (auto &t : tokens){
+            t = (rand()%maxTokenId) + 1;
+        }
+    }
 
-	void paint() const
-	{
-		printf("%s\n", tokens.c_str());
-	}
+    void paint() const
+    {
+        std::string tokenColors("-RGBYOM");
+        for (const auto &t : tokens) {
+            std::cout << tokenColors[t];
+        }
+        printf("\n");
+    }
 };
 
 }

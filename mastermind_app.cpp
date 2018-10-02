@@ -2,11 +2,11 @@
 
 int main(void)
 {
-	Mastermind::MasterMind mastermind;
+    Mastermind::MasterMind mastermind;
 
-	mastermind.play();
+    mastermind.play();
 
-	return 0;
+    return 0;
 }
 
 

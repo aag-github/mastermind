@@ -20,75 +20,80 @@ private:
 
     const uint8_t tokenSetSize;
 
+    const TokenId maxTokenId;
+
     TokenSet requestTokenSet() const
-	{
-    	TokenSet s(tokenSetSize);
-    	std::string tokenColors("RGBYOM");
-    	std::string tokenSet;
-		printf("\nEnter %d tokens (valid characters 'RGBYOM'):\n", tokenSetSize);
-    	while(tokenSet.length() < tokenSetSize) {
-    		int c = toupper(getch());
-    		if (tokenColors.find(c) != std::string::npos) {
-    			printf("%c", c);
-    			tokenSet += c;
-    		}
-    	}
-		printf("\n");
-    	s.set(tokenSet);
-    	return s;
-	}
+    {
+        TokenSet tokenSet(tokenSetSize, maxTokenId);
+        std::string tokenColors("RGBYOM");
+        printf("\nEnter %d tokens (valid characters 'RGBYOM'):\n", tokenSetSize);
+        for(int i = 0; i < tokenSetSize; i++) {
+            size_t pos;
+            do {
+                int c = toupper(getch());
+                pos = tokenColors.find(c);
+                if (pos != std::string::npos) {
+                    printf("%c", c);
+                    tokenSet.addToken(i, pos+1);
+                }
+            } while (pos == std::string::npos);
+        }
+        printf("\n");
+        return tokenSet;
+    }
 public:
     enum class AttemptResult
-	{
-    	MATCH,
-		MISMATCH
+    {
+        MATCH,
+        MISMATCH
     };
 
-	Board(size_t numTries, size_t tokenSetSize) :
-	target(tokenSetSize),
-	tokenSetSize(tokenSetSize)
-	{
-		attempts.resize(numTries, TokenSet(tokenSetSize));
-	}
+    Board(size_t numTries, size_t tokenSetSize, TokenId maxTokenId) :
+    target(tokenSetSize, maxTokenId),
+    tokenSetSize(tokenSetSize),
+    maxTokenId(maxTokenId)
+    {
+        attempts.resize(numTries, TokenSet(tokenSetSize, maxTokenId));
+    }
 
-	void start()
-	{
-		target.random();
-		for(auto &att : attempts){
-			att.clear();
-		}
-	}
+    void start()
+    {
+        target.random();
+        for(auto &att : attempts){
+            att.clear();
+        }
+    }
 
-	AttemptResult giveItATry(const uint8_t attemptNumber)
-	{
-		TokenMatches result;
+    AttemptResult giveItATry(const uint8_t attemptNumber)
+    {
+        TokenMatches result;
 
-		attempts[attemptNumber] = requestTokenSet();
-		result = attempts[attemptNumber].match(target);
+        attempts[attemptNumber] = requestTokenSet();
+        result = attempts[attemptNumber].match(target);
 
         result.paint();
 
-		if (result.isFullMatch(tokenSetSize)) {
-			return AttemptResult::MATCH;
-		} else {
-			return AttemptResult::MISMATCH;
-		}
-	}
+        if (result.isFullMatch(tokenSetSize)) {
+            return AttemptResult::MATCH;
+        } else {
+            return AttemptResult::MISMATCH;
+        }
+    }
 
-	void paint() const
-	{
-		printf("\n");
-		uint8_t attempt = 1;
-		for (const auto &att : attempts){
-			printf("% 3d - ", attempt++);
-			att.paint();
-		}
-	}
+    void paint() const
+    {
+        printf("\n");
+        uint8_t attempt = 1;
+        for (const auto &att : attempts){
+            printf("% 3d - ", attempt++);
+            att.paint();
+        }
+    }
 
-	void paintTarget() const
-	{
-		target.paint();
-	}
+    void paintTarget() const
+    {
+        target.paint();
+    }
 };
 
 }

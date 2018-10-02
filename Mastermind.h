@@ -11,47 +11,48 @@ class MasterMind {
 private:
     static constexpr size_t numAttempts = 15;
     static constexpr size_t tokenSetSize = 4;
+    static constexpr size_t tokenTypes = 6;
 
-	Board board;
+    Board board;
 
 public:
-	MasterMind():
-	board(numAttempts, tokenSetSize)
-	{
-		srand(time(nullptr));
-	};
+    MasterMind():
+    board(numAttempts, tokenSetSize, tokenTypes)
+    {
+        srand(time(nullptr));
+    };
 
-	void play()
-	{
-		board.start();
+    void play()
+    {
+        board.start();
 
-		size_t currentAttemptIndex = 0;
-		for(; currentAttemptIndex < numAttempts; currentAttemptIndex++) {
-			board.paint();
-			if (Board::AttemptResult::MATCH == board.giveItATry(currentAttemptIndex)){
-				break;
-			}
-		}
+        size_t currentAttemptIndex = 0;
+        for(; currentAttemptIndex < numAttempts; currentAttemptIndex++) {
+            board.paint();
+            if (Board::AttemptResult::MATCH == board.giveItATry(currentAttemptIndex)){
+                break;
+            }
+        }
 
-		paintResult(currentAttemptIndex + 1);
-	}
+        paintResult(currentAttemptIndex + 1);
+    }
 
-	void paintResult(size_t currentAttempt) const
-	{
-		printf("-----------------------------\n");
+    void paintResult(size_t currentAttempt) const
+    {
+        printf("-----------------------------\n");
 
-		board.paint();
+        board.paint();
 
-		if (currentAttempt > this->numAttempts){
-			printf("\nNumber of attempts exhausted, LOSER!\n");
-		} else {
-			printf("\nYou have won in %d tries\n", (int(currentAttempt)));
-		}
+        if (currentAttempt > this->numAttempts){
+            printf("\nNumber of attempts exhausted, LOSER!\n");
+        } else {
+            printf("\nYou have won in %d tries\n", (int(currentAttempt)));
+        }
 
-		printf("\nThe target set of tokens was: ");
-		board.paintTarget();
-		printf("\n");
-	}
+        printf("\nThe target set of tokens was: ");
+        board.paintTarget();
+        printf("\n");
+    }
 };
 
 }
