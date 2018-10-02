@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-namespace MasterMind
+namespace Mastermind
 {
 
 class TokenMatches {

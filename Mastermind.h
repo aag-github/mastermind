@@ -4,19 +4,19 @@
 #include <time.h>
 #include "Board.h"
 
-namespace MasterMind
+namespace Mastermind
 {
 
 class MasterMind {
 private:
     static constexpr size_t numAttempts = 15;
-    static constexpr size_t tokensPerAttempt = 4;
+    static constexpr size_t tokenSetSize = 4;
 
 	Board board;
 
 public:
 	MasterMind():
-	board(numAttempts, tokensPerAttempt)
+	board(numAttempts, tokenSetSize)
 	{
 		srand(time(nullptr));
 	};

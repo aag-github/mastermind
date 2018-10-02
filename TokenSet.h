@@ -6,12 +6,12 @@
 #include <string.h>
 #include <time.h>
 
-namespace MasterMind
+namespace Mastermind
 {
 
 class TokenSet {
 private:
-	static constexpr char emptyCode = ' ';
+	static constexpr char emptyToken = ' ';
 
 	static constexpr size_t defaultNumTokens = 4;
 
@@ -22,13 +22,13 @@ private:
 public:
 	TokenSet(size_t numTokens = defaultNumTokens):
 	tokenColors("RGBYOM"),
-	tokens(numTokens, emptyCode)
+	tokens(numTokens, emptyToken)
     {
 	}
 
 	void clear()
 	{
-		tokens = std::string(tokens.length(), emptyCode);
+		tokens = std::string(tokens.length(), emptyToken);
 	}
 
 	void set(const std::string &newTokens)

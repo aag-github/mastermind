@@ -1,8 +1,8 @@
-#include "MasterMind.h"
+#include "Mastermind.h"
 
 int main(void)
 {
-	MasterMind::MasterMind mastermind;
+	Mastermind::MasterMind mastermind;
 
 	mastermind.play();
 

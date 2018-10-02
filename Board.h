@@ -9,7 +9,7 @@
 #include "TokenMatches.h"
 #include "TokenSet.h"
 
-namespace MasterMind
+namespace Mastermind
 {
 
 class Board {
