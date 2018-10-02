@@ -1,10 +1,3 @@
-/*
- * getch.h
- *
- *  Created on: 1 Oct 2018
- *      Author: osboxes
- */
-
 #ifndef SRC_GETCH_H_
 #define SRC_GETCH_H_
 
@@ -27,4 +20,4 @@ int getch(void)
 }
 
 
-#endif /* SRC_GETCH_H_ */
+#endif
