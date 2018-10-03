@@ -3,9 +3,8 @@
 
 #include <iostream>
 #include <vector>
-#include "Board.h"
 #include "getch.h"
-
+#include "Board.h"
 #include "TokenMatches.h"
 #include "TokenSet.h"
 
