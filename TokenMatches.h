@@ -20,9 +20,9 @@ public:
     {
     }
 
-    TokenMatches(uint8_t fullyRight, uint8_t rightColor) :
-    fullMatches(fullyRight),
-    colorMatches(rightColor)
+    TokenMatches(uint8_t fullMatches, uint8_t colorMatches) :
+    fullMatches(fullMatches),
+    colorMatches(colorMatches)
     {
     }
 

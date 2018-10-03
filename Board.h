@@ -66,10 +66,8 @@ public:
 
     AttemptResult giveItATry(const uint8_t attemptNumber)
     {
-        TokenMatches result;
-
         attempts[attemptNumber] = requestTokenSet();
-        result = attempts[attemptNumber].match(target);
+        TokenMatches result = attempts[attemptNumber].match(target);
 
         result.paint();
 

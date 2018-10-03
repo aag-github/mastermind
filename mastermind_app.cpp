@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    Mastermind::MasterMind mastermind;
+    Mastermind::Mastermind mastermind;
 
     mastermind.play();
 
