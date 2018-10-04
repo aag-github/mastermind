@@ -18,7 +18,7 @@ private:
 
     std::vector<TokenCode> attempts;
 
-    TokenCode requestTokenCode() const
+    TokenCode askTokenCode() const
     {
         const uint8_t tokenCodeSize = attempts[0].size();
 
@@ -58,7 +58,7 @@ public:
 
     TokenMatches::Result giveItATry(const uint8_t attemptNumber)
     {
-        attempts[attemptNumber] = requestTokenCode();
+        attempts[attemptNumber] = askTokenCode();
 
         return attempts[attemptNumber].match(target);
     }

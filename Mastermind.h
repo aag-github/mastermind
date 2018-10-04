@@ -29,8 +29,6 @@ public:
         size_t currentAttemptIndex = 0;
         for(; currentAttemptIndex < numAttempts; currentAttemptIndex++) {
             board.paint();
-            //std::cout << "Target";
-            //board.paintTarget();
             if (TokenMatches::Result::MATCH == board.giveItATry(currentAttemptIndex)){
                 break;
             }
