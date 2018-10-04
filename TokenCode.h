@@ -3,13 +3,14 @@
 
 #include <vector>
 #include <time.h>
+#include "TokenMatches.h"
 
 namespace Mastermind
 {
 
 typedef uint8_t TokenId;
 
-class TokenSet {
+class TokenCode {
 private:
     static constexpr TokenId emptyToken = 0;
     static constexpr TokenId defaultMaxTokenId = 6;
@@ -20,13 +21,13 @@ private:
     TokenId maxTokenId;
 
 public:
-    TokenSet():
+    TokenCode():
     tokens(defaultNumTokens, emptyToken),
     maxTokenId(defaultMaxTokenId)
     {
     }
 
-    TokenSet(size_t numTokens, size_t maxTokenId):
+    TokenCode(size_t numTokens, size_t maxTokenId):
     tokens(numTokens, emptyToken),
     maxTokenId(maxTokenId)
     {
@@ -42,7 +43,7 @@ public:
         tokens[pos] = token;
     }
 
-    TokenMatches match(const TokenSet &target) const
+    TokenMatches match(const TokenCode &target) const
     {
         uint8_t fullMatches = 0;
         uint8_t colorMatches = 0;

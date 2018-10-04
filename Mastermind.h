@@ -10,14 +10,14 @@ namespace Mastermind
 class Mastermind {
 private:
     static constexpr size_t numAttempts = 15;
-    static constexpr size_t tokenSetSize = 4;
+    static constexpr size_t tokenCodeSize = 4;
     static constexpr size_t tokenTypes = 6;
 
     Board board;
 
 public:
     Mastermind():
-    board(numAttempts, tokenSetSize, tokenTypes)
+    board(numAttempts, tokenCodeSize, tokenTypes)
     {
         srand(time(nullptr));
     };

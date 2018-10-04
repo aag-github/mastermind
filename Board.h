@@ -3,42 +3,43 @@
 
 #include <iostream>
 #include <vector>
-#include "getch.h"
 #include "Board.h"
+#include "getch.h"
+#include "TokenCode.h"
+
 #include "TokenMatches.h"
-#include "TokenSet.h"
 
 namespace Mastermind
 {
 
 class Board {
 private:
-    TokenSet target;
+    TokenCode target;
 
-    std::vector<TokenSet> attempts;
+    std::vector<TokenCode> attempts;
 
-    const uint8_t tokenSetSize;
+    const uint8_t tokenCodeSize;
 
     const TokenId maxTokenId;
 
-    TokenSet requestTokenSet() const
+    TokenCode requestTokenCode() const
     {
-        TokenSet tokenSet(tokenSetSize, maxTokenId);
+        TokenCode tokenCode(tokenCodeSize, maxTokenId);
         std::string tokenColors("RGBYOM");
-        printf("\nEnter %d tokens (valid characters 'RGBYOM'):\n", tokenSetSize);
-        for(int i = 0; i < tokenSetSize; i++) {
+        printf("\nEnter %d tokens (valid characters 'RGBYOM'):\n", tokenCodeSize);
+        for(int i = 0; i < tokenCodeSize; i++) {
             size_t pos;
             do {
                 int c = toupper(getch());
                 pos = tokenColors.find(c);
                 if (pos != std::string::npos) {
                     printf("%c", c);
-                    tokenSet.addToken(i, pos+1);
+                    tokenCode.addToken(i, pos+1);
                 }
             } while (pos == std::string::npos);
         }
         printf("\n");
-        return tokenSet;
+        return tokenCode;
     }
 public:
     enum class AttemptResult
@@ -47,12 +48,12 @@ public:
         MISMATCH
     };
 
-    Board(size_t numTries, size_t tokenSetSize, TokenId maxTokenId) :
-    target(tokenSetSize, maxTokenId),
-    tokenSetSize(tokenSetSize),
+    Board(size_t numTries, size_t tokenCodeSize, TokenId maxTokenId) :
+    target(tokenCodeSize, maxTokenId),
+    tokenCodeSize(tokenCodeSize),
     maxTokenId(maxTokenId)
     {
-        attempts.resize(numTries, TokenSet(tokenSetSize, maxTokenId));
+        attempts.resize(numTries, TokenCode(tokenCodeSize, maxTokenId));
     }
 
     void start()
@@ -65,12 +66,12 @@ public:
 
     AttemptResult giveItATry(const uint8_t attemptNumber)
     {
-        attempts[attemptNumber] = requestTokenSet();
+        attempts[attemptNumber] = requestTokenCode();
         TokenMatches result = attempts[attemptNumber].match(target);
 
         result.paint();
 
-        if (result.isFullMatch(tokenSetSize)) {
+        if (result.isFullMatch(tokenCodeSize)) {
             return AttemptResult::MATCH;
         } else {
             return AttemptResult::MISMATCH;
