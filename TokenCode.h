@@ -17,7 +17,7 @@ private:
     static constexpr size_t defaultNumTokens = 4;
 
     std::vector<TokenId> tokens;
-
+    TokenMatches matches;
     TokenId maxTokenId;
 
 public:
@@ -43,7 +43,7 @@ public:
         tokens[pos] = token;
     }
 
-    TokenMatches match(const TokenCode &target) const
+    TokenMatches::Result match(const TokenCode &target)
     {
         uint8_t fullMatches = 0;
         uint8_t colorMatches = 0;
@@ -75,7 +75,12 @@ public:
             colorMatches += std::min(targetColorCounters[i], myColorCounters[i]);
         }
 
-        return TokenMatches(fullMatches, colorMatches);
+        matches = TokenMatches(fullMatches, colorMatches);
+        if (matches.isFullMatch(tokens.size())) {
+            return TokenMatches::Result::MATCH;
+        } else {
+            return TokenMatches::Result::MISMATCH;
+        }
     }
 
     void random()
@@ -85,12 +90,18 @@ public:
         }
     }
 
-    void paint() const
+    void paint(bool paintMatches) const
     {
         std::string tokenColors("-RGBYOM");
         for (const auto &t : tokens) {
             std::cout << tokenColors[t];
         }
+
+        if (paintMatches) {
+            printf("  ");
+            matches.paint();
+        }
+
         printf("\n");
     }
 };

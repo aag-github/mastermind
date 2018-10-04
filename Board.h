@@ -42,12 +42,6 @@ private:
         return tokenCode;
     }
 public:
-    enum class AttemptResult
-    {
-        MATCH,
-        MISMATCH
-    };
-
     Board(size_t numTries, size_t tokenCodeSize, TokenId maxTokenId) :
     target(tokenCodeSize, maxTokenId),
     tokenCodeSize(tokenCodeSize),
@@ -64,18 +58,11 @@ public:
         }
     }
 
-    AttemptResult giveItATry(const uint8_t attemptNumber)
+    TokenMatches::Result giveItATry(const uint8_t attemptNumber)
     {
         attempts[attemptNumber] = requestTokenCode();
-        TokenMatches result = attempts[attemptNumber].match(target);
 
-        result.paint();
-
-        if (result.isFullMatch(tokenCodeSize)) {
-            return AttemptResult::MATCH;
-        } else {
-            return AttemptResult::MISMATCH;
-        }
+        return attempts[attemptNumber].match(target);
     }
 
     void paint() const
@@ -84,13 +71,13 @@ public:
         uint8_t attempt = 1;
         for (const auto &att : attempts){
             printf("% 3d - ", attempt++);
-            att.paint();
+            att.paint(true);
         }
     }
 
     void paintTarget() const
     {
-        target.paint();
+        target.paint(false);
     }
 };
 

@@ -14,15 +14,21 @@ private:
     uint8_t colorMatches;
 
 public:
+    enum class Result
+    {
+        MATCH,
+        MISMATCH
+    };
+
     TokenMatches() :
-    fullMatches(0),
-    colorMatches(0)
+        fullMatches(0),
+        colorMatches(0)
     {
     }
 
     TokenMatches(uint8_t fullMatches, uint8_t colorMatches) :
-    fullMatches(fullMatches),
-    colorMatches(colorMatches)
+        fullMatches(fullMatches),
+        colorMatches(colorMatches)
     {
     }
 
@@ -32,9 +38,8 @@ public:
 
     void paint() const
     {
-        printf("-----------------------------\n");
-        printf("Full matches:  %d - ", int(fullMatches));
-        printf("Color matches: %d\n", int(colorMatches));
+        printf("B: %d - ", int(fullMatches));
+        printf("W: %d", int(colorMatches));
     }
 };
 
