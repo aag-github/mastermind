@@ -18,13 +18,13 @@ private:
 
     std::vector<TokenCode> attempts;
 
-    const uint8_t tokenCodeSize;
-
-    const TokenId maxTokenId;
-
     TokenCode requestTokenCode() const
     {
-        TokenCode tokenCode(tokenCodeSize, maxTokenId);
+        const uint8_t tokenCodeSize = attempts[0].size();
+
+        TokenCode tokenCode = attempts[0];
+        tokenCode.clear();
+
         std::string tokenColors("RGBYOM");
         printf("\nEnter %d tokens (valid characters 'RGBYOM'):\n", tokenCodeSize);
         for(int i = 0; i < tokenCodeSize; i++) {
@@ -43,9 +43,7 @@ private:
     }
 public:
     Board(size_t numTries, size_t tokenCodeSize, TokenId maxTokenId) :
-    target(tokenCodeSize, maxTokenId),
-    tokenCodeSize(tokenCodeSize),
-    maxTokenId(maxTokenId)
+    target(tokenCodeSize, maxTokenId)
     {
         attempts.resize(numTries, TokenCode(tokenCodeSize, maxTokenId));
     }

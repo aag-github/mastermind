@@ -90,6 +90,10 @@ public:
         }
     }
 
+    uint8_t size() const {
+        return tokens.size();
+    }
+
     void paint(bool paintMatches) const
     {
         std::string tokenColors("-RGBYOM");
