@@ -29,7 +29,7 @@ public:
         size_t currentAttemptIndex = 0;
         for(; currentAttemptIndex < numAttempts; currentAttemptIndex++) {
             board.paint();
-            if (TokenMatches::Result::MATCH == board.giveItATry(currentAttemptIndex)){
+            if (TokenMatch::Result::MATCH == board.giveItATry(currentAttemptIndex)){
                 break;
             }
         }

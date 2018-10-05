@@ -3,7 +3,8 @@
 
 #include <vector>
 #include <time.h>
-#include "TokenMatches.h"
+
+#include "TokenMatch.h"
 
 namespace Mastermind
 {
@@ -17,7 +18,7 @@ private:
     static constexpr size_t defaultNumTokens = 4;
 
     std::vector<TokenId> tokens;
-    TokenMatches matches;
+    TokenMatch matches;
     TokenId maxTokenId;
 
 public:
@@ -43,7 +44,7 @@ public:
         tokens[pos] = token;
     }
 
-    TokenMatches::Result match(const TokenCode &target)
+    TokenMatch::Result match(const TokenCode &target)
     {
         uint8_t fullMatches = 0;
         uint8_t colorMatches = 0;
@@ -75,11 +76,11 @@ public:
             colorMatches += std::min(targetColorCounters[i], myColorCounters[i]);
         }
 
-        matches = TokenMatches(fullMatches, colorMatches);
+        matches = TokenMatch(fullMatches, colorMatches);
         if (matches.isFullMatch(tokens.size())) {
-            return TokenMatches::Result::MATCH;
+            return TokenMatch::Result::MATCH;
         } else {
-            return TokenMatches::Result::MISMATCH;
+            return TokenMatch::Result::MISMATCH;
         }
     }
 

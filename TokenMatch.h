@@ -7,7 +7,7 @@
 namespace Mastermind
 {
 
-class TokenMatches {
+class TokenMatch {
 private:
     uint8_t fullMatches;
 
@@ -20,13 +20,13 @@ public:
         MISMATCH
     };
 
-    TokenMatches() :
+    TokenMatch() :
         fullMatches(0),
         colorMatches(0)
     {
     }
 
-    TokenMatches(uint8_t fullMatches, uint8_t colorMatches) :
+    TokenMatch(uint8_t fullMatches, uint8_t colorMatches) :
         fullMatches(fullMatches),
         colorMatches(colorMatches)
     {

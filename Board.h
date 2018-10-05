@@ -7,7 +7,7 @@
 #include "getch.h"
 #include "TokenCode.h"
 
-#include "TokenMatches.h"
+#include "TokenMatch.h"
 
 namespace Mastermind
 {
@@ -56,7 +56,7 @@ public:
         }
     }
 
-    TokenMatches::Result giveItATry(const uint8_t attemptNumber)
+    TokenMatch::Result giveItATry(const uint8_t attemptNumber)
     {
         attempts[attemptNumber] = askTokenCode();
 
