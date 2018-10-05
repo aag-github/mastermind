@@ -6,6 +6,9 @@
 #include <unistd.h>
 #include <stdio.h>
 
+namespace IO
+{
+
 int getch(void)
 {
     struct termios oldattr, newattr;
@@ -19,5 +22,5 @@ int getch(void)
     return ch;
 }
 
-
+}
 #endif
