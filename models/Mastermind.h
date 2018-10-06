@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <time.h>
-#include <cstdlib>
 #include "ProposedCombination.h"
 #include "SecretCombination.h"
 
@@ -27,22 +26,46 @@ public:
 
     void play()
     {
+        secretCombination.random();
         int i = 0;
+        bool right = false;
         do {
+            this->print();
             proposedCombination[i].read();
             proposedCombination[i].calculateResult(secretCombination);
-
-            this->print();
-
+            right = proposedCombination[i].isRight();
             i++;
-        } while (!proposedCombination[i-1].isRight() && i < MAX_PROPOSED_COMBINATION);
+        } while (!right && i < MAX_PROPOSED_COMBINATION);
+
+        printResult(i, right);
     }
 
     void print() {
-        secretCombination.print();
+        printf("------------------------\n");
+        int i = 1;
         for(auto &combination : proposedCombination) {
+            printf("%2d : ", i++);
             combination.print();
+            printf("\n");
         }
+        printf("\n");
+    }
+
+    void printResult(int lastAttempt, bool right)
+    {
+        printf("-----------------------------\n");
+
+        this->print();
+
+        if (right){
+            printf("\nYou have won in %d tries.\n", (int(lastAttempt)));
+        } else {
+            printf("\nNumber of attempts exhausted, LOSER!\n");
+        }
+
+        printf("The secret combination was: ");
+        secretCombination.print();
+        printf("\n\n");
     }
 };
 

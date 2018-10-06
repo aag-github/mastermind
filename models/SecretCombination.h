@@ -1,30 +1,27 @@
-/*
- * SecretCombination.h
- *
- *  Created on: 5 Oct 2018
- *      Author: osboxes
- */
-
 #ifndef SRC_SECRETCOMBINATION_H_
 #define SRC_SECRETCOMBINATION_H_
 
+#include "ColorList.h"
 #include "Combination.h"
 
 namespace Mastermind {
 
 class SecretCombination : public Combination {
 public:
-    SecretCombination(){
+    SecretCombination():Combination(){
     }
 
-    virtual ~SecretCombination(){
+    virtual ~SecretCombination() {
     }
 
-    void print(){
-
+    void random()
+    {
+        for (auto &color : colors){
+            color = ColorList::getRandom();
+        }
     }
 };
 
-} /* namespace mastermind */
+}
 
-#endif /* SRC_SECRETCOMBINATION_H_ */
+#endif
