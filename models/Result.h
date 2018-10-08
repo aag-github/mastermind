@@ -2,6 +2,7 @@
 #define SRC_MODELS_RESULT_H_
 
 #include <map>
+#include "ResultCounter.h"
 
 namespace Mastermind {
 
@@ -21,12 +22,7 @@ public:
         dead = 0;
         injured = 0;
 
-        std::map<ColorList::Color, int> secretCounters;
-        std::map<ColorList::Color, int> propposedCounters;
-        for(auto color : ColorList::getColors()) {
-            secretCounters[color] = 0;
-            propposedCounters[color] = 0;
-        }
+        InjuredCounter counter;
 
         auto proposedColor = proposedCombination.begin();
         auto secretColor = secretCombination.begin();
@@ -35,20 +31,13 @@ public:
             if (*proposedColor == *secretColor){
                 dead++;
             } else {
-                secretCounters[*secretColor]++;
-                propposedCounters[*proposedColor]++;
+                counter.add(*secretColor, *proposedColor);
             }
             proposedColor++;
             secretColor++;
         }
 
-        auto secretCounter = secretCounters.begin();
-        auto proposedCounter = propposedCounters.begin();
-        while(secretCounter != secretCounters.end()){
-            injured += std::min(secretCounter->second, proposedCounter->second);
-            secretCounter++;
-            proposedCounter++;
-        }
+        injured = counter.calculate();
     }
 
     bool isRight() {

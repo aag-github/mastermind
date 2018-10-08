@@ -14,8 +14,8 @@ public:
     virtual ~CharChecker(){
     }
 
-    virtual bool isValidChar(char c){
-        return (validChars.find(c) != std::string::npos);
+    virtual char getValidChar(char c){
+        return (validChars.find(c) != std::string::npos ? c : 0);
     }
 
 protected:
@@ -32,8 +32,8 @@ public:
         }
     }
 
-    virtual bool isValidChar(char c) override final{
-        return (CharChecker::isValidChar(toupper(c)));
+    virtual char getValidChar(char c) override final{
+        return (CharChecker::getValidChar(toupper(c)));
     }
 };
 
@@ -47,8 +47,8 @@ public:
         }
     }
 
-    virtual bool isValidChar(char c) override final {
-        return (CharChecker::isValidChar(tolower(c)));
+    virtual char getValidChar(char c) override final {
+        return (CharChecker::getValidChar(tolower(c)));
     }
 };
 

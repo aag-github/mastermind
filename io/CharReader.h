@@ -24,16 +24,17 @@ private:
         return ch;
     }
 
-    static int ReadSingleChararcter(CharChecker *charChecker) {
+    static int ReadSingleCharacter(CharChecker *charChecker) {
         int c;
         do {
             c = getch();
-        } while (charChecker && !charChecker->isValidChar(c));
+            c = charChecker->getValidChar(c);
+        } while (charChecker && !c);
         return c;
     }
 public:
     static int Read(CharChecker *charChecker = nullptr) {
-        return ReadSingleChararcter(charChecker);
+        return ReadSingleCharacter(charChecker);
     }
 
 };

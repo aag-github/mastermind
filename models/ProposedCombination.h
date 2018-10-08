@@ -41,6 +41,11 @@ public:
         printf("\n");
     }
 
+    virtual void clear(){
+        Combination::clear();
+        result = Result();
+    }
+
     void print() {
         Combination::print();
         printf(" ");

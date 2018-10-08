@@ -38,7 +38,7 @@ public:
     }
 
 
-    void clear() {
+    virtual void clear() {
         for (auto &color : colors) {
             color = ColorList::Color::NOCOLOR;
         }

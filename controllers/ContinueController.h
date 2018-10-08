@@ -1,7 +1,7 @@
 #ifndef SRC_CONTROLLERS_CONTINUECONTROLLER_H_
 #define SRC_CONTROLLERS_CONTINUECONTROLLER_H_
 
-#include "../io/CharReader.h"
+#include "CharReader.h"
 #include "OperationController.h"
 
 namespace Mastermind {
