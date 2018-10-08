@@ -7,16 +7,16 @@ namespace Mastermind {
 
 class OperationController : public Controller {
 public:
+    OperationController(Game &game) :
+        Controller(game)
+    {
+    }
+
     virtual ~OperationController() {
     }
 
     virtual void control() = 0;
 
-protected:
-    OperationController(Game &game) :
-        Controller(game)
-    {
-    }
 };
 
 }
