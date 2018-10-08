@@ -1,7 +1,7 @@
 #ifndef SRC_PROPOSEDCOMBINATION_H_
 #define SRC_PROPOSEDCOMBINATION_H_
 
-#include "../io/getch.h"
+#include "CharReader.h"
 #include "SecretCombination.h"
 #include "Result.h"
 
@@ -28,10 +28,12 @@ public:
         for(unsigned int i = 0; i < colors.size(); i++) {
             ColorList::Color color;
             do {
-                int c = toupper(IO::getch());
-                color = ColorList::getColor(c);
+                IO::CharUpperCaseChecker charChecker(ColorList::getCodes());
+                int colorCode = IO::CharReader::Read(&charChecker);
+
+                color = ColorList::getColor(colorCode);
                 if (color != ColorList::Color::NOCOLOR) {
-                    printf("%c", c);
+                    printf("%c", colorCode);
                     colors[i] = color;
                 }
             } while (color == ColorList::Color::NOCOLOR);

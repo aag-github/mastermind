@@ -2,6 +2,7 @@
 #define SRC_MODELS_COLORLIST_H_
 
 #include <map>
+#include <vector>
 
 namespace Mastermind {
 
@@ -65,7 +66,7 @@ std::map<ColorList::Color, char> ColorList::colors = {
         { ColorList::Color::BLUE, 'B' },
         { ColorList::Color::YELLOW, 'Y' },
         { ColorList::Color::ORANGE, 'O' },
-        { ColorList::Color::MAGENTA, 'M' },
+        { ColorList::Color::MAGENTA, 'M' }
 };
 
 }

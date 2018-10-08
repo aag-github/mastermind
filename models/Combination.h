@@ -37,6 +37,13 @@ public:
         return colors.end();
     }
 
+
+    void clear() {
+        for (auto &color : colors) {
+            color = ColorList::Color::NOCOLOR;
+        }
+    }
+
 private:
 
 protected:
