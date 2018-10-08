@@ -22,7 +22,7 @@ public:
         dead = 0;
         injured = 0;
 
-        InjuredCounter counter;
+        InjuredCounter injuredCounter;
 
         auto proposedColor = proposedCombination.begin();
         auto secretColor = secretCombination.begin();
@@ -31,13 +31,13 @@ public:
             if (*proposedColor == *secretColor){
                 dead++;
             } else {
-                counter.add(*secretColor, *proposedColor);
+                injuredCounter.add(*secretColor, *proposedColor);
             }
             proposedColor++;
             secretColor++;
         }
 
-        injured = counter.calculate();
+        injured = injuredCounter.calculate();
     }
 
     bool isRight() {
