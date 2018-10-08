@@ -18,7 +18,7 @@ public:
     void control() {
         getSecretCombination().random();
 
-        for(auto& combination : getProposedCombination()) {
+        for(auto& combination : getProposedCombinations()) {
             combination.clear();
         }
 

@@ -15,7 +15,7 @@ public:
         state(State::INITIAL)
     {
         srand(time(nullptr));
-        proposedCombination.resize(MAX_PROPOSED_COMBINATION);
+        proposedCombinations.resize(MAX_PROPOSED_COMBINATION);
     }
 
     virtual ~Game(){
@@ -33,8 +33,8 @@ public:
         return secretCombination;
     }
 
-    std::vector<ProposedCombination>& getProposedCombination() {
-        return proposedCombination;
+    std::vector<ProposedCombination>& getProposedCombinations() {
+        return proposedCombinations;
     }
 
 
@@ -42,7 +42,7 @@ private:
 
     SecretCombination secretCombination;
 
-    std::vector<ProposedCombination> proposedCombination;
+    std::vector<ProposedCombination> proposedCombinations;
 
     State state;
 };

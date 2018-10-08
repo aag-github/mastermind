@@ -20,7 +20,7 @@ public:
         bool right = false;
         do {
             this->print();
-            ProposedCombination &proposedCombination = getProposedCombination()[i];
+            ProposedCombination &proposedCombination = getProposedCombinations()[i];
             proposedCombination.read();
             proposedCombination.calculateResult(getSecretCombination());
             right = proposedCombination.isRight();
@@ -36,7 +36,7 @@ private:
     void print() {
         printf("------------------------\n");
         int i = 1;
-        for(auto &combination : getProposedCombination()) {
+        for(auto &combination : getProposedCombinations()) {
             printf("%2d : ", i++);
             combination.print();
             printf("\n");

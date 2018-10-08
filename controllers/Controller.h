@@ -26,8 +26,8 @@ protected:
         game.setState(state);
     }
 
-    std::vector<ProposedCombination>& getProposedCombination() {
-        return game.getProposedCombination();
+    std::vector<ProposedCombination>& getProposedCombinations() {
+        return game.getProposedCombinations();
     }
 
     SecretCombination &getSecretCombination() {
