@@ -14,10 +14,6 @@ public:
     {
     }
 
-    void print() {
-        printf("D: %d - I: %d", dead, injured);
-    }
-
     void calculateResult(const Combination &proposedCombination, const Combination &secretCombination) {
         dead = 0;
         injured = 0;
@@ -40,9 +36,18 @@ public:
         injured = injuredCounter.calculate();
     }
 
-    bool isRight() {
+    bool isRight() const {
         return dead == Combination::MAX_COLORS;
     }
+
+    int getDead() const {
+        return dead;
+    }
+
+    int getInjured() const {
+        return injured;
+    }
+
 private:
     int dead;
 

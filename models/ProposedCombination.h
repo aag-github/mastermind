@@ -19,26 +19,8 @@ public:
         result.calculateResult(*this, secretCombination);
     }
 
-    bool isRight() {
+    bool isRight() const {
         return result.isRight();
-    }
-
-    void read(){
-        printf("\nEnter %lu tokens (valid characters '%s'):\n", colors.size(), ColorList::getCodes().c_str());
-        for(unsigned int i = 0; i < colors.size(); i++) {
-            ColorList::Color color;
-            do {
-                IO::CharUpperCaseChecker charChecker(ColorList::getCodes());
-                int colorCode = IO::CharReader::Read(&charChecker);
-
-                color = ColorList::getColor(colorCode);
-                if (color != ColorList::Color::NOCOLOR) {
-                    printf("%c", colorCode);
-                    colors[i] = color;
-                }
-            } while (color == ColorList::Color::NOCOLOR);
-        }
-        printf("\n");
     }
 
     virtual void clear(){
@@ -46,10 +28,17 @@ public:
         result = Result();
     }
 
-    void print() {
-        Combination::print();
-        printf(" ");
-        result.print();
+    ProposedCombination& operator=(const Combination& combination) {
+        auto src = combination.begin();
+        for(auto& dst : *this){
+            dst = *src;
+            src++;
+        }
+        return *this;
+    }
+
+    const Result& getResult() const {
+        return result;
     }
 
 private:

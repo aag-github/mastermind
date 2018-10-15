@@ -8,6 +8,7 @@ namespace Mastermind {
 class Combination {
     using container=std::vector<ColorList::Color>;
     using const_iterator=typename container::const_iterator;
+    using iterator=typename container::iterator;
 
 public:
     static constexpr int MAX_COLORS = 4;
@@ -19,13 +20,10 @@ public:
     virtual ~Combination() {
     }
 
-    virtual void print(){
-        for (auto &color : colors){
-            if (color != ColorList::Color::NOCOLOR) {
-                printf("%c", ColorList::getCode(color));
-            } else {
-                printf("-");
-            }
+
+    virtual void clear() {
+        for (auto &color : colors) {
+            color = ColorList::Color::NOCOLOR;
         }
     }
 
@@ -37,11 +35,16 @@ public:
         return colors.end();
     }
 
+    iterator begin() {
+        return colors.begin();
+    }
 
-    virtual void clear() {
-        for (auto &color : colors) {
-            color = ColorList::Color::NOCOLOR;
-        }
+    iterator end() {
+        return colors.end();
+    }
+
+    size_t size() const {
+        return colors.size();
     }
 
 private:

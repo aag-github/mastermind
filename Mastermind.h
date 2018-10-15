@@ -2,6 +2,7 @@
 #define _MASTERMIND_H
 
 #include "Logic.h"
+#include "MastermindView.h"
 
 namespace Mastermind
 {
@@ -9,6 +10,8 @@ namespace Mastermind
 class Mastermind {
 private:
     Logic logic;
+
+    MastermindView view;
 
 public:
     Mastermind()
@@ -21,7 +24,7 @@ public:
         do {
             controller = logic.getController();
             if (controller != nullptr){
-                controller->control();
+                view.interact(controller);
             }
         } while (controller != nullptr);
     }

@@ -27,7 +27,7 @@ public:
         return item->first;
     };
 
-    static char getCode(Color color){
+    static char getCode(Color color) {
         return colors[color];
     }
 

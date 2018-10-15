@@ -2,6 +2,7 @@
 #define SRC_CONTROLLERS_OPERATIONCONTROLLER_H_
 
 #include "Controller.h"
+#include "OperationControllerVisitor.h"
 
 namespace Mastermind {
 
@@ -15,7 +16,7 @@ public:
     virtual ~OperationController() {
     }
 
-    virtual void control() = 0;
+    virtual void accept(OperationControllerVisitor *operationControllerVisitor) = 0;
 
 };
 

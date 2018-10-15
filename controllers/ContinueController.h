@@ -3,10 +3,11 @@
 
 #include "CharReader.h"
 #include "OperationController.h"
+#include "ContinueViewController.h"
 
 namespace Mastermind {
 
-class ContinueController: public OperationController {
+class ContinueController: public OperationController, public ContinueViewController {
 public:
     ContinueController(Game &game) :
         OperationController(game)
@@ -16,18 +17,22 @@ public:
     virtual ~ContinueController(){
     }
 
-    void control() {
-        printf("Play again (Y/N)?\n");
-
-        IO::CharUpperCaseChecker charChecker("YN");
-        int option = IO::CharReader::Read(&charChecker);
-
-        if (toupper(option) == 'Y') {
+    void resume(bool resume) override final {
+        if (resume) {
             setState(State::INITIAL);
         } else {
             setState(State::EXIT);
         }
+
+    }
+
+    virtual void accept(OperationControllerVisitor *operationControllerVisitor) override final
+    {
+        assert(operationControllerVisitor != nullptr);
+
+        operationControllerVisitor->visit(this);
     };
+
 };
 
 }

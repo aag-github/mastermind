@@ -26,7 +26,7 @@ protected:
         game.setState(state);
     }
 
-    std::vector<ProposedCombination>& getProposedCombinations() {
+    ProposedCombinationList& getProposedCombinations() {
         return game.getProposedCombinations();
     }
 

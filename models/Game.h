@@ -3,7 +3,7 @@
 
 #include "State.h"
 #include "SecretCombination.h"
-#include "ProposedCombination.h"
+#include "ProposedCombinationList.h"
 
 namespace Mastermind {
 
@@ -21,7 +21,7 @@ public:
     virtual ~Game(){
     }
 
-    State getState() {
+    State getState() const {
         return state;
     }
 
@@ -33,7 +33,7 @@ public:
         return secretCombination;
     }
 
-    std::vector<ProposedCombination>& getProposedCombinations() {
+    ProposedCombinationList& getProposedCombinations() {
         return proposedCombinations;
     }
 
@@ -42,7 +42,7 @@ private:
 
     SecretCombination secretCombination;
 
-    std::vector<ProposedCombination> proposedCombinations;
+    ProposedCombinationList proposedCombinations;
 
     State state;
 };
