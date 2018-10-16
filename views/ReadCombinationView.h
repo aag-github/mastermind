@@ -3,6 +3,7 @@
 
 #include "ReadCombinationViewController.h"
 #include "./ui/BoardView.h"
+#include "./ui/GameEndView.h"
 
 namespace Mastermind {
 
@@ -20,15 +21,18 @@ public:
 
         BoardView(&controller->getProposedCombinations()).show();
 
-        bool gameEnd = false;
+        ReadCombinationViewController::ReadCombinationStatus status = ReadCombinationViewController::ReadCombinationStatus::CONTINUE;
         size_t i = 0;
-        while(!gameEnd) {
+        while(status == ReadCombinationViewController::ReadCombinationStatus::CONTINUE) {
             controller->setProposedCombination(i, CombinationView::read());
-            gameEnd = controller->isGameFinished(i);
+            status = controller->checkReadCombinationStatus(i);
             BoardView(&controller->getProposedCombinations()).update(i);
             i++;
         }
-        controller->gameEnd(i - 1);
+
+        GameEndView(&controller->getSecretCombination(), status == ReadCombinationViewController::ReadCombinationStatus::WIN).show();
+
+        controller->gameEnd();
     }
 
 };

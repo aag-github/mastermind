@@ -3,7 +3,6 @@
 
 #include "OperationController.h"
 #include "ReadCombinationViewController.h"
-#include "./ui/GameEndView.h"
 
 namespace Mastermind {
 
@@ -28,6 +27,10 @@ public:
         return OperationController::getProposedCombinations();
     }
 
+    virtual const SecretCombination& getSecretCombination() {
+        return OperationController::getSecretCombination();
+    }
+
     virtual void setProposedCombination(size_t proposedCombinationIndex, const Combination& proposedCombination) override final {
         assert(proposedCombinationIndex < OperationController::getProposedCombinations().size());
 
@@ -35,7 +38,7 @@ public:
         target = proposedCombination;
     }
 
-    virtual bool isGameFinished(size_t proposedCombinationIndex) override final {
+    virtual ReadCombinationViewController::ReadCombinationStatus checkReadCombinationStatus(size_t proposedCombinationIndex) override final {
         assert(proposedCombinationIndex < OperationController::getProposedCombinations().size());
 
         ProposedCombination& target = OperationController::getProposedCombinations()[proposedCombinationIndex];
@@ -44,19 +47,16 @@ public:
 
         bool lastCombination = (proposedCombinationIndex == (OperationController::getProposedCombinations().size() - 1));
 
-        if (lastCombination || right) {
-            return true;
+        if (right) {
+            return ReadCombinationStatus::WIN;
+        } else if (lastCombination ) {
+            return ReadCombinationStatus::LOSE;
         } else {
-            return false;
+            return ReadCombinationStatus::CONTINUE;
         }
     }
 
-    virtual void gameEnd(size_t proposedCombinationIndex) override final {
-        assert(proposedCombinationIndex < OperationController::getProposedCombinations().size());
-
-        ProposedCombination& target = OperationController::getProposedCombinations()[proposedCombinationIndex];
-        GameEndView(&getSecretCombination(), target.isRight()).show();
-
+    virtual void gameEnd() override final {
         setState(State::FINAL);
     }
 };

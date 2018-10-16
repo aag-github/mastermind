@@ -7,7 +7,7 @@ namespace Mastermind {
 
 class GameEndView {
 public:
-    GameEndView(Combination *secretCombination, bool winner) :
+    GameEndView(const Combination *secretCombination, bool winner) :
         secretCombination(secretCombination),
         winner(winner)
     {
@@ -29,10 +29,10 @@ public:
     }
 
 private:
-    Combination *secretCombination;
+    const Combination *secretCombination;
     bool winner;
 };
 
-} /* namespace Mastermind */
+}
 
 #endif
