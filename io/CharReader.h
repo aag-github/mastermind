@@ -26,17 +26,16 @@ private:
     }
 
 public:
-    static int read() {
-        return getch();
-    }
-
-    static int read(CharChecker *charChecker) {
-        assert(charChecker);
-        int c = 0;
-        do {
-            c = charChecker->getValidChar(getch());
-        } while (charChecker && !c);
-        return c;
+    static int read(CharChecker *charChecker = nullptr) {
+        if (!charChecker) {
+            return getch();
+        } else {
+            int c = 0;
+            do {
+                c = charChecker->getValidChar(getch());
+            } while (!c);
+            return c;
+        }
     }
 
 };
