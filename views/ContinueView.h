@@ -1,8 +1,8 @@
 #ifndef SRC_VIEWS_CONTINUEVIEW_H_
 #define SRC_VIEWS_CONTINUEVIEW_H_
 
-#include "DialogYesNoView.h"
 #include "ContinueController.h"
+#include "./ui/DialogYesNoView.h"
 
 namespace Mastermind {
 

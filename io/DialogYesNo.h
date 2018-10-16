@@ -20,7 +20,7 @@ public:
         printf("%s", title.c_str());
 
         IO::CharUpperCaseChecker charChecker("YN");
-        int option = IO::CharReader::Read(&charChecker);
+        int option = IO::CharReader::read(&charChecker);
 
         return option == 'Y';
     }

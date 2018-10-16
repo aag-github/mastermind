@@ -1,6 +1,7 @@
 #ifndef SRC_GETCH_H_
 #define SRC_GETCH_H_
 
+#include <assert.h>
 #include <termios.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -24,17 +25,18 @@ private:
         return ch;
     }
 
-    static int ReadSingleCharacter(CharChecker *charChecker) {
-        int c;
+public:
+    static int read() {
+        return getch();
+    }
+
+    static int read(CharChecker *charChecker) {
+        assert(charChecker);
+        int c = 0;
         do {
-            c = getch();
-            c = charChecker->getValidChar(c);
+            c = charChecker->getValidChar(getch());
         } while (charChecker && !c);
         return c;
-    }
-public:
-    static int Read(CharChecker *charChecker = nullptr) {
-        return ReadSingleCharacter(charChecker);
     }
 
 };

@@ -33,7 +33,7 @@ public:
             ColorList::Color color;
             do {
                 IO::CharUpperCaseChecker charChecker(ColorList::getCodes());
-                int colorCode = IO::CharReader::Read(&charChecker);
+                int colorCode = IO::CharReader::read(&charChecker);
 
                 color = ColorList::getColor(colorCode);
                 if (color != ColorList::Color::NOCOLOR) {

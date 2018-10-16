@@ -2,7 +2,7 @@
 #define SRC_VIEWS_READCOMBINATIONVIEW_H_
 
 #include "ReadCombinationViewController.h"
-#include "BoardView.h"
+#include "./ui/BoardView.h"
 
 namespace Mastermind {
 

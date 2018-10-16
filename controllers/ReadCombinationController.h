@@ -1,12 +1,9 @@
 #ifndef SRC_CONTROLLERS_READCOMBINATIONCONTROLLER_H_
 #define SRC_CONTROLLERS_READCOMBINATIONCONTROLLER_H_
 
-#include "GameEndView.h"
 #include "OperationController.h"
 #include "ReadCombinationViewController.h"
-#include "ProposedCombinationView.h"
-#include "ResultView.h"
-#include "BoardView.h"
+#include "./ui/GameEndView.h"
 
 namespace Mastermind {
 
@@ -38,14 +35,14 @@ public:
         target = proposedCombination;
     }
 
-    virtual bool isGameFinished(size_t proposedCombinationIndexindex) override final {
-        assert(proposedCombinationIndexindex < OperationController::getProposedCombinations().size());
+    virtual bool isGameFinished(size_t proposedCombinationIndex) override final {
+        assert(proposedCombinationIndex < OperationController::getProposedCombinations().size());
 
-        ProposedCombination& target = OperationController::getProposedCombinations()[proposedCombinationIndexindex];
+        ProposedCombination& target = OperationController::getProposedCombinations()[proposedCombinationIndex];
         target.calculateResult(getSecretCombination());
         bool right = target.isRight();
 
-        bool lastCombination = (proposedCombinationIndexindex == (OperationController::getProposedCombinations().size() - 1));
+        bool lastCombination = (proposedCombinationIndex == (OperationController::getProposedCombinations().size() - 1));
 
         if (lastCombination || right) {
             return true;
@@ -54,10 +51,10 @@ public:
         }
     }
 
-    virtual void gameEnd(size_t proposedCombinationIndexindex) override final {
-        assert(proposedCombinationIndexindex < OperationController::getProposedCombinations().size());
+    virtual void gameEnd(size_t proposedCombinationIndex) override final {
+        assert(proposedCombinationIndex < OperationController::getProposedCombinations().size());
 
-        ProposedCombination& target = OperationController::getProposedCombinations()[proposedCombinationIndexindex];
+        ProposedCombination& target = OperationController::getProposedCombinations()[proposedCombinationIndex];
         GameEndView(&getSecretCombination(), target.isRight()).show();
 
         setState(State::FINAL);
