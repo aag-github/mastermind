@@ -23,11 +23,11 @@ public:
         operationControllerVisitor->visit(this);
     };
 
-    virtual const ProposedCombinationList& getProposedCombinations() {
+    virtual const ProposedCombinationList& getProposedCombinations() override final {
         return OperationController::getProposedCombinations();
     }
 
-    virtual const SecretCombination& getSecretCombination() {
+    virtual const SecretCombination& getSecretCombination() override final {
         return OperationController::getSecretCombination();
     }
 

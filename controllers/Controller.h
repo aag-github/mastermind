@@ -17,7 +17,6 @@ protected:
 
     }
 
-
     State getState() {
         return game.getState();
     }

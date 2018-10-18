@@ -28,20 +28,11 @@ public:
     static Combination read() {
         Combination newCombination;
         printf("Enter %lu tokens (valid characters '%s'):\n", newCombination.size(), ColorList::getCodes().c_str());
-        int i = 0;
+        IO::CharUpperCaseChecker charChecker(ColorList::getCodes());
         for(auto &currentColor : newCombination) {
-            ColorList::Color color;
-            do {
-                IO::CharUpperCaseChecker charChecker(ColorList::getCodes());
-                int colorCode = IO::CharReader::read(&charChecker);
-
-                color = ColorList::getColor(colorCode);
-                if (color != ColorList::Color::NOCOLOR) {
-                    printf("%c", colorCode);
-                    currentColor = color;
-                }
-            } while (color == ColorList::Color::NOCOLOR);
-            i++;
+            int colorCode = IO::CharReader::read(&charChecker);
+            printf("%c", colorCode);
+            currentColor = ColorList::getColor(colorCode);
         }
         printf("\n");
         return newCombination;

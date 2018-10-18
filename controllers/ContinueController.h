@@ -17,7 +17,7 @@ public:
     virtual ~ContinueController(){
     }
 
-    void resume(bool resume) override final {
+    virtual void resume(bool resume) override final {
         if (resume) {
             setState(State::INITIAL);
         } else {
