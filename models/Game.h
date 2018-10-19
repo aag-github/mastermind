@@ -37,6 +37,13 @@ public:
         return proposedCombinations;
     }
 
+    void start() {
+        secretCombination.random();
+
+        for(auto& combination : proposedCombinations) {
+            combination.clear();
+        }
+    }
 
 private:
 

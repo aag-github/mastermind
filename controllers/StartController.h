@@ -2,26 +2,24 @@
 #define SRC_CONTROLLERS_STARTCONTROLLER_H_
 
 #include <assert.h>
-#include "CombinationController.h"
+#include <functional>
+#include "OperationController.h"
 
 namespace Mastermind {
 
-class StartController: public CombinationController {
+class StartController: public OperationController {
 public:
     StartController(Game &game) :
-        CombinationController(game)
+        OperationController(game)
     {
+        startGame = [&game](){ return game.start(); };
     }
 
     virtual ~StartController(){
     }
 
     void start() {
-        getSecretCombination().random();
-
-        for(auto& combination : getProposedCombinations()) {
-            combination.clear();
-        }
+        startGame();
 
         setState(State::IN_GAME);
     };
@@ -32,6 +30,12 @@ public:
 
         operationControllerVisitor->visit(this);
     };
+
+private:
+    typedef std::function<void ()> StartGame;
+
+    StartGame startGame;
+
 };
 
 }

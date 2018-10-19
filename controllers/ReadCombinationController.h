@@ -1,11 +1,11 @@
 #ifndef SRC_CONTROLLERS_READCOMBINATIONCONTROLLER_H_
 #define SRC_CONTROLLERS_READCOMBINATIONCONTROLLER_H_
 
-#include "CombinationController.h"
+#include "OperationController.h"
 
 namespace Mastermind {
 
-class ReadCombinationController : public CombinationController {
+class ReadCombinationController : public OperationController {
 public:
     enum class ReadCombinationStatus {
         CONTINUE,
@@ -13,9 +13,19 @@ public:
         LOSE
     };
 
+    typedef std::function<ProposedCombinationList&()> GetProposedCombinations;
+
+    typedef std::function<SecretCombination&()> GetSecretCombination;
+
+    GetProposedCombinations getProposedCombinations;
+
+    GetSecretCombination getSecretCombination;
+
     ReadCombinationController(Game &game) :
-        CombinationController(game)
+        OperationController(game)
     {
+        getProposedCombinations = [&game]() -> ProposedCombinationList& { return game.getProposedCombinations(); };
+        getSecretCombination = [&game]() -> SecretCombination& { return game.getSecretCombination(); };
     }
 
     virtual ~ReadCombinationController(){
@@ -31,7 +41,7 @@ public:
     ReadCombinationStatus setProposedCombination(size_t proposedCombinationIndex, const Combination& proposedCombination) {
         assert(proposedCombinationIndex < getProposedCombinations().size());
 
-        ProposedCombination& target = CombinationController::getProposedCombinations()[proposedCombinationIndex];
+        ProposedCombination& target = getProposedCombinations()[proposedCombinationIndex];
         target = proposedCombination;
 
         target.calculateResult(getSecretCombination());
@@ -51,6 +61,7 @@ public:
     void gameEnd() {
         setState(State::FINAL);
     }
+
 };
 
 }
