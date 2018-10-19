@@ -15,7 +15,7 @@ public:
 
     };
 
-    void interact(StartViewController* controller){
+    void interact(StartController* controller){
         assert(controller);
         controller->start();
     }

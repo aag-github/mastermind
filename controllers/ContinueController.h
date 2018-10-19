@@ -3,11 +3,10 @@
 
 #include "CharReader.h"
 #include "OperationController.h"
-#include "ContinueViewController.h"
 
 namespace Mastermind {
 
-class ContinueController: public OperationController, public ContinueViewController {
+class ContinueController: public OperationController {
 public:
     ContinueController(Game &game) :
         OperationController(game)
@@ -17,7 +16,7 @@ public:
     virtual ~ContinueController(){
     }
 
-    virtual void resume(bool resume) override final {
+    void resume(bool resume) {
         if (resume) {
             setState(State::INITIAL);
         } else {

@@ -14,7 +14,7 @@ public:
     virtual ~ContinueView(){
     };
 
-    void interact(ContinueViewController* controller){
+    void interact(ContinueController* controller){
         assert(controller);
         controller->resume(DialogYesNoView().read("Play again (Y/N)?"));
         printf("\n");

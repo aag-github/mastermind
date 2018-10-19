@@ -2,12 +2,17 @@
 #define SRC_CONTROLLERS_READCOMBINATIONCONTROLLER_H_
 
 #include "OperationController.h"
-#include "ReadCombinationViewController.h"
 
 namespace Mastermind {
 
-class ReadCombinationController : public OperationController, public ReadCombinationViewController {
+class ReadCombinationController : public OperationController {
 public:
+    enum class ReadCombinationStatus {
+        CONTINUE,
+        WIN,
+        LOSE
+    };
+
     ReadCombinationController(Game &game) :
         OperationController(game)
     {
@@ -23,22 +28,22 @@ public:
         operationControllerVisitor->visit(this);
     };
 
-    virtual const ProposedCombinationList& getProposedCombinations() override final {
-        return OperationController::getProposedCombinations();
+    const ProposedCombinationList& getProposedCombinations() {
+        return Controller::getProposedCombinations();
     }
 
-    virtual const SecretCombination& getSecretCombination() override final {
-        return OperationController::getSecretCombination();
+    const SecretCombination& getSecretCombination() {
+        return Controller::getSecretCombination();
     }
 
-    virtual void setProposedCombination(size_t proposedCombinationIndex, const Combination& proposedCombination) override final {
+    void setProposedCombination(size_t proposedCombinationIndex, const Combination& proposedCombination) {
         assert(proposedCombinationIndex < OperationController::getProposedCombinations().size());
 
         ProposedCombination& target = OperationController::getProposedCombinations()[proposedCombinationIndex];
         target = proposedCombination;
     }
 
-    virtual ReadCombinationViewController::ReadCombinationStatus checkReadCombinationStatus(size_t proposedCombinationIndex) override final {
+    ReadCombinationStatus checkReadCombinationStatus(size_t proposedCombinationIndex) {
         assert(proposedCombinationIndex < OperationController::getProposedCombinations().size());
 
         ProposedCombination& target = OperationController::getProposedCombinations()[proposedCombinationIndex];
@@ -56,7 +61,7 @@ public:
         }
     }
 
-    virtual void gameEnd() override final {
+    void gameEnd() {
         setState(State::FINAL);
     }
 };

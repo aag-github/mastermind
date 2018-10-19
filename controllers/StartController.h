@@ -3,11 +3,10 @@
 
 #include <assert.h>
 #include "OperationController.h"
-#include "StartViewController.h"
 
 namespace Mastermind {
 
-class StartController: public OperationController, public StartViewController {
+class StartController: public OperationController {
 public:
     StartController(Game &game) :
         OperationController(game)
@@ -17,7 +16,7 @@ public:
     virtual ~StartController(){
     }
 
-    void start() override final {
+    void start() {
         getSecretCombination().random();
 
         for(auto& combination : getProposedCombinations()) {
