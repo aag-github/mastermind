@@ -29,28 +29,23 @@ public:
     };
 
     const ProposedCombinationList& getProposedCombinations() {
-        return Controller::getProposedCombinations();
+        return OperationController::getProposedCombinations();
     }
 
     const SecretCombination& getSecretCombination() {
-        return Controller::getSecretCombination();
+        return OperationController::getSecretCombination();
     }
 
-    void setProposedCombination(size_t proposedCombinationIndex, const Combination& proposedCombination) {
-        assert(proposedCombinationIndex < OperationController::getProposedCombinations().size());
+    ReadCombinationStatus setProposedCombination(size_t proposedCombinationIndex, const Combination& proposedCombination) {
+        assert(proposedCombinationIndex < getProposedCombinations().size());
 
         ProposedCombination& target = OperationController::getProposedCombinations()[proposedCombinationIndex];
         target = proposedCombination;
-    }
 
-    ReadCombinationStatus checkReadCombinationStatus(size_t proposedCombinationIndex) {
-        assert(proposedCombinationIndex < OperationController::getProposedCombinations().size());
-
-        ProposedCombination& target = OperationController::getProposedCombinations()[proposedCombinationIndex];
         target.calculateResult(getSecretCombination());
         bool right = target.isRight();
 
-        bool lastCombination = (proposedCombinationIndex == (OperationController::getProposedCombinations().size() - 1));
+        bool lastCombination = (proposedCombinationIndex == (getProposedCombinations().size() - 1));
 
         if (right) {
             return ReadCombinationStatus::WIN;

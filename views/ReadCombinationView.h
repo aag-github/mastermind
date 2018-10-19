@@ -23,8 +23,7 @@ public:
         ReadCombinationController::ReadCombinationStatus status = ReadCombinationController::ReadCombinationStatus::CONTINUE;
         size_t i = 0;
         while(status == ReadCombinationController::ReadCombinationStatus::CONTINUE) {
-            controller->setProposedCombination(i, CombinationView::read());
-            status = controller->checkReadCombinationStatus(i);
+            status = controller->setProposedCombination(i, CombinationView::read());
             BoardView(&controller->getProposedCombinations()).update(i);
             i++;
         }
