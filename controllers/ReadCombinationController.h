@@ -1,11 +1,11 @@
 #ifndef SRC_CONTROLLERS_READCOMBINATIONCONTROLLER_H_
 #define SRC_CONTROLLERS_READCOMBINATIONCONTROLLER_H_
 
-#include "OperationController.h"
+#include "CombinationController.h"
 
 namespace Mastermind {
 
-class ReadCombinationController : public OperationController {
+class ReadCombinationController : public CombinationController {
 public:
     enum class ReadCombinationStatus {
         CONTINUE,
@@ -14,7 +14,7 @@ public:
     };
 
     ReadCombinationController(Game &game) :
-        OperationController(game)
+        CombinationController(game)
     {
     }
 
@@ -31,7 +31,7 @@ public:
     ReadCombinationStatus setProposedCombination(size_t proposedCombinationIndex, const Combination& proposedCombination) {
         assert(proposedCombinationIndex < getProposedCombinations().size());
 
-        ProposedCombination& target = OperationController::getProposedCombinations()[proposedCombinationIndex];
+        ProposedCombination& target = CombinationController::getProposedCombinations()[proposedCombinationIndex];
         target = proposedCombination;
 
         target.calculateResult(getSecretCombination());
