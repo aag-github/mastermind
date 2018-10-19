@@ -13,7 +13,7 @@ public:
     virtual ~DialogYesNoView(){
     }
 
-    bool read(std::string title) {
+    bool read(std::string title) const {
         return DialogYesNo(title).read();
     }
 };

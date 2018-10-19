@@ -16,7 +16,7 @@ public:
     virtual ~GameEndView() {
     }
 
-    void show() {
+    void show() const {
         if (winner){
             printf("\nYou have won.\n");
         } else {

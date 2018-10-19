@@ -15,7 +15,7 @@ public:
     virtual ~ResultView(){
     };
 
-    void show() {
+    void show() const {
         printf("D: %d - I: %d", result->getDead(), result->getInjured());
     }
 private:
