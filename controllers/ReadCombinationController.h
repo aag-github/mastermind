@@ -28,14 +28,6 @@ public:
         operationControllerVisitor->visit(this);
     };
 
-    const ProposedCombinationList& getProposedCombinations() {
-        return OperationController::getProposedCombinations();
-    }
-
-    const SecretCombination& getSecretCombination() {
-        return OperationController::getSecretCombination();
-    }
-
     ReadCombinationStatus setProposedCombination(size_t proposedCombinationIndex, const Combination& proposedCombination) {
         assert(proposedCombinationIndex < getProposedCombinations().size());
 

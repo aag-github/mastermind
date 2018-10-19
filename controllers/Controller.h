@@ -25,14 +25,6 @@ protected:
         game.setState(state);
     }
 
-    ProposedCombinationList& getProposedCombinations() {
-        return game.getProposedCombinations();
-    }
-
-    SecretCombination &getSecretCombination() {
-        return game.getSecretCombination();
-    }
-
 private:
     Game &game;
 
