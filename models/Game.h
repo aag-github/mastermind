@@ -2,6 +2,7 @@
 #define SRC_MODELS_GAME_H_
 
 #include "State.h"
+#include "ReadCombinationStatus.h"
 #include "SecretCombination.h"
 #include "ProposedCombinationList.h"
 
@@ -12,7 +13,8 @@ public:
     static constexpr int MAX_PROPOSED_COMBINATION = 10;
 
     Game() :
-        state(State::INITIAL)
+        state(State::INITIAL),
+        currentProposedCombination(0)
     {
         srand(time(nullptr));
         proposedCombinations.resize(MAX_PROPOSED_COMBINATION);
@@ -38,10 +40,32 @@ public:
     }
 
     void start() {
+        currentProposedCombination = 0;
+
         secretCombination.random();
 
         for(auto& combination : proposedCombinations) {
             combination.clear();
+        }
+    }
+
+    ReadCombinationStatus setProposedCombination(const Combination& proposedCombination) {
+        ProposedCombination& target = proposedCombinations[currentProposedCombination];
+        target = proposedCombination;
+
+        target.calculateResult(secretCombination);
+        bool right = target.isRight();
+
+        bool lastCombination = (currentProposedCombination == (proposedCombinations.size() - 1));
+
+        currentProposedCombination++;
+
+        if (right) {
+            return ReadCombinationStatus::WIN;
+        } else if (lastCombination ) {
+            return ReadCombinationStatus::LOSE;
+        } else {
+            return ReadCombinationStatus::CONTINUE;
         }
     }
 
@@ -52,6 +76,8 @@ private:
     ProposedCombinationList proposedCombinations;
 
     State state;
+
+    size_t currentProposedCombination;
 };
 
 }

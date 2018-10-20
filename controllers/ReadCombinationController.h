@@ -7,25 +7,24 @@ namespace Mastermind {
 
 class ReadCombinationController : public OperationController {
 public:
-    enum class ReadCombinationStatus {
-        CONTINUE,
-        WIN,
-        LOSE
-    };
-
     typedef std::function<ProposedCombinationList&()> GetProposedCombinations;
 
     typedef std::function<SecretCombination&()> GetSecretCombination;
 
+    typedef std::function<ReadCombinationStatus (const Combination& proposedCombination)> SetProposedCombination;
+
     GetProposedCombinations getProposedCombinations;
 
     GetSecretCombination getSecretCombination;
+
+    SetProposedCombination setProposedCombination;
 
     ReadCombinationController(Game &game) :
         OperationController(game)
     {
         getProposedCombinations = [&game]() -> ProposedCombinationList& { return game.getProposedCombinations(); };
         getSecretCombination = [&game]() -> SecretCombination& { return game.getSecretCombination(); };
+        setProposedCombination = [&game](const Combination& proposedCombination) { return game.setProposedCombination(proposedCombination); };
     }
 
     virtual ~ReadCombinationController(){
@@ -37,26 +36,6 @@ public:
 
         operationControllerVisitor->visit(this);
     };
-
-    ReadCombinationStatus setProposedCombination(size_t proposedCombinationIndex, const Combination& proposedCombination) {
-        assert(proposedCombinationIndex < getProposedCombinations().size());
-
-        ProposedCombination& target = getProposedCombinations()[proposedCombinationIndex];
-        target = proposedCombination;
-
-        target.calculateResult(getSecretCombination());
-        bool right = target.isRight();
-
-        bool lastCombination = (proposedCombinationIndex == (getProposedCombinations().size() - 1));
-
-        if (right) {
-            return ReadCombinationStatus::WIN;
-        } else if (lastCombination ) {
-            return ReadCombinationStatus::LOSE;
-        } else {
-            return ReadCombinationStatus::CONTINUE;
-        }
-    }
 
     void gameEnd() {
         setState(State::FINAL);

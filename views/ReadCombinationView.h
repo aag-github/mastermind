@@ -16,21 +16,15 @@ public:
 
     void interact(ReadCombinationController* controller){
         assert(controller);
-        assert(controller->getProposedCombinations().size() != 0);
+
+        ReadCombinationStatus status = controller->setProposedCombination(CombinationView::read());
 
         BoardView(&controller->getProposedCombinations()).show();
 
-        ReadCombinationController::ReadCombinationStatus status = ReadCombinationController::ReadCombinationStatus::CONTINUE;
-        size_t i = 0;
-        while(status == ReadCombinationController::ReadCombinationStatus::CONTINUE) {
-            status = controller->setProposedCombination(i, CombinationView::read());
-            BoardView(&controller->getProposedCombinations()).update(i);
-            i++;
+        if (status != ReadCombinationStatus::CONTINUE) {
+            GameEndView(&controller->getSecretCombination(), status == ReadCombinationStatus::WIN).show();
+            controller->gameEnd();
         }
-
-        GameEndView(&controller->getSecretCombination(), status == ReadCombinationController::ReadCombinationStatus::WIN).show();
-
-        controller->gameEnd();
     }
 
 };
