@@ -15,12 +15,15 @@ public:
     virtual ~CombinationView(){
     };
 
-    void show() const {
+    void show(bool hide = false) const {
         for (auto &color : *combination){
-            if (color != ColorList::Color::NOCOLOR) {
-                printf("%c", ColorList::getCode(color));
+            if (hide) {
+                printf("X ");
+            }
+            else if (color != ColorList::Color::NOCOLOR) {
+                printf("%c ", ColorList::getCode(color));
             } else {
-                printf("-");
+                printf("- ");
             }
         }
     }

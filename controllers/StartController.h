@@ -3,14 +3,14 @@
 
 #include <assert.h>
 #include <functional>
-#include "OperationController.h"
+#include "CombinationController.h"
 
 namespace Mastermind {
 
-class StartController: public OperationController {
+class StartController: public CombinationController {
 public:
     StartController(Game &game) :
-        OperationController(game)
+        CombinationController(game)
     {
         startGame = [&game](){ return game.start(); };
     }
@@ -32,8 +32,6 @@ public:
     };
 
 private:
-    typedef std::function<void ()> StartGame;
-
     StartGame startGame;
 
 };

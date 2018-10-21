@@ -2,6 +2,7 @@
 #define SRC_VIEWS_STARTVIEW_H_
 
 #include "OperationController.h"
+#include "./ui/BoardView.h"
 
 namespace Mastermind {
 
@@ -18,6 +19,9 @@ public:
     void interact(StartController* controller){
         assert(controller);
         controller->start();
+
+        BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(true);
+
     }
 };
 

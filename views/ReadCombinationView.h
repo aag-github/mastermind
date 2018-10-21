@@ -19,7 +19,7 @@ public:
 
         ReadCombinationStatus status = controller->setProposedCombination(CombinationView::read());
 
-        BoardView(&controller->getProposedCombinations()).show();
+        BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(status == ReadCombinationStatus::CONTINUE);
 
         if (status != ReadCombinationStatus::CONTINUE) {
             GameEndView(&controller->getSecretCombination(), status == ReadCombinationStatus::WIN).show();

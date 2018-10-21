@@ -2,24 +2,29 @@
 #define SRC_VIEWS_BOARDVIEW_H_
 
 #include "ProposedCombinationView.h"
+#include "CombinationView.h"
 
 namespace Mastermind {
 
 class BoardView {
 public:
-    BoardView(const ProposedCombinationList *proposedCombinationList) :
-        proposedCombinationList(proposedCombinationList)
+    BoardView(const ProposedCombinationList *proposedCombinationList, const Combination *secretCombination) :
+        proposedCombinationList(proposedCombinationList),
+        secretCombination(secretCombination)
     {
     }
 
     virtual ~BoardView(){
     }
 
-    void show() const {
+    void show(bool hideSecret = false) const {
         printf("_______________________________\n\n");
+        printf("Secret: ");
+        CombinationView(secretCombination).show(hideSecret);
+        printf("\n\n");
         int i = 1;
         for(auto &combination : *proposedCombinationList) {
-            printf("%2d : ", i++);
+            printf("   %2d : ", i++);
             ProposedCombinationView(&combination).show();
             printf("\n");
         }
@@ -32,6 +37,9 @@ public:
 
 private:
     const ProposedCombinationList *proposedCombinationList;
+
+    const Combination *secretCombination;
+
 };
 
 }

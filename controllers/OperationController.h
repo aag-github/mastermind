@@ -8,6 +8,14 @@ namespace Mastermind {
 
 class OperationController : public Controller {
 public:
+    typedef std::function<ReadCombinationStatus (const Combination& proposedCombination)> SetProposedCombination;
+
+    typedef std::function<void ()> StartGame;
+
+    typedef std::function<ProposedCombinationList&()> GetProposedCombinations;
+
+    typedef std::function<SecretCombination&()> GetSecretCombination;
+
     OperationController(Game &game) :
         Controller(game)
     {
