@@ -3,6 +3,7 @@
 
 #include "ProposedCombinationView.h"
 #include "CombinationView.h"
+#include "SecretCombinationView.h"
 
 namespace Mastermind {
 
@@ -17,10 +18,14 @@ public:
     virtual ~BoardView(){
     }
 
-    void show(bool hideSecret = false) const {
+    void show(bool hideSecret) const {
         printf("_______________________________\n\n");
         printf("Secret: ");
-        CombinationView(secretCombination).show(hideSecret);
+        if (hideSecret) {
+            SecretCombinationView(secretCombination).show();
+        } else {
+            CombinationView(secretCombination).show();
+        }
         printf("\n\n");
         int i = 1;
         for(auto &combination : *proposedCombinationList) {
@@ -29,10 +34,6 @@ public:
             printf("\n");
         }
         printf("\n");
-    }
-
-    void update(size_t position) const {
-        show();
     }
 
 private:
