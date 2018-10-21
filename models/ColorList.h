@@ -28,6 +28,7 @@ public:
     };
 
     static char getCode(Color color) {
+        assert(color != Color::NOCOLOR);
         return colors[color];
     }
 

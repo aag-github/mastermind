@@ -1,7 +1,6 @@
 #ifndef SRC_SECRETCOMBINATION_H_
 #define SRC_SECRETCOMBINATION_H_
 
-#include "ColorList.h"
 #include "Combination.h"
 
 namespace Mastermind {

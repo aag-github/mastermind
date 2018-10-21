@@ -21,7 +21,7 @@ public:
     void start() {
         startGame();
 
-        setState(State::IN_GAME);
+        setState(State::READ_PROPOSED_COMBINATION);
     };
 
     virtual void accept(OperationControllerVisitor *operationControllerVisitor) override final

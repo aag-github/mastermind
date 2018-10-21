@@ -14,7 +14,6 @@ protected:
     Controller(Game &game) :
         game(game)
     {
-
     }
 
     State getState() {

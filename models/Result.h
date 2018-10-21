@@ -1,7 +1,6 @@
 #ifndef SRC_MODELS_RESULT_H_
 #define SRC_MODELS_RESULT_H_
 
-#include <map>
 #include "ResultCounter.h"
 
 namespace Mastermind {

@@ -22,7 +22,7 @@ public:
     }
 
     void gameEnd() {
-        setState(State::FINAL);
+        setState(State::GAME_END);
     }
 
 };

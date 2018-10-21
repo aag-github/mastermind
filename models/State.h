@@ -5,8 +5,8 @@ namespace Mastermind {
 
 enum class State {
     INITIAL,
-    IN_GAME,
-    FINAL,
+    READ_PROPOSED_COMBINATION,
+    GAME_END,
     EXIT,
 };
 

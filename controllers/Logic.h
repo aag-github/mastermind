@@ -23,9 +23,9 @@ public:
         switch (game.getState()){
         case State::INITIAL:
             return &startController;
-        case State::IN_GAME:
+        case State::READ_PROPOSED_COMBINATION:
             return &readCombinationController;
-        case State::FINAL:
+        case State::GAME_END:
             return &continueController;
         case State::EXIT:
         default:

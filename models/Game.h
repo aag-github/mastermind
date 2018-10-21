@@ -2,7 +2,7 @@
 #define SRC_MODELS_GAME_H_
 
 #include "State.h"
-#include "ReadCombinationStatus.h"
+#include "ReadCombinationState.h"
 #include "SecretCombination.h"
 #include "ProposedCombinationList.h"
 
@@ -49,7 +49,7 @@ public:
         }
     }
 
-    ReadCombinationStatus setProposedCombination(const Combination& proposedCombination) {
+    ReadCombinationState setProposedCombination(const Combination& proposedCombination) {
         ProposedCombination& target = proposedCombinations[currentProposedCombination];
         target = proposedCombination;
 
@@ -61,11 +61,11 @@ public:
         currentProposedCombination++;
 
         if (right) {
-            return ReadCombinationStatus::WIN;
+            return ReadCombinationState::WIN;
         } else if (lastCombination ) {
-            return ReadCombinationStatus::LOSE;
+            return ReadCombinationState::LOSE;
         } else {
-            return ReadCombinationStatus::CONTINUE;
+            return ReadCombinationState::CONTINUE;
         }
     }
 
