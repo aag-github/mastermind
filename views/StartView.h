@@ -18,6 +18,7 @@ public:
 
     void interact(StartController* controller){
         assert(controller);
+
         controller->start();
 
         BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(true);

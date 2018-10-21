@@ -16,10 +16,6 @@ protected:
     {
     }
 
-    State getState() {
-        return game.getState();
-    }
-
     void setState(State state) {
         game.setState(state);
     }
