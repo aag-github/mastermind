@@ -17,7 +17,7 @@ public:
     };
 
     void interact(StartController* controller){
-        assert(controller);
+        assert(controller != nullptr);
 
         controller->start();
 

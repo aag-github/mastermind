@@ -26,6 +26,8 @@ public:
     };
 
     void gameEnd() {
+        assert(getState() == State::READ_PROPOSED_COMBINATION);
+
         setState(State::GAME_END);
     }
 

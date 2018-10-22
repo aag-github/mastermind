@@ -15,7 +15,7 @@ public:
     };
 
     void interact(ReadCombinationController* controller){
-        assert(controller);
+        assert(controller != nullptr);
 
         ReadCombinationState status = controller->setProposedCombination(CombinationView::read());
 

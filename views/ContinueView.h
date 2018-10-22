@@ -15,7 +15,7 @@ public:
     };
 
     void interact(ContinueController* controller){
-        assert(controller);
+        assert(controller != nullptr);
 
         controller->resume(DialogYesNoView().read("Play again (Y/N)?"));
         printf("\n");

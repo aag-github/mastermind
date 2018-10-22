@@ -16,6 +16,8 @@ public:
     }
 
     void resume(bool resume) {
+        assert(getState() == State::GAME_END);
+
         if (resume) {
             setState(State::INITIAL);
         } else {

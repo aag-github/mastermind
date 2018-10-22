@@ -19,6 +19,8 @@ public:
     }
 
     void start() {
+        assert(getState() == State::INITIAL);
+
         startGame();
 
         setState(State::READ_PROPOSED_COMBINATION);
