@@ -31,7 +31,7 @@ public:
 
     static Combination read() {
         Combination newCombination;
-        printf("Enter %lu tokens (valid characters '%s'):\n", newCombination.size(), ColorList::getCodes().c_str());
+        printf("Enter %lu colors (valid characters '%s'):\n", newCombination.size(), ColorList::getCodes().c_str());
         IO::CharUpperCaseChecker charChecker(ColorList::getCodes());
         for(auto &currentColor : newCombination) {
             int colorCode = IO::CharReader::read(&charChecker);
