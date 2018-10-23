@@ -31,11 +31,11 @@ public:
         this->state = state;
     }
 
-    SecretCombination& getSecretCombination() {
+    const SecretCombination& getSecretCombination() const {
         return secretCombination;
     }
 
-    ProposedCombinationList& getProposedCombinations() {
+    const ProposedCombinationList& getProposedCombinations() const {
         return proposedCombinations;
     }
 
@@ -53,8 +53,7 @@ public:
         ProposedCombination& target = proposedCombinations[currentProposedCombination];
         target = proposedCombination;
 
-        target.calculateResult(secretCombination);
-        bool right = target.isRight();
+        bool right = target.calculateResult(secretCombination);
 
         bool lastCombination = (currentProposedCombination == (proposedCombinations.size() - 1));
 

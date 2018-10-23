@@ -12,9 +12,9 @@ public:
 
     typedef std::function<void ()> StartGame;
 
-    typedef std::function<ProposedCombinationList&()> GetProposedCombinations;
+    typedef std::function<const ProposedCombinationList&()> GetProposedCombinations;
 
-    typedef std::function<SecretCombination&()> GetSecretCombination;
+    typedef std::function<const SecretCombination&()> GetSecretCombination;
 
     OperationController(Game &game) :
         Controller(game)

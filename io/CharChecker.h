@@ -14,7 +14,7 @@ public:
     virtual ~CharChecker(){
     }
 
-    virtual char getValidChar(char c){
+    virtual char getValidChar(char c) const {
         return (validChars.find(c) != std::string::npos ? c : 0);
     }
 
@@ -32,7 +32,7 @@ public:
         }
     }
 
-    virtual char getValidChar(char c) override final{
+    virtual char getValidChar(char c) const override final{
         return (CharChecker::getValidChar(toupper(c)));
     }
 };
@@ -47,7 +47,7 @@ public:
         }
     }
 
-    virtual char getValidChar(char c) override final {
+    virtual char getValidChar(char c) const override final {
         return (CharChecker::getValidChar(tolower(c)));
     }
 };

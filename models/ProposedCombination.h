@@ -15,15 +15,12 @@ public:
     virtual ~ProposedCombination() {
     }
 
-    void calculateResult(const Combination &secretCombination) {
+    bool calculateResult(const Combination &secretCombination) {
         result.calculateResult(*this, secretCombination);
-    }
-
-    bool isRight() const {
         return result.isRight();
     }
 
-    virtual void clear(){
+    virtual void clear() {
         Combination::clear();
         result = Result();
     }

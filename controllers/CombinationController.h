@@ -14,8 +14,8 @@ public:
     CombinationController(Game &game) :
         OperationController(game)
     {
-        getProposedCombinations = [&game]() -> ProposedCombinationList& { return game.getProposedCombinations(); };
-        getSecretCombination = [&game]() -> SecretCombination& { return game.getSecretCombination(); };
+        getProposedCombinations = [&game]() -> const ProposedCombinationList& { return game.getProposedCombinations(); };
+        getSecretCombination = [&game]() -> const SecretCombination& { return game.getSecretCombination(); };
     }
 
     virtual ~CombinationController(){
