@@ -2,9 +2,9 @@
 #define SRC_MODELS_GAME_H_
 
 #include "State.h"
-#include "ReadCombinationState.h"
 #include "SecretCombination.h"
 #include "ProposedCombinationList.h"
+#include "ProposedCombinationState.h"
 
 namespace Mastermind {
 
@@ -49,7 +49,7 @@ public:
         }
     }
 
-    ReadCombinationState setProposedCombination(const Combination& proposedCombination) {
+    ProposedCombinationState setProposedCombination(const Combination& proposedCombination) {
         ProposedCombination& target = proposedCombinations[currentProposedCombination];
         target = proposedCombination;
 
@@ -60,11 +60,11 @@ public:
         currentProposedCombination++;
 
         if (right) {
-            return ReadCombinationState::WIN;
+            return ProposedCombinationState::WIN;
         } else if (lastCombination ) {
-            return ReadCombinationState::LOSE;
+            return ProposedCombinationState::LOSE;
         } else {
-            return ReadCombinationState::CONTINUE;
+            return ProposedCombinationState::CONTINUE;
         }
     }
 

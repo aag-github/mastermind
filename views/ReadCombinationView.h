@@ -17,12 +17,12 @@ public:
     void interact(ReadCombinationController* controller){
         assert(controller != nullptr);
 
-        ReadCombinationState status = controller->setProposedCombination(CombinationView::read());
+        ProposedCombinationState status = controller->setProposedCombination(CombinationView::read());
 
-        BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(status == ReadCombinationState::CONTINUE);
+        BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(status == ProposedCombinationState::CONTINUE);
 
-        if (status != ReadCombinationState::CONTINUE) {
-            GameEndView(&controller->getSecretCombination(), status == ReadCombinationState::WIN).show();
+        if (status != ProposedCombinationState::CONTINUE) {
+            GameEndView(&controller->getSecretCombination(), status == ProposedCombinationState::WIN).show();
             controller->gameEnd();
         }
     }
