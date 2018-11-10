@@ -7,12 +7,9 @@ namespace Mastermind {
 
 class ReadCombinationController : public CombinationController {
 public:
-    SetProposedCombination setProposedCombination;
-
     ReadCombinationController(Game &game) :
         CombinationController(game)
     {
-        setProposedCombination = [&game](const Combination& proposedCombination) { return game.setProposedCombination(proposedCombination); };
     }
 
     virtual ~ReadCombinationController(){
@@ -26,9 +23,13 @@ public:
     };
 
     void gameEnd() {
-        assert(getState() == State::READ_PROPOSED_COMBINATION);
+        assert(game.getState() == State::READ_PROPOSED_COMBINATION);
 
-        setState(State::GAME_END);
+        game.setState(State::GAME_END);
+    }
+
+    ProposedCombinationState setProposedCombination (const Combination& proposedCombination) {
+        return game.setProposedCombination(proposedCombination);
     }
 
 };

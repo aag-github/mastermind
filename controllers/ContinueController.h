@@ -16,12 +16,12 @@ public:
     }
 
     void resume(bool resume) {
-        assert(getState() == State::GAME_END);
+        assert(game.getState() == State::GAME_END);
 
         if (resume) {
-            setState(State::INITIAL);
+            game.setState(State::INITIAL);
         } else {
-            setState(State::EXIT);
+            game.setState(State::EXIT);
         }
 
     }

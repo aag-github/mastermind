@@ -7,23 +7,21 @@ namespace Mastermind {
 
 class CombinationController : public OperationController {
 public:
-    GetProposedCombinations getProposedCombinations;
-
-    GetSecretCombination getSecretCombination;
-
     CombinationController(Game &game) :
         OperationController(game)
     {
-        getProposedCombinations = [&game]() -> const ProposedCombinationList& { return game.getProposedCombinations(); };
-        getSecretCombination = [&game]() -> const SecretCombination& { return game.getSecretCombination(); };
     }
 
     virtual ~CombinationController(){
     }
 
-    void gameEnd() {
-        setState(State::GAME_END);
-    }
+    const ProposedCombinationList& getProposedCombinations() const {
+        return game.getProposedCombinations();
+    };
+
+    const SecretCombination& getSecretCombination() const {
+        return game.getSecretCombination();
+    };
 
 };
 

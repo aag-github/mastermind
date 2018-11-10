@@ -12,18 +12,17 @@ public:
     StartController(Game &game) :
         CombinationController(game)
     {
-        startGame = [&game](){ return game.start(); };
     }
 
     virtual ~StartController(){
     }
 
     void start() {
-        assert(getState() == State::INITIAL);
+        assert(game.getState() == State::INITIAL);
 
-        startGame();
+        game.start();
 
-        setState(State::READ_PROPOSED_COMBINATION);
+        game.setState(State::READ_PROPOSED_COMBINATION);
     };
 
     virtual void accept(OperationControllerVisitor *operationControllerVisitor) override final
@@ -32,9 +31,6 @@ public:
 
         operationControllerVisitor->visit(this);
     };
-
-private:
-    StartGame startGame;
 
 };
 
