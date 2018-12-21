@@ -19,7 +19,7 @@ public:
 
     virtual ~DialogReadString() {};
 
-    std::string read() {
+    std::string read(unsigned len = 0) {
         printf("%s", title.c_str());
 
         constexpr char BACKSPACE = '\x7F';
@@ -28,6 +28,7 @@ public:
         }
         std::string returnString;
         int c = 0;
+        unsigned count = len;
         while ((c = IO::CharReader::read(charChecker)) != '\n') {
             if (!isCharValid(returnString, c)) {
                 continue;
@@ -37,11 +38,18 @@ public:
                 if (returnString.size() > 0) {
                     returnString.pop_back();
                     printf("\b \b");
+                    count++;
                 }
-            } else {
-                returnString += char(c);
-                printf("%c", c);
+                continue;
             }
+
+            if (count == 0 && len > 0) {
+                continue;
+            }
+
+            returnString += char(c);
+            printf("%c", c);
+            count--;
         };
         printf("\n");
         return returnString;
