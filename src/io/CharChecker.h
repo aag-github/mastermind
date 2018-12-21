@@ -18,6 +18,9 @@ public:
         return (validChars.find(c) != std::string::npos ? c : 0);
     }
 
+    void addChars(std::string addon){
+        validChars.append(addon);
+    }
 protected:
     std::string validChars;
 };
