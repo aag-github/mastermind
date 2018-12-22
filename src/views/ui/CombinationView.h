@@ -1,7 +1,9 @@
 #ifndef SRC_VIEWS_COMBINATIONVIEW_H_
 #define SRC_VIEWS_COMBINATIONVIEW_H_
 
+#include <sstream>
 #include "Combination.h"
+#include "DialogReadString.h"
 
 namespace Mastermind {
 
@@ -31,14 +33,16 @@ public:
 
     static Combination read() {
         Combination newCombination;
-        printf("Enter %lu colors (valid characters '%s'):\n", newCombination.size(), ColorList::getCodes().c_str());
+        std::stringstream title;
+
+        title << "Enter " << newCombination.size() << " colors (valid characters '" << ColorList::getCodes() << "'):\n";
+
         IO::CharUpperCaseChecker charChecker(ColorList::getCodes());
-        for(auto &currentColor : newCombination) {
-            int colorCode = IO::CharReader::read(&charChecker);
-            printf("%c", colorCode);
-            currentColor = ColorList::getColor(colorCode);
-        }
-        printf("\n");
+
+        IO::DialogReadString reader(title.str(), &charChecker);
+
+        newCombination = reader.read(newCombination.size());
+
         return newCombination;
     }
 private:

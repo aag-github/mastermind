@@ -1,6 +1,7 @@
 #ifndef SRC_COMBINATION_H_
 #define SRC_COMBINATION_H_
 
+#include <assert.h>
 #include "ColorList.h"
 
 namespace Mastermind {
@@ -47,6 +48,13 @@ public:
         return colors.size();
     }
 
+    Combination operator=(const std::string &s) {
+        assert(s.size() == colors.size());
+        for(size_t i = 0; i < std::min(s.size(), colors.size()); i++) {
+            colors[i] = ColorList::getColor(s[i]);
+        }
+        return *this;
+    }
 private:
 
 protected:
