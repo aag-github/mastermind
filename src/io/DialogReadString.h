@@ -29,7 +29,9 @@ public:
         std::string returnString;
         int c = 0;
         unsigned count = len;
-        while ((c = IO::CharReader::read(charChecker)) != '\n') {
+        while (c != '\n') {
+            c = IO::CharReader::read(charChecker);
+
             if (!isCharValid(returnString, c)) {
                 continue;
             }
@@ -44,6 +46,9 @@ public:
             }
 
             if (count == 0 && len > 0) {
+                continue;
+            } else if (c == '\n') {
+                c = 0;
                 continue;
             }
 
