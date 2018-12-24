@@ -22,10 +22,14 @@ public:
         operationControllerVisitor->visit(this);
     };
 
-    void gameEnd() {
+    void gameEnd(bool end) {
         assert(game.getState() == State::READ_PROPOSED_COMBINATION);
 
-        game.setState(State::GAME_END);
+        if (end) {
+            game.setState(State::GAME_END);
+        } else {
+            game.setState(State::MENU);
+        }
     }
 
     ProposedCombinationState setProposedCombination (const Combination& proposedCombination) {

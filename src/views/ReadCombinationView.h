@@ -23,7 +23,9 @@ public:
 
         if (status != ProposedCombinationState::CONTINUE) {
             GameEndView(&controller->getSecretCombination(), status == ProposedCombinationState::WIN).show();
-            controller->gameEnd();
+            controller->gameEnd(true);
+        } else {
+            controller->gameEnd(false);
         }
     }
 

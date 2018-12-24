@@ -33,16 +33,14 @@ public:
 
     static Combination read() {
         Combination newCombination;
-        std::stringstream title;
-
-        title << "Enter " << newCombination.size() << " colors (valid characters '" << ColorList::getCodes() << "'):\n";
-
+        printf("Enter %lu colors (valid characters '%s'):\n", newCombination.size(), ColorList::getCodes().c_str());
         IO::CharUpperCaseChecker charChecker(ColorList::getCodes());
-
-        IO::DialogReadString reader(title.str(), &charChecker);
-
-        newCombination = reader.read(newCombination.size());
-
+        for(auto &currentColor : newCombination) {
+            int colorCode = IO::CharReader::read(&charChecker);
+            printf("%c", colorCode);
+            currentColor = ColorList::getColor(colorCode);
+        }
+        printf("\n");
         return newCombination;
     }
 private:

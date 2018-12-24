@@ -7,12 +7,16 @@
 #include "StartView.h"
 #include "ContinueView.h"
 #include "ReadCombinationView.h"
+#include "MenuView.h"
+#include "QuitView.h"
 
 namespace Mastermind {
 
 class StartController;
 class ContinueController;
 class ReadCombinationController;
+class MenuController;
+class QuitController;
 
 
 class MastermindView : public OperationControllerVisitor {
@@ -41,6 +45,17 @@ public:
         continueView.interact(continueController);
     }
 
+    virtual void visit(MenuController *menuController) override final {
+        assert(menuController != nullptr);
+        menuView.build();
+        menuView.interact(menuController);
+    }
+
+    virtual void visit(QuitController *quitController) override final {
+        assert(quitController != nullptr);
+        quitView.interact(quitController);
+    }
+
 private:
     StartView startView;
 
@@ -48,6 +63,9 @@ private:
 
     ContinueView continueView;
 
+    MenuView menuView;
+
+    QuitView quitView;
 };
 
 }

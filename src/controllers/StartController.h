@@ -22,7 +22,7 @@ public:
 
         game.start();
 
-        game.setState(State::READ_PROPOSED_COMBINATION);
+        game.setState(State::MENU);
     };
 
     virtual void accept(OperationControllerVisitor *operationControllerVisitor) override final
