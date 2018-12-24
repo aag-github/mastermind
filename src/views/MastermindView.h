@@ -9,6 +9,7 @@
 #include "ReadCombinationView.h"
 #include "MenuView.h"
 #include "QuitView.h"
+#include "RestartView.h"
 
 namespace Mastermind {
 
@@ -17,6 +18,7 @@ class ContinueController;
 class ReadCombinationController;
 class MenuController;
 class QuitController;
+class RestartController;
 
 
 class MastermindView : public OperationControllerVisitor {
@@ -56,6 +58,11 @@ public:
         quitView.interact(quitController);
     }
 
+    virtual void visit(RestartController *restartController) override final {
+        assert(restartController != nullptr);
+        restartView.interact(restartController);
+    }
+
 private:
     StartView startView;
 
@@ -66,6 +73,8 @@ private:
     MenuView menuView;
 
     QuitView quitView;
+
+    RestartView restartView;
 };
 
 }

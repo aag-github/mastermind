@@ -1,12 +1,13 @@
 #ifndef SRC_CONTROLLERS_LOGIC_H_
 #define SRC_CONTROLLERS_LOGIC_H_
 
+#include "Game.h"
 #include "StartController.h"
 #include "ReadCombinationController.h"
 #include "ContinueController.h"
 #include "MenuController.h"
 #include "QuitController.h"
-#include "Game.h"
+#include "RestartController.h"
 
 namespace Mastermind {
 
@@ -17,7 +18,8 @@ public:
         readCombinationController(game),
         continueController(game),
         menuController(game),
-        quitController(game)
+        quitController(game),
+        restartController(game)
     {
     }
     virtual ~Logic() {
@@ -33,10 +35,14 @@ public:
             return &readCombinationController;
         case State::QUIT:
             return &quitController;
+        case State::RESTART:
+            return &restartController;
         case State::GAME_END:
             return &continueController;
         case State::EXIT:
+            return nullptr;
         default:
+            assert(false);
             return nullptr;
         }
 }
@@ -52,6 +58,8 @@ private:
     MenuController menuController;
 
     QuitController quitController;
+
+    RestartController restartController;
 };
 
 }

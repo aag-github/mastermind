@@ -9,6 +9,7 @@ enum class State {
     READ_PROPOSED_COMBINATION,
     GAME_END,
     QUIT,
+    RESTART,
     EXIT,
 };
 

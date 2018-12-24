@@ -39,7 +39,7 @@ public:
         commands.push_back(new CommandLoadView("Load", State::MENU));
         commands.push_back(new CommandSaveView("Save", State::MENU));
         commands.push_back(new CommandContinueGameView("Type new combination", State::READ_PROPOSED_COMBINATION));
-        commands.push_back(new CommandRestartGameView("Restart game", State::MENU));
+        commands.push_back(new CommandRestartGameView("Restart game", State::RESTART));
         commands.push_back(new CommandQuitView("Quit", State::QUIT));
     }
 
