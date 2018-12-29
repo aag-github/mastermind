@@ -47,14 +47,18 @@ public:
 
             if (count == 0 && len > 0) {
                 continue;
-            } else if (c == '\n') {
-                c = 0;
-                continue;
             }
 
-            returnString += char(c);
-            printf("%c", c);
-            count--;
+            if (c == '\n') {
+                if (count > 0 && len > 0) {
+                    c = 0;
+                    continue;
+                }
+            } else {
+                returnString += char(c);
+                printf("%c", c);
+                count--;
+            }
         };
         printf("\n");
         return returnString;

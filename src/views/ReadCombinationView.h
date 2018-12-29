@@ -17,6 +17,8 @@ public:
     void interact(ReadCombinationController* controller){
         assert(controller != nullptr);
 
+        BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(true);
+
         ProposedCombinationState status = controller->setProposedCombination(CombinationView::read());
 
         BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(status == ProposedCombinationState::CONTINUE);

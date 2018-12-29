@@ -4,6 +4,7 @@
 #include "ProposedCombinationView.h"
 #include "CombinationView.h"
 #include "SecretCombinationView.h"
+#include "ViewConst.h"
 
 namespace Mastermind {
 
@@ -19,7 +20,7 @@ public:
     }
 
     void show(bool hideSecret) const {
-        printf("_______________________________\n\n");
+        printf("%s\n\n", SECTION_BREAK.c_str());
         printf("Secret: ");
         if (hideSecret) {
             SecretCombinationView(secretCombination).show();

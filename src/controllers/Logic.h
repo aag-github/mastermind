@@ -8,6 +8,10 @@
 #include "MenuController.h"
 #include "QuitController.h"
 #include "RestartController.h"
+#include "LoadGameController.h"
+#include "SaveGameController.h"
+#include "UndoController.h"
+#include "RedoController.h"
 
 namespace Mastermind {
 
@@ -19,7 +23,11 @@ public:
         continueController(game),
         menuController(game),
         quitController(game),
-        restartController(game)
+        restartController(game),
+        loadGameController(game),
+        saveGameController(game),
+        undoController(game),
+        redoController(game)
     {
     }
     virtual ~Logic() {
@@ -37,8 +45,16 @@ public:
             return &quitController;
         case State::RESTART:
             return &restartController;
+        case State::LOAD_GAME:
+            return &loadGameController;
+        case State::SAVE_GAME:
+            return &saveGameController;
         case State::GAME_END:
             return &continueController;
+        case State::UNDO:
+            return &undoController;
+        case State::REDO:
+            return &redoController;
         case State::EXIT:
             return nullptr;
         default:
@@ -60,6 +76,14 @@ private:
     QuitController quitController;
 
     RestartController restartController;
+
+    LoadGameController loadGameController;
+
+    SaveGameController saveGameController;
+
+    UndoController undoController;
+
+    RedoController redoController;
 };
 
 }

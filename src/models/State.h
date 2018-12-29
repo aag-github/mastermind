@@ -10,6 +10,10 @@ enum class State {
     GAME_END,
     QUIT,
     RESTART,
+    LOAD_GAME,
+    SAVE_GAME,
+    UNDO,
+    REDO,
     EXIT,
 };
 

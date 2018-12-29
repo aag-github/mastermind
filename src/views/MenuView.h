@@ -34,10 +34,10 @@ public:
     virtual void setCommands() {
         deleteCommands();
 
-        commands.push_back(new CommandUndoView("Undo", State::MENU));
-        commands.push_back(new CommandRedoView("Redo", State::MENU));
-        commands.push_back(new CommandLoadView("Load", State::MENU));
-        commands.push_back(new CommandSaveView("Save", State::MENU));
+        commands.push_back(new CommandUndoView("Undo", State::UNDO));
+        commands.push_back(new CommandRedoView("Redo", State::REDO));
+        commands.push_back(new CommandLoadView("Load", State::LOAD_GAME));
+        commands.push_back(new CommandSaveView("Save", State::SAVE_GAME));
         commands.push_back(new CommandContinueGameView("Type new combination", State::READ_PROPOSED_COMBINATION));
         commands.push_back(new CommandRestartGameView("Restart game", State::RESTART));
         commands.push_back(new CommandQuitView("Quit", State::QUIT));
@@ -45,7 +45,7 @@ public:
 
     void interact(MenuController* controller) {
         int i = 1;
-        std::cout << std::endl << "--------------" << std::endl;
+        std::cout << std::endl << SECTION_BREAK << std::endl;
         for(auto command : commands) {
             std::cout << i++ << ".- " << command->getTitle() << std::endl;
         }

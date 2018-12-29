@@ -10,6 +10,10 @@
 #include "MenuView.h"
 #include "QuitView.h"
 #include "RestartView.h"
+#include "LoadGameView.h"
+#include "SaveGameView.h"
+#include "UndoView.h"
+#include "RedoView.h"
 
 namespace Mastermind {
 
@@ -19,7 +23,10 @@ class ReadCombinationController;
 class MenuController;
 class QuitController;
 class RestartController;
-
+class LoadGameController;
+class SaveGameController;
+class UndoController;
+class RedoController;
 
 class MastermindView : public OperationControllerVisitor {
 public:
@@ -63,6 +70,25 @@ public:
         restartView.interact(restartController);
     }
 
+    virtual void visit(LoadGameController *loadGameController) override final {
+        assert(loadGameController != nullptr);
+        loadGameView.interact(loadGameController);
+    }
+
+    virtual void visit(SaveGameController *saveGameController) override final {
+        assert(saveGameController != nullptr);
+        saveGameView.interact(saveGameController);
+    }
+
+    virtual void visit(UndoController *undoController) override final {
+        assert(undoController != nullptr);
+        undoView.interact(undoController);
+    }
+
+    virtual void visit(RedoController *redoController) override final {
+        assert(redoController != nullptr);
+        redoView.interact(redoController);
+    }
 private:
     StartView startView;
 
@@ -75,6 +101,14 @@ private:
     QuitView quitView;
 
     RestartView restartView;
+
+    LoadGameView loadGameView;
+
+    SaveGameView saveGameView;
+
+    UndoView undoView;
+
+    RedoView redoView;
 };
 
 }

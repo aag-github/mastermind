@@ -55,6 +55,23 @@ public:
         }
         return *this;
     }
+
+    std::string getString() const {
+        std::string returnValue;
+        for(auto color : colors) {
+            returnValue += ColorList::getCode(color);
+        }
+        return returnValue;
+    }
+
+    bool isSet() const {
+        for(auto color : colors) {
+            if (color == ColorList::Color::NOCOLOR) {
+                return false;
+            }
+        }
+        return true;
+    }
 private:
 
 protected:

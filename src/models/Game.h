@@ -68,6 +68,10 @@ public:
         }
     }
 
+    void setSecretCombination(const SecretCombination& secretCombination) {
+        this->secretCombination = secretCombination;
+    }
+
 private:
 
     SecretCombination secretCombination;
