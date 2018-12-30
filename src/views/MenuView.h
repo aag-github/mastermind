@@ -13,6 +13,7 @@
 #include "commands/CommandContinueGameView.h"
 #include "commands/CommandRestartGameView.h"
 #include "commands/CommandQuitView.h"
+#include "ui/ShowMenuView.h"
 
 namespace Mastermind {
 
@@ -31,11 +32,13 @@ public:
         }
         commands.clear();
     }
-    virtual void setCommands() {
+    virtual void setCommands(bool undo, bool redo) {
         deleteCommands();
 
         commands.push_back(new CommandUndoView("Undo", State::UNDO));
+        commands.back()->setEnabled(undo);
         commands.push_back(new CommandRedoView("Redo", State::REDO));
+        commands.back()->setEnabled(redo);
         commands.push_back(new CommandLoadView("Load", State::LOAD_GAME));
         commands.push_back(new CommandSaveView("Save", State::SAVE_GAME));
         commands.push_back(new CommandContinueGameView("Type new combination", State::READ_PROPOSED_COMBINATION));
@@ -44,25 +47,17 @@ public:
     }
 
     void interact(MenuController* controller) {
-        int i = 1;
-        std::cout << std::endl << SECTION_BREAK << std::endl;
-        for(auto command : commands) {
-            std::cout << i++ << ".- " << command->getTitle() << std::endl;
-        }
-        std::cout << std::endl;
-        std::cout << "Pick an option or press 'Enter' to type a new combination" << std::endl;
+        ShowMenuView showMenuView(&commands);
 
-        IO::CharChecker charChecker("1234567\n");
-        int option = IO::CharReader::read(&charChecker);
-        if (option == '\n') {
-            option = '5';
-        }
-        option = option - '0';
+        showMenuView.show();
+
+        int option = showMenuView.read();
+
         commands[option - 1]->execute(controller);
     }
 
-    void build() {
-        this->setCommands();
+    void build(bool undo, bool redo) {
+        this->setCommands(undo, redo);
     }
 
 protected:

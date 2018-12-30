@@ -19,13 +19,15 @@ public:
     int save(std::string name) {
         assert(game.getState() == State::SAVE_GAME);
 
-        GameFilePersistence gameSaver;
-
         int ok = gameSaver.save(&game, name);
 
         game.setState(State::MENU);
 
         return ok;
+    }
+
+    std::vector<std::string> getAvailableGames(){
+        return gameSaver.getAvailableGames();
     }
 
     virtual void accept(OperationControllerVisitor *operationControllerVisitor) override final
@@ -34,6 +36,9 @@ public:
 
         operationControllerVisitor->visit(this);
     };
+
+private:
+    GameFilePersistence gameSaver;
 
 };
 

@@ -2,6 +2,7 @@
 #define SRC_VIEWS_REDOVIEW_H_
 
 #include "RedoController.h"
+#include "ui/BoardView.h"
 
 namespace Mastermind {
 
@@ -17,7 +18,8 @@ public:
         assert(controller != nullptr);
 
         controller->redo();
-        printf("\n");
+
+        BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(true);
     }
 };
 

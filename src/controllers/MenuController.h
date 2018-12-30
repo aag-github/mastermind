@@ -23,6 +23,14 @@ public:
         game.setState(newState);
     };
 
+    bool canUndo() {
+        return game.getUndoRedoManager().canUndo();
+    }
+
+    bool canRedo() {
+        return game.getUndoRedoManager().canRedo();
+    }
+
     virtual void accept(OperationControllerVisitor *operationControllerVisitor) override final
     {
         assert(operationControllerVisitor != nullptr);

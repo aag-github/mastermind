@@ -3,6 +3,7 @@
 
 #include "LoadGameController.h"
 #include "ViewConst.h"
+#include "ui/AvailableGamesView.h"
 
 namespace Mastermind {
 
@@ -17,24 +18,16 @@ public:
     void interact(LoadGameController* controller){
         assert(controller != nullptr);
 
-        std::cout << "\n";
+        AvailableGamesView(controller->getAvailableGames()).show();
 
-        auto availableGames = controller->getAvailableGames();
-        if (availableGames.size() == 0) {
+        if (controller->getAvailableGames().size() == 0) {
             controller->noGamesAvailable();
-            std::cout << "** No games available **\n";
-            return;
-        }
-        std::cout << "Available games:\n" << SECTION_BREAK << "\n";
-        for(auto name : availableGames) {
-            std::cout << name << "\n";
-        }
-        std::cout << SECTION_BREAK << "\n";
+        } else {
+            std::string name = IO::DialogReadString("\nGame name to load: ").read();
 
-        std::string name = IO::DialogReadString("\nGame name to load: ").read();
-
-        if (0 != controller->load(name)) {
-            std::cout << "\n** Error loading file '" << name << "' **\n";
+            if (0 != controller->load(name) && name != "") {
+                std::cout << "\n** Error loading file '" << name << "' **\n";
+            }
         }
     }
 };

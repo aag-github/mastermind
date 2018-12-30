@@ -56,7 +56,7 @@ public:
 
     virtual void visit(MenuController *menuController) override final {
         assert(menuController != nullptr);
-        menuView.build();
+        menuView.build(menuController->canUndo(), menuController->canRedo());
         menuView.interact(menuController);
     }
 

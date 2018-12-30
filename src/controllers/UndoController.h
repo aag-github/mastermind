@@ -1,14 +1,14 @@
 #ifndef SRC_CONTROLLERS_UNDOCONTROLLER_H_
 #define SRC_CONTROLLERS_UNDOCONTROLLER_H_
 
-#include "OperationController.h"
+#include "CombinationController.h"
 
 namespace Mastermind {
 
-class UndoController: public OperationController {
+class UndoController: public CombinationController {
 public:
     UndoController(Game &game) :
-        OperationController(game)
+        CombinationController(game)
     {
     }
 
@@ -18,7 +18,7 @@ public:
     void undo() {
         assert(game.getState() == State::UNDO);
 
-        std::cout << "********************* Undoing... \n";
+        game.getUndoRedoManager().Undo();
 
         game.setState(State::MENU);
     }

@@ -11,7 +11,8 @@ class CommandView {
 public:
     CommandView(std::string title, State nextState) :
         title(title),
-        nextState(nextState)
+        nextState(nextState),
+        enabled(true)
     {
 
     };
@@ -27,10 +28,21 @@ public:
     std::string getTitle() {
         return title;
     }
+
+    bool isEnabled() {
+        return enabled;
+    }
+
+    void setEnabled(bool b) {
+        enabled = b;
+    }
+
 private:
     std::string title;
 
     State nextState;
+
+    bool enabled;
 };
 
 }

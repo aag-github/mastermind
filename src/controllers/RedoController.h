@@ -1,14 +1,14 @@
 #ifndef SRC_CONTROLLERS_REDOCONTROLLER_H_
 #define SRC_CONTROLLERS_REDOCONTROLLER_H_
 
-#include "OperationController.h"
+#include "CombinationController.h"
 
 namespace Mastermind {
 
-class RedoController: public OperationController {
+class RedoController: public CombinationController {
 public:
     RedoController(Game &game) :
-        OperationController(game)
+        CombinationController(game)
     {
     }
 
@@ -18,7 +18,7 @@ public:
     void redo() {
         assert(game.getState() == State::REDO);
 
-        std::cout << "********************* Redoing... \n";
+        game.getUndoRedoManager().Redo();
 
         game.setState(State::MENU);
     }
