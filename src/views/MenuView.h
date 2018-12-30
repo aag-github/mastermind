@@ -49,6 +49,8 @@ public:
     void interact(MenuController* controller) {
         ShowMenuView showMenuView(&commands);
 
+        BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(true);
+
         showMenuView.show();
 
         int option = showMenuView.read();

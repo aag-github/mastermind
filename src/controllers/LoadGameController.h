@@ -21,9 +21,7 @@ public:
 
         GamePersistenceResult ok = gameLoader.load(&game, name);
 
-        game.setState((ok == GamePersistenceResult::OK)
-                      ? State::READ_PROPOSED_COMBINATION
-                      : State::MENU);
+        game.setState(State::MENU);
 
         return ok;
     }

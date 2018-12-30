@@ -8,10 +8,10 @@
 
 namespace Mastermind {
 
-class MenuController: public OperationController {
+class MenuController: public CombinationController {
 public:
     MenuController(Game &game) :
-        OperationController(game)
+        CombinationController(game)
     {
     }
 

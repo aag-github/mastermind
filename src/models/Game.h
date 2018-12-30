@@ -41,7 +41,7 @@ public:
         return proposedCombinations;
     }
 
-    void start(bool undoRedoEvent = true) {
+    void start(bool recordUndoEvent = true) {
         currentProposedCombination = 0;
 
         secretCombination.random();
@@ -50,13 +50,13 @@ public:
             combination.clear();
         }
 
-        if(undoRedoEvent) {
+        if(recordUndoEvent) {
             undoRedoManager.clear();
             undoRedoManager.AddMemento();
         }
     }
 
-    ProposedCombinationState setProposedCombination(const Combination& proposedCombination, bool undoRedoEvent = true) {
+    ProposedCombinationState setProposedCombination(const Combination& proposedCombination, bool recordUndoEvent = true) {
         ProposedCombination& target = proposedCombinations[currentProposedCombination];
         target = proposedCombination;
 
@@ -66,7 +66,7 @@ public:
 
         currentProposedCombination++;
 
-        if (undoRedoEvent) {
+        if (recordUndoEvent) {
             undoRedoManager.AddMemento();
         }
 
@@ -79,24 +79,29 @@ public:
         }
     }
 
-    void setSecretCombination(const SecretCombination& secretCombination) {
+    void setSecretCombination(const SecretCombination& secretCombination, bool recordUndoEvent = true) {
         this->secretCombination = secretCombination;
+
+        if (recordUndoEvent) {
+            undoRedoManager.clear();
+            undoRedoManager.AddMemento();
+        }
     }
 
-    virtual Memento* createMemento() const override final {
-        Memento *snapShot = new Memento();
-        snapShot->add("S:" + getSecretCombination().getString());
+    virtual std::shared_ptr<Memento> createMemento() const override final {
+        std::shared_ptr<Memento> memento = std::make_shared<Memento>();
+        memento->add("S:" + getSecretCombination().getString());
         auto combination = getProposedCombinations().cbegin();
         auto endCombination = getProposedCombinations().cend();
         for (;combination != endCombination, combination->isSet(); combination++) {
-            snapShot->add("P:" + combination->getString());
+            memento->add("P:" + combination->getString());
         }
-        return snapShot;
+        return memento;
     }
 
-    virtual int restoreMemento(Memento *snapshot) override final {
-        int ret = 0;
-        start(false);
+    virtual MementoRestoreResult restoreMemento(std::shared_ptr<Memento> snapshot, bool recordUndoEvent) override final {
+        MementoRestoreResult ret = MementoRestoreResult::OK;
+        start(recordUndoEvent);
 
         for(auto line : snapshot->get()) {
             if  (line == "") {
@@ -110,20 +115,20 @@ public:
                 SecretCombination secret;
                 if (value.size() != secret.size())
                 {
-                    ret = -2;
+                    ret = MementoRestoreResult::SECRET_COMBINATION_ERROR;
                     break;
                 }
                 secret = value;
-                setSecretCombination(secret);
+                setSecretCombination(secret, recordUndoEvent);
             } else if (command =="P") {
                 Combination combination;
                 if (value.size() != combination.size())
                 {
-                    ret = -3;
+                    ret = MementoRestoreResult::PROPOSED_COMBINATION_ERROR;
                     break;
                 }
                 combination = value;
-                setProposedCombination(combination, false);
+                setProposedCombination(combination, recordUndoEvent);
             }
         }
         return ret;

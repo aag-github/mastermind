@@ -26,7 +26,10 @@ public:
                 std::string name(ent->d_name);
                 size_t extenstionPosition = name.find(extension);
                 if (extenstionPosition == (name.size() - extension.size())) {
-                    availableGames.push_back(name.substr(0, extenstionPosition));
+                    name = name.substr(0, extenstionPosition);
+                    if (name != "") {
+                        availableGames.push_back(name);
+                    }
                 }
             }
           }
@@ -48,39 +51,18 @@ public:
 
         std::string line;
 
+        std::shared_ptr<Memento> memento = std::make_shared<Memento>();
+
         while(!file.eof()) {
             std::getline(file, line);
 
-            if  (line == "") {
-                continue;
-            }
-
-            auto separator = line.find(':');
-            std::string command = line.substr(0, separator);
-            std::string value = line.substr(separator +1);
-
-            if (command == "S") {
-                SecretCombination secret;
-                if (value.size() != secret.size())
-                {
-                    ret = GamePersistenceResult::SECRET_COMBINATION_ERROR;
-                    break;
-                }
-                secret = value;
-                game->setSecretCombination(secret);
-            } else if (command =="P") {
-                Combination combination;
-                if (value.size() != combination.size())
-                {
-                    ret = GamePersistenceResult::PROPOSED_COMBINATION_ERROR;
-                    break;
-                }
-                combination = value;
-                game->setProposedCombination(combination);
-            }
+            memento->add(line);
         }
 
         file.close();
+
+        game->restoreMemento(memento, true);
+
         return ret;
     }
 
@@ -93,12 +75,9 @@ public:
             return GamePersistenceResult::OPEN_FILE_ERROR;
         }
 
-        fprintf(fp, "S:%s\n", game->getSecretCombination().getString().c_str());
-        auto combination = game->getProposedCombinations().cbegin();
-        auto endCombination = game->getProposedCombinations().cend();
-        for (;combination != endCombination, combination->isSet(); combination++) {
-            fprintf(fp, "P:%s\n", combination->getString().c_str());
-        }
+        std::shared_ptr<Memento> memento = game->createMemento();
+
+        fprintf(fp, "%s", memento->toString().c_str());
 
         fclose(fp);
         return ret;

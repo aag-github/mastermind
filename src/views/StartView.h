@@ -20,9 +20,6 @@ public:
         assert(controller != nullptr);
 
         controller->start();
-
-        BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(true);
-
     }
 };
 

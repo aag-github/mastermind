@@ -23,7 +23,7 @@ public:
         if (mementoes.size() > 0) {
             mementoes.erase(currentMemento + 1, mementoes.end());
         }
-        Memento* m = mementoOriginator->createMemento();
+        std::shared_ptr<Memento> m = mementoOriginator->createMemento();
         mementoes.push_back(m);
         currentMemento = (mementoes.end() - 1);
     }
@@ -39,7 +39,7 @@ public:
     bool Undo() {
         if (canUndo()) {
             --currentMemento;
-            mementoOriginator->restoreMemento(*currentMemento);
+            mementoOriginator->restoreMemento(*currentMemento, false);
             return true;
         } else {
             return false;
@@ -49,7 +49,7 @@ public:
     bool Redo() {
         if (canRedo()) {
             ++currentMemento;
-            mementoOriginator->restoreMemento(*currentMemento);
+            mementoOriginator->restoreMemento(*currentMemento, false);
             return true;
         } else {
             return false;
@@ -57,16 +57,13 @@ public:
     }
 
     void clear() {
-        for (auto memento : mementoes) {
-            delete memento;
-        }
         mementoes.clear();
         currentMemento = mementoes.begin();
     }
 private:
-    std::vector<Memento*> mementoes;
+    std::vector<std::shared_ptr<Memento>> mementoes;
 
-    std::vector<Memento*>::iterator currentMemento;
+    std::vector<std::shared_ptr<Memento>>::iterator currentMemento;
 
     MementoOriginator *mementoOriginator;
 };

@@ -7,10 +7,10 @@
 
 namespace Mastermind {
 
-class StartController: public CombinationController {
+class StartController: public OperationController {
 public:
     StartController(Game &game) :
-        CombinationController(game)
+        OperationController(game)
     {
     }
 

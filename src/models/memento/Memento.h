@@ -17,6 +17,7 @@ public:
     }
 
     friend class Game;
+    friend class GameFilePersistenceImpl;
 
     std::string toString() {
         std::string ret;
@@ -33,7 +34,9 @@ private:
     }
 
     void add(const std::string &value) {
-        values.push_back(value);
+        if (value != "") {
+            values.push_back(value);
+        }
     }
 };
 

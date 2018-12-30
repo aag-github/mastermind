@@ -18,8 +18,6 @@ public:
         assert(controller != nullptr);
 
         controller->undo();
-
-        BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(true);
     }
 };
 
