@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "GamePersistenceImpl.h"
+#include "GamePersistenceResult.h"
 
 namespace Mastermind {
 
@@ -15,15 +16,15 @@ public:
         delete implementation;
     }
 
-    virtual std::vector<std::string> getAvailableGames() const {
+    std::vector<std::string> getAvailableGames() const {
         return implementation->getAvailableGames();
     }
 
-    virtual int load(Game* game, const std::string& name) {
+    GamePersistenceResult load(Game* game, const std::string& name) {
         return implementation->load(game, name);
     }
 
-    int save(const Game* game, const std::string& name) const {
+    GamePersistenceResult save(const Game* game, const std::string& name) const {
         return implementation->save(game, name);
     };
 

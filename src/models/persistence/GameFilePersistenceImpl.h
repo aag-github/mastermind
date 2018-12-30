@@ -35,13 +35,13 @@ public:
         return availableGames;
     }
 
-    virtual int load(Game* game, const std::string& name) override final {
-        int ret = 0;
+    virtual GamePersistenceResult load(Game* game, const std::string& name) override final {
+        GamePersistenceResult ret = GamePersistenceResult::OK;
 
         std::ifstream file(name + ".mm" , std::ios::in);
 
         if (!file.is_open()) {
-            return -1;
+            return GamePersistenceResult::OPEN_FILE_ERROR;
         }
 
         game->start();
@@ -63,7 +63,7 @@ public:
                 SecretCombination secret;
                 if (value.size() != secret.size())
                 {
-                    ret = -2;
+                    ret = GamePersistenceResult::SECRET_COMBINATION_ERROR;
                     break;
                 }
                 secret = value;
@@ -72,7 +72,7 @@ public:
                 Combination combination;
                 if (value.size() != combination.size())
                 {
-                    ret = -3;
+                    ret = GamePersistenceResult::PROPOSED_COMBINATION_ERROR;
                     break;
                 }
                 combination = value;
@@ -84,13 +84,13 @@ public:
         return ret;
     }
 
-    virtual int save(const Game* game, const std::string& name) const override final{
-        int ret = 0;
+    virtual GamePersistenceResult save(const Game* game, const std::string& name) const override final{
+        GamePersistenceResult ret = GamePersistenceResult::OK;
 
         FILE *fp = fopen((name + ".mm").c_str(), "w");
 
         if (!fp) {
-            return -1;
+            return GamePersistenceResult::OPEN_FILE_ERROR;
         }
 
         fprintf(fp, "S:%s\n", game->getSecretCombination().getString().c_str());

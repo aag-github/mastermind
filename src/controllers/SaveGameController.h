@@ -16,10 +16,10 @@ public:
     virtual ~SaveGameController(){
     }
 
-    int save(std::string name) {
+    GamePersistenceResult save(std::string name) {
         assert(game.getState() == State::SAVE_GAME);
 
-        int ok = gameSaver.save(&game, name);
+        GamePersistenceResult ok = gameSaver.save(&game, name);
 
         game.setState(State::MENU);
 

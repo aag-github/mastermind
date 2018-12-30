@@ -16,12 +16,14 @@ public:
     virtual ~LoadGameController(){
     }
 
-    int load(std::string name) {
+    GamePersistenceResult load(std::string name) {
         assert(game.getState() == State::LOAD_GAME);
 
-        int ok = gameLoader.load(&game, name);
+        GamePersistenceResult ok = gameLoader.load(&game, name);
 
-        game.setState((ok == 0) ? State::READ_PROPOSED_COMBINATION : State::MENU);
+        game.setState((ok == GamePersistenceResult::OK)
+                      ? State::READ_PROPOSED_COMBINATION
+                      : State::MENU);
 
         return ok;
     }

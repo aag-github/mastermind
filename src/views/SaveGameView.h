@@ -33,7 +33,7 @@ public:
             }
         }
 
-        if (0 != controller->save(name)) {
+        if (GamePersistenceResult::OK != controller->save(name)) {
             std::cout << "\n** Error saving file " << name << "**";
         }
         printf("\n");

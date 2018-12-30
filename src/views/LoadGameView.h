@@ -25,7 +25,7 @@ public:
         } else {
             std::string name = IO::DialogReadString("\nGame name to load: ").read();
 
-            if (0 != controller->load(name) && name != "") {
+            if (GamePersistenceResult::OK != controller->load(name) && name != "") {
                 std::cout << "\n** Error loading file '" << name << "' **\n";
             }
         }
