@@ -16,7 +16,6 @@ public:
 
     GameProxy(std::string ip, int port) :
         Game(),
-        state(State::INITIAL),
         currentProposedCombination(0),
         undoRedoManager(this)
     {
@@ -27,26 +26,24 @@ public:
     virtual ~GameProxy(){
     }
 
-    void send() {
-        while(1)
+    std::string send(std::string message) const {
+        srand(time(NULL));
+        tcpclient.Send(message);
+        std::string rec = tcpclient.receive();
+        if( rec != "" )
         {
-            srand(time(NULL));
-            tcpclient.Send(std::to_string(rand()%25000));
-            std::string rec = tcpclient.receive();
-            if( rec != "" )
-            {
-                std::cout << "Server Response:" << rec << std::endl;
-            }
-            sleep(1);
+            std::cout << "Server Response:" << rec << std::endl;
         }
+        return rec;
     }
 
     State getState() const {
-        //TODO: implement call to proxy
-        return state;
+        std::string reply = send("GETSTATE:");
+        return StateMap::getState(atoi(reply.c_str()));
     }
 
     void setState(State state) {
+        send("SETSTATE:" + std::to_string(size_t(state)));
         //TODO: implement call to proxy
     }
 
@@ -117,8 +114,6 @@ private:
     SecretCombination secretCombination;
 
     ProposedCombinationList proposedCombinations;
-
-    State state;
 
     size_t currentProposedCombination;
 
