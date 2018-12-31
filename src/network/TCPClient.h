@@ -25,8 +25,8 @@ class TCPClient
   public:
     TCPClient();
     bool setup(std::string address, int port);
-    bool Send(std::string data);
-    std::string receive(int size = 4096);
+    bool Send(std::string data) const;
+    std::string receive(int size = 4096) const;
     std::string read();
     void exit();
 };

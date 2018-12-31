@@ -48,7 +48,7 @@ bool TCPClient::setup(std::string address , int port)
   	return true;
 }
 
-bool TCPClient::Send(std::string data)
+bool TCPClient::Send(std::string data) const
 {
 	if(sock != -1) 
 	{
@@ -63,7 +63,7 @@ bool TCPClient::Send(std::string data)
 	return true;
 }
 
-std::string TCPClient::receive(int size)
+std::string TCPClient::receive(int size) const
 {
   	char buffer[size];
 	memset(&buffer[0], 0, sizeof(buffer));
