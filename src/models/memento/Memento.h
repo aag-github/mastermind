@@ -6,7 +6,7 @@
 
 namespace Mastermind {
 
-class Game;
+class GameLocal;
 
 class Memento {
 public:
@@ -16,7 +16,7 @@ public:
     virtual ~Memento() {
     }
 
-    friend class Game;
+    friend class GameLocal;
     friend class GameFilePersistenceImpl;
 
     std::string toString() {

@@ -1,10 +1,14 @@
 #include "Mastermind.h"
 
-int main(void)
+int main(int argc, char *argv[])
 {
-    Mastermind::Mastermind mastermind;
+    Mastermind::ArgParser parser(argc, argv);
 
-    mastermind.play();
+    Mastermind::Mastermind *mastermind = Mastermind::Mastermind::build(parser);
+
+    mastermind->play();
+
+    delete mastermind;
 
     return 0;
 }

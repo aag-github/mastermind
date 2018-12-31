@@ -24,11 +24,11 @@ public:
     };
 
     bool canUndo() {
-        return game.getUndoRedoManager().canUndo();
+        return game.canUndo();
     }
 
     bool canRedo() {
-        return game.getUndoRedoManager().canRedo();
+        return game.canRedo();
     }
 
     virtual void accept(OperationControllerVisitor *operationControllerVisitor) override final

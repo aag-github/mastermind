@@ -11,143 +11,37 @@ namespace Mastermind {
 
 class Game : public MementoOriginator {
 public:
-    static constexpr int MAX_PROPOSED_COMBINATION = 10;
-
-    Game() :
-        state(State::INITIAL),
-        currentProposedCombination(0),
-        undoRedoManager(this)
-    {
-        srand(time(nullptr));
-        proposedCombinations.resize(MAX_PROPOSED_COMBINATION);
+    Game() : MementoOriginator() {
     }
 
     virtual ~Game(){
     }
 
-    State getState() const {
-        return state;
-    }
+    virtual State getState() const = 0;
 
-    void setState(State state) {
-        this->state = state;
-    }
+    virtual void setState(State state) = 0;
 
-    const SecretCombination& getSecretCombination() const {
-        return secretCombination;
-    }
+    virtual const SecretCombination& getSecretCombination() const = 0;
 
-    const ProposedCombinationList& getProposedCombinations() const {
-        return proposedCombinations;
-    }
+    virtual const ProposedCombinationList& getProposedCombinations() const = 0;
 
-    void start(bool recordUndoEvent = true) {
-        currentProposedCombination = 0;
+    virtual void start(bool recordUndoEvent = true) = 0;
 
-        secretCombination.random();
+    virtual ProposedCombinationState setProposedCombination(const Combination& proposedCombination, bool recordUndoEvent = true) = 0;
 
-        for(auto& combination : proposedCombinations) {
-            combination.clear();
-        }
+    virtual void setSecretCombination(const SecretCombination& secretCombination, bool recordUndoEvent = true) = 0;
 
-        if(recordUndoEvent) {
-            undoRedoManager.clear();
-            undoRedoManager.AddMemento();
-        }
-    }
+    virtual void AddUndo() = 0;
 
-    ProposedCombinationState setProposedCombination(const Combination& proposedCombination, bool recordUndoEvent = true) {
-        ProposedCombination& target = proposedCombinations[currentProposedCombination];
-        target = proposedCombination;
+    virtual bool canUndo() = 0;
 
-        bool right = target.calculateResult(secretCombination);
+    virtual bool canRedo() = 0;
 
-        bool lastCombination = (currentProposedCombination == (proposedCombinations.size() - 1));
+    virtual bool Undo() = 0;
 
-        currentProposedCombination++;
+    virtual bool Redo() = 0;
 
-        if (recordUndoEvent) {
-            undoRedoManager.AddMemento();
-        }
-
-        if (right) {
-            return ProposedCombinationState::WIN;
-        } else if (lastCombination ) {
-            return ProposedCombinationState::LOSE;
-        } else {
-            return ProposedCombinationState::CONTINUE;
-        }
-    }
-
-    void setSecretCombination(const SecretCombination& secretCombination, bool recordUndoEvent = true) {
-        this->secretCombination = secretCombination;
-
-        if (recordUndoEvent) {
-            undoRedoManager.clear();
-            undoRedoManager.AddMemento();
-        }
-    }
-
-    virtual std::shared_ptr<Memento> createMemento() const override final {
-        std::shared_ptr<Memento> memento = std::make_shared<Memento>();
-        memento->add("S:" + getSecretCombination().getString());
-        auto combination = getProposedCombinations().cbegin();
-        auto endCombination = getProposedCombinations().cend();
-        for (;combination != endCombination, combination->isSet(); combination++) {
-            memento->add("P:" + combination->getString());
-        }
-        return memento;
-    }
-
-    virtual MementoRestoreResult restoreMemento(std::shared_ptr<Memento> snapshot, bool recordUndoEvent) override final {
-        MementoRestoreResult ret = MementoRestoreResult::OK;
-        start(recordUndoEvent);
-
-        for(auto line : snapshot->get()) {
-            if  (line == "") {
-                continue;
-            }
-            auto separator = line.find(':');
-            std::string command = line.substr(0, separator);
-            std::string value = line.substr(separator +1);
-
-            if (command == "S") {
-                SecretCombination secret;
-                if (value.size() != secret.size())
-                {
-                    ret = MementoRestoreResult::SECRET_COMBINATION_ERROR;
-                    break;
-                }
-                secret = value;
-                setSecretCombination(secret, recordUndoEvent);
-            } else if (command =="P") {
-                Combination combination;
-                if (value.size() != combination.size())
-                {
-                    ret = MementoRestoreResult::PROPOSED_COMBINATION_ERROR;
-                    break;
-                }
-                combination = value;
-                setProposedCombination(combination, recordUndoEvent);
-            }
-        }
-        return ret;
-    }
-
-    MementoManager& getUndoRedoManager() {
-        return undoRedoManager;
-    }
-private:
-
-    SecretCombination secretCombination;
-
-    ProposedCombinationList proposedCombinations;
-
-    State state;
-
-    size_t currentProposedCombination;
-
-    MementoManager undoRedoManager;
+    virtual void clearUndoRedo() = 0;
 };
 
 }

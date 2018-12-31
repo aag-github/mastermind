@@ -18,7 +18,7 @@ public:
     void undo() {
         assert(game.getState() == State::UNDO);
 
-        game.getUndoRedoManager().Undo();
+        game.Undo();
 
         game.setState(State::MENU);
     }

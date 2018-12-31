@@ -1,33 +1,33 @@
 #ifndef _MASTERMIND_H
 #define _MASTERMIND_H
 
-#include "Logic.h"
-#include "MastermindView.h"
+#include "ArgParser.h"
 
 namespace Mastermind
 {
 
+class Logic;
+class MastermindView;
+
 class Mastermind {
 private:
-    Logic logic;
+    Logic *logic;
 
-    MastermindView view;
+    MastermindView *view;
+
+protected:
+    Mastermind(Logic *logic, MastermindView *view) :
+        logic(logic),
+        view(view)
+    {
+    }
 
 public:
-    Mastermind()
-    {
-    };
+    ~Mastermind();
 
-    void play()
-    {
-        OperationController* controller;
-        do {
-            controller = logic.getController();
-            if (controller != nullptr){
-                view.interact(controller);
-            }
-        } while (controller != nullptr);
-    }
+    void play();
+
+    static Mastermind* build(const ArgParser &parser);
 };
 
 }
