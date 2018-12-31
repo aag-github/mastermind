@@ -13,6 +13,7 @@ class LoadGameController;
 class SaveGameController;
 class UndoController;
 class RedoController;
+class ServerController;
 
 class OperationControllerVisitor {
 public:
@@ -38,6 +39,8 @@ public:
     virtual void visit(UndoController *undoController) = 0;
 
     virtual void visit(RedoController *redoController) = 0;
+
+    virtual void visit(ServerController *serverController) = 0;
 
 };
 

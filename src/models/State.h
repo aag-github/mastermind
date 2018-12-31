@@ -27,6 +27,11 @@ public:
         assert(item != stateMap.end());
         return item->second;
     }
+
+    size_t getStateId(State state){
+        return size_t(state);
+    }
+
 private:
     static std::unordered_map<int, State> stateMap ;
 };

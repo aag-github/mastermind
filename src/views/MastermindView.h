@@ -14,6 +14,7 @@
 #include "SaveGameView.h"
 #include "UndoView.h"
 #include "RedoView.h"
+#include "ServerView.h"
 
 namespace Mastermind {
 
@@ -27,6 +28,7 @@ class LoadGameController;
 class SaveGameController;
 class UndoController;
 class RedoController;
+class ServerController;
 
 class MastermindView : public OperationControllerVisitor {
 public:
@@ -89,6 +91,11 @@ public:
         assert(redoController != nullptr);
         redoView.interact(redoController);
     }
+
+    virtual void visit(ServerController *serverController) override final {
+        assert(serverController != nullptr);
+        serverView.interact(serverController);
+    }
 private:
     StartView startView;
 
@@ -109,6 +116,8 @@ private:
     UndoView undoView;
 
     RedoView redoView;
+
+    ServerView serverView;
 };
 
 }

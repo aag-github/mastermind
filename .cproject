@@ -48,6 +48,16 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<folderInfo id="cdt.managedbuild.toolchain.gnu.base.1193354024.917471898" name="/" resourcePath="src/network">
+						<toolChain id="cdt.managedbuild.toolchain.gnu.base.732514194" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.base" unusedChildren="">
+							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1569763779" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base.1421892669"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.80579204" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base.2138202376"/>
+							<tool id="cdt.managedbuild.tool.gnu.c.compiler.base.1847845966" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base.1800185010"/>
+							<tool id="cdt.managedbuild.tool.gnu.c.linker.base.1318216839" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base.965942559"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.base.468102494" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.base.1753224238"/>
+							<tool id="cdt.managedbuild.tool.gnu.assembler.base.1691052573" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.base.1481012448"/>
+						</toolChain>
+					</folderInfo>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>

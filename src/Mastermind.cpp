@@ -2,6 +2,8 @@
 #include "ExecMode.h"
 #include "OperationController.h"
 #include "standalone/StandaloneLogic.h"
+#include "client/ClientLogic.h"
+#include "server/ServerLogic.h"
 #include "MastermindView.h"
 
 namespace Mastermind {
@@ -13,10 +15,10 @@ Mastermind* Mastermind::build(const ArgParser &parser) {
             mastermind = new Mastermind(new StandaloneLogic(), new MastermindView());
             break;
         case ExecMode::CLIENT:
-            mastermind = nullptr;
+            mastermind = new Mastermind(new ClientLogic(parser.getIp(), parser.getPort()), new MastermindView());
             break;
         case ExecMode::SERVER:
-            mastermind = nullptr;
+            mastermind = new Mastermind(new ServerLogic(parser.getPort()), new MastermindView());
             break;
     }
     return mastermind;
