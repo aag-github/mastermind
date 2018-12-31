@@ -14,8 +14,6 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 
-using namespace std;
-
 #define MAXPACKETSIZE 4096
 
 class TCPServer
@@ -26,12 +24,12 @@ class TCPServer
 	struct sockaddr_in clientAddress;
 	pthread_t serverThread;
 	char msg[ MAXPACKETSIZE ];
-	static string Message;
+	static std::string Message;
 
 	void setup(int port);
-	string receive();
-	string getMessage();
-	void Send(string msg);
+	std::string receive();
+	std::string getMessage();
+	void Send(std::string msg);
 	void detach();
 	void clean();
 

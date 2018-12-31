@@ -14,8 +14,6 @@
 #include <netdb.h> 
 #include <vector>
 
-using namespace std;
-
 class TCPClient
 {
   private:
@@ -26,10 +24,10 @@ class TCPClient
 
   public:
     TCPClient();
-    bool setup(string address, int port);
-    bool Send(string data);
-    string receive(int size = 4096);
-    string read();
+    bool setup(std::string address, int port);
+    bool Send(std::string data);
+    std::string receive(int size = 4096);
+    std::string read();
     void exit();
 };
 

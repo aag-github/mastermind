@@ -7,16 +7,16 @@ TCPClient::TCPClient()
 	address = "";
 }
 
-bool TCPClient::setup(string address , int port)
+bool TCPClient::setup(std::string address , int port)
 {
   	if(sock == -1)
 	{
 		sock = socket(AF_INET , SOCK_STREAM , 0);
 		if (sock == -1)
 		{
-      			cout << "Could not create socket" << endl;
-    		}
-        }
+		    std::cout << "Could not create socket" << std::endl;
+		}
+    }
   	if(inet_addr(address.c_str()) == 0xFF)
   	{
     		struct hostent *he;
@@ -24,7 +24,7 @@ bool TCPClient::setup(string address , int port)
     		if ( (he = gethostbyname( address.c_str() ) ) == NULL)
     		{
 		      herror("gethostbyname");
-      		      cout<<"Failed to resolve hostname\n";
+		      std::cout<<"Failed to resolve hostname\n";
 		      return false;
     		}
     		addr_list = (struct in_addr **) he->h_addr_list;
@@ -48,13 +48,13 @@ bool TCPClient::setup(string address , int port)
   	return true;
 }
 
-bool TCPClient::Send(string data)
+bool TCPClient::Send(std::string data)
 {
 	if(sock != -1) 
 	{
 		if( send(sock , data.c_str() , strlen( data.c_str() ) , 0) < 0)
 		{
-			cout << "Send failed : " << data << endl;
+		    std::cout << "Send failed : " << data << std::endl;
 			return false;
 		}
 	}
@@ -63,15 +63,15 @@ bool TCPClient::Send(string data)
 	return true;
 }
 
-string TCPClient::receive(int size)
+std::string TCPClient::receive(int size)
 {
   	char buffer[size];
 	memset(&buffer[0], 0, sizeof(buffer));
 
-  	string reply;
+	std::string reply;
 	if( recv(sock , buffer , size, 0) < 0)
   	{
-	    	cout << "receive failed!" << endl;
+	    std::cout << "receive failed!" << std::endl;
 		return nullptr;
   	}
 	buffer[size-1]='\0';
@@ -79,16 +79,16 @@ string TCPClient::receive(int size)
   	return reply;
 }
 
-string TCPClient::read()
+std::string TCPClient::read()
 {
   	char buffer[1] = {};
-  	string reply;
+  	std::string reply;
   	while (buffer[0] != '\n') {
-    		if( recv(sock , buffer , sizeof(buffer) , 0) < 0)
-    		{
-      			cout << "receive failed!" << endl;
-			return nullptr;
-    		}
+    	if( recv(sock , buffer , sizeof(buffer) , 0) < 0)
+    	{
+   		    std::cout << "receive failed!" << std::endl;
+   		    return nullptr;
+   		}
 		reply += buffer[0];
 	}
 	return reply;

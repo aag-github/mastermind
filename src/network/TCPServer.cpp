@@ -1,6 +1,6 @@
 #include "TCPServer.h" 
 
-string TCPServer::Message;
+std::string TCPServer::Message;
 
 void* TCPServer::Task(void *arg)
 {
@@ -18,7 +18,7 @@ void* TCPServer::Task(void *arg)
 		}
 		msg[n]=0;
 		//send(newsockfd,msg,n,0);
-		Message = string(msg);
+		Message = std::string(msg);
         }
 	return 0;
 }
@@ -34,9 +34,9 @@ void TCPServer::setup(int port)
  	listen(sockfd,5);
 }
 
-string TCPServer::receive()
+std::string TCPServer::receive()
 {
-	string str;
+    std::string str;
 	while(1)
 	{
 		socklen_t sosize  = sizeof(clientAddress);
@@ -47,12 +47,12 @@ string TCPServer::receive()
 	return str;
 }
 
-string TCPServer::getMessage()
+std::string TCPServer::getMessage()
 {
 	return Message;
 }
 
-void TCPServer::Send(string msg)
+void TCPServer::Send(std::string msg)
 {
 	send(newsockfd,msg.c_str(),msg.length(),0);
 }
