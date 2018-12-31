@@ -14,8 +14,10 @@ namespace Mastermind {
 
 class ServerInterpreterContext {
 public:
-    ServerInterpreterContext(Game *game) :
-        game(game)
+    ServerInterpreterContext(Game *game, std::string command, std::string value) :
+        game(game),
+        command(command),
+        value(value)
     {
     }
 
@@ -23,11 +25,33 @@ public:
     {
     }
 
-    Game getGame() {
+    Game* getGame() {
         return game;
+    }
+
+    std::string getCommand() {
+        return command;
+    }
+
+    std::string getValue() {
+        return value;
+    }
+
+    std::string getReply() {
+        return reply;
+    }
+
+    void setReply(std::string reply) {
+        this->reply = reply;
     }
 private:
     Game *game;
+
+    std::string command;
+
+    std::string value;
+
+    std::string reply;
 };
 
 } /* namespace Mastermind */

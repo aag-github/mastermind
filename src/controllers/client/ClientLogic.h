@@ -58,6 +58,7 @@ public:
         case State::REDO:
             return &redoController;
         case State::EXIT:
+            game.setState(State::INITIAL);
             return nullptr;
         default:
             assert(false);

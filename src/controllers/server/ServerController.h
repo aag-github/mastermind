@@ -3,6 +3,7 @@
 
 #include "OperationController.h"
 #include "TCPServer.h"
+#include "ServerInterpreter.h"
 
 namespace Mastermind {
 
@@ -43,11 +44,17 @@ private:
     std::string Interpret(std::string request) {
         std::cout << "got:" << request << "\n";
 
-        std::string response;
+        auto separator = request.find(':');
+        std::string command = request.substr(0, separator);
+        std::string value = request.substr(separator +1);
 
-        response = request + " back to you";
+        ServerInterpreterContext context(&game, command, value);
 
-        return response;
+        ServerInterpreter interpreter;
+
+        interpreter.interpret(&context);
+
+        return context.getReply();
     }
 };
 
@@ -59,7 +66,7 @@ void * ServerController::loop(void * m)
     while(1)
     {
         std::string str = tcpServer.getMessage();
-        if( str != "" )
+        if(str != "")
         {
             tcpServer.Send(serverController->Interpret(str));
             tcpServer.clean();

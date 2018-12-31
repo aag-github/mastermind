@@ -3,6 +3,7 @@
 
 #include <memento/MementoManager.h>
 #include "State.h"
+#include "server/ServerCommand.h"
 #include "SecretCombination.h"
 #include "ProposedCombinationList.h"
 #include "ProposedCombinationState.h"
@@ -17,34 +18,23 @@ public:
     GameProxy(std::string ip, int port) :
         Game(),
         currentProposedCombination(0),
-        undoRedoManager(this)
+        undoRedoManager(this),
+        ip(ip),
+        port(port)
     {
         proposedCombinations.resize(MAX_PROPOSED_COMBINATION);
-        tcpclient.setup(ip,port);
     }
 
     virtual ~GameProxy(){
     }
 
-    std::string send(std::string message) const {
-        srand(time(NULL));
-        tcpclient.Send(message);
-        std::string rec = tcpclient.receive();
-        if( rec != "" )
-        {
-            std::cout << "Server Response:" << rec << std::endl;
-        }
-        return rec;
-    }
-
     State getState() const {
-        std::string reply = send("GETSTATE:");
+        std::string reply = send(buildRequest(ServerCommand::GET_STATE, ""));
         return StateMap::getState(atoi(reply.c_str()));
     }
 
     void setState(State state) {
         send("SETSTATE:" + std::to_string(size_t(state)));
-        //TODO: implement call to proxy
     }
 
     const SecretCombination& getSecretCombination() const {
@@ -110,6 +100,22 @@ public:
         //TODO: implement call to proxy
     }
 private:
+    std::string send(std::string message) const {
+        TCPClient tcpclient;
+        tcpclient.setup(ip, port);
+        tcpclient.Send(message);
+        std::string rec = tcpclient.receive();
+        if( rec != "" )
+        {
+            std::cout << "Server Response:" << rec << std::endl;
+        }
+        return rec;
+    }
+
+    std::string buildRequest (ServerCommand command, std::string value) const {
+        return ServerCommandMap::getCommandString(ServerCommand::GET_STATE)
+                + ":" + value;
+    }
 
     SecretCombination secretCombination;
 
@@ -119,7 +125,9 @@ private:
 
     MementoManager undoRedoManager;
 
-    TCPClient tcpclient;
+    std::string ip;
+
+    int port;
 };
 
 }

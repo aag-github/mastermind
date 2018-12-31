@@ -49,7 +49,7 @@ public:
     void interact(MenuController* controller) {
         ShowMenuView showMenuView(&commands);
 
-        BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(true);
+        BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(false);
 
         showMenuView.show();
 
