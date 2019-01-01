@@ -18,6 +18,7 @@ public:
 
     friend class GameLocal;
     friend class GameFilePersistenceImpl;
+    friend class GameProxy;
 
     std::string toString() {
         std::string ret;
@@ -26,12 +27,12 @@ public:
         }
         return ret;
     }
-private:
-    std::vector<std::string> values;
 
     const std::vector<std::string>& get() const {
         return values;
     }
+private:
+    std::vector<std::string> values;
 
     void add(const std::string &value) {
         if (value != "") {

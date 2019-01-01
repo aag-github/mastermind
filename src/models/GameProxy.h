@@ -87,8 +87,15 @@ public:
     }
 
     virtual std::shared_ptr<Memento> createMemento() const override final {
-        //TODO: implement call to proxy
+        std::string reply = send(ServerCommand::buildRequest(ServerCommand::Command::CREATE_MEMENTO));
+        auto values = ServerCommand::splitArgs(reply);
+
         std::shared_ptr<Memento> memento = std::make_shared<Memento>();
+        for (auto value = values.begin(); value != values.end(); value++) {
+            if (value != values.begin()){
+                memento->add(*value);
+            }
+        }
         return memento;
     }
 
