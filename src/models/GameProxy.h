@@ -99,10 +99,18 @@ public:
         return memento;
     }
 
-    virtual MementoRestoreResult restoreMemento(std::shared_ptr<Memento> snapshot, bool recordUndoEvent) override final {
-        //TODO: implement call to proxy
-        MementoRestoreResult ret = MementoRestoreResult::OK;
-        return ret;
+    virtual MementoRestoreResult restoreMemento(std::shared_ptr<Memento> memento, bool recordUndoEvent) override final {
+
+        std::string args = std::to_string(memento->get().size());
+        for(auto str : memento->get()) {
+            args = ServerCommand::concatArgs(args, str);
+        }
+        args = ServerCommand::concatArgs(args, ServerCommand::getBoolString(recordUndoEvent));
+
+        std::string reply = send(ServerCommand::buildRequest(ServerCommand::Command::RESTORE_MEMENTO,
+                                 args));
+
+        return MementoRestoreResultMap::getMementoRestoreResultId(reply);
     }
 
     virtual void AddUndo() override final {

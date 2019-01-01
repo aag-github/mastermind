@@ -11,11 +11,21 @@ public:
     virtual ~RestoreMementoInterpreter(){};
 
     virtual void interpret(ServerInterpreterContext* context) override final {
-        //Game *game = context->getGame();
+        Game *game = context->getGame();
 
-        //TODO:
-        assert(false);
-    }
+        auto args = ServerCommand::splitArgs(context->getArgs());
+        assert(args.size() >= 2);
+
+        std::shared_ptr<Memento> memento = std::make_shared<Memento>();
+        for(size_t i = 1; i < args.size() - 1; i++) {
+            memento->add(args[i]);
+        }
+
+        bool recordUndoEvent = ServerCommand::getBoolValue(args[args.size() - 1]);
+
+        MementoRestoreResult result = game->restoreMemento(memento, recordUndoEvent);
+        context->setReply(MementoRestoreResultMap::getMementoRestoreResultString(result));
+   }
 };
 
 }

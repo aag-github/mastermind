@@ -11,9 +11,17 @@ public:
     virtual ~SetSecretCombinationInterpreter(){};
 
     virtual void interpret(ServerInterpreterContext* context) override final {
-        //Game *game = context->getGame();
-//TODO;
-        assert(false);
+        Game *game = context->getGame();
+
+        auto args = ServerCommand::splitArgs(context->getArgs());
+        assert(args.size() == 2);
+        SecretCombination combination;
+        combination = args[0];
+        bool recordUndoEvent = ServerCommand::getBoolValue(args[1]);
+
+        game->setSecretCombination(combination, recordUndoEvent);
+
+        context->setReply(ServerCommand::getCommandString(ServerCommand::Command::OK));
     }
 };
 

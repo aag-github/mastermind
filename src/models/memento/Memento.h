@@ -19,6 +19,7 @@ public:
     friend class GameLocal;
     friend class GameFilePersistenceImpl;
     friend class GameProxy;
+    friend class RestoreMementoInterpreter;
 
     std::string toString() {
         std::string ret;

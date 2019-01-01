@@ -15,7 +15,6 @@ public:
         std::shared_ptr<Memento> memento = game->createMemento();
         std::string args = std::to_string(memento->get().size());
         for(auto str : memento->get()) {
-            std::cout << "-----------" << str;
             args = ServerCommand::concatArgs(args, str);
         }
         context->setReply(args);
