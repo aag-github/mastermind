@@ -1,17 +1,31 @@
 #ifndef SRC_CONTROLLERS_SERVER_SERVERINTERPRETER_H_
 #define SRC_CONTROLLERS_SERVER_SERVERINTERPRETER_H_
 
+#include <server/interpreters/CanRedoInterpreter.h>
 #include <memory>
 #include "server/ServerCommand.h"
 #include "ServerExpression.h"
+#include "interpreters/AddUndoInterpreter.h"
+#include "interpreters/CanUndoInterpreter.h"
+#include "interpreters/ClearUndoRedoInterpreter.h"
+#include "interpreters/CreateMementoInterpreter.h"
+#include "interpreters/GetProposedCombinationsInterpreter.h"
+#include "interpreters/GetSecretCombinationInterpreter.h"
+#include "interpreters/GetStateInterpreter.h"
+#include "interpreters/RedoInterpreter.h"
+#include "interpreters/RestoreMementoInterpreter.h"
+#include "interpreters/SetProposedCombinationInterpreter.h"
+#include "interpreters/SetSecretCombinationInterpreter.h"
+#include "interpreters/StartInterpreter.h"
+#include "interpreters/SetStateInterpreter.h"
+#include "interpreters/UndoInterpreter.h"
 
 namespace Mastermind {
 
 class ServerInterpreter : public ServerExpression {
 public:
     ServerInterpreter() {
-        //TODO implement interpreter map
-        //buildInterpreterPrototypes();
+        buildInterpreterPrototypes();
     }
 
     virtual ~ServerInterpreter() {
@@ -19,123 +33,32 @@ public:
 
     void interpret(ServerInterpreterContext* context) override final {
         context->setReply("");
-        Game *game = context->getGame();
-        switch(ServerCommand::getCommandId(context->getCommand()))
-        {
-        case ServerCommand::Command::GET_STATE:
-            context->setReply(std::to_string(size_t(game->getState())));
-            break;
-        case ServerCommand::Command::SET_STATE:
-            game->setState(StateMap::getState(atoi(context->getValue().c_str())));
-            context->setReply(ServerCommand::getCommandString(ServerCommand::Command::OK));
-            break;
-        case ServerCommand::Command::GET_SECRET_COMBINATION: {
-            SecretCombination secret = game->getSecretCombination();
-            context->setReply(secret.getString());
-            break;
-        }
-        case ServerCommand::Command::GET_PROPOSED_COMBINATIONS: {
-            ProposedCombinationList combinations = game->getProposedCombinations();
-            std::string reply = "";
-            int count = 0;
-            for(auto combination : combinations) {
-                if(combination.isSet()) {
-                    count++;
-                    reply = ServerCommand::addListElement(reply, combination.getString());
-                }
-            }
-            reply = ServerCommand::addListElement(std::to_string(count), reply);
-            context->setReply(reply);
-            break;
-        }
-        case ServerCommand::Command::SET_SECRET_COMBINATION:
-            assert(false);
-            // TODO:
-            break;
-        case ServerCommand::Command::SET_PROPOSED_COMBINATION: {
-            auto args = ServerCommand::splitArgs(context->getValue());
-            assert(args.size() == 2);
-            Combination combination;
-            combination = args[0];
-            bool recordUndoEvent = ServerCommand::getBoolValue(args[1]);
+        auto interpreter = this->interpreters.find(ServerCommand::getCommandId(context->getCommand()));
+        assert(interpreter != interpreters.end() && interpreter->second != nullptr);
 
-            ProposedCombinationState state = game->setProposedCombination(combination, recordUndoEvent);
-
-            std::string reply = ProposedCombinationStateMap::getStateString(state);
-            context->setReply(reply);
-            break;
-        }
-        case ServerCommand::Command::START:
-            game->start();
-            context->setReply(ServerCommand::getCommandString(ServerCommand::Command::OK));
-            break;
-        case ServerCommand::Command::CAN_REDO: {
-            bool ret = game->canRedo();
-            context->setReply(ServerCommand::getBoolString(ret));
-            break;
-        }
-        case ServerCommand::Command::CAN_UNDO: {
-            bool ret = game->canUndo();
-            context->setReply(ServerCommand::getBoolString(ret));
-            break;
-        }
-        case ServerCommand::Command::REDO: {
-            bool ret = game->Redo();
-            context->setReply(ServerCommand::getBoolString(ret));
-            break;
-        }
-        case ServerCommand::Command::UNDO: {
-            bool ret = game->Undo();
-            context->setReply(ServerCommand::getBoolString(ret));
-            break;
-        }
-        case ServerCommand::Command::ADD_UNDO: {
-            game->AddUndo();
-            context->setReply(ServerCommand::getCommandString(ServerCommand::Command::OK));
-            break;
-        }
-        case ServerCommand::Command::CLEAR_UNDO_REDO: {
-            game->clearUndoRedo();
-            context->setReply(ServerCommand::getCommandString(ServerCommand::Command::OK));
-            break;
-        }
-        case ServerCommand::Command::CREATE_MEMENTO: {
-            //TODO:
-            assert(false);
-            break;
-        }
-        case ServerCommand::Command::RESTORE_MEMENTO: {
-            //TODO:
-            assert(false);
-            break;
-        }
-        case ServerCommand::Command::NONE:
-        default:
-            assert(false);
-            break;
-        }
+        interpreter->second->interpret(context);
     }
 
 private:
-    std::map<ServerCommand::Command, std::unique_ptr<ServerExpression>> interpreters;
+    std::map<ServerCommand::Command, std::shared_ptr<ServerExpression>> interpreters;
 
-/*    void buildInterpreterPrototypes() {
-        interpreters[ServerCommand::Command::GET_STATE] = std::unique_ptr<GetStateInterpreter>(new GetStateInterpreter);
-        SET_STATE,
-        GET_SECRET_COMBINATION,
-        GET_PROPOSED_COMBINATIONS,
-        START,
-        SET_PROPOSED_COMBINATION,
-        SET_SECRET_COMBINATION,
-        CREATE_MEMENTO,
-        RESTORE_MEMENTO,
-        ADD_UNDO,
-        CAN_UNDO,
-        CAN_REDO,
-        UNDO,
-        REDO,
-        CLEAR_UNDO_REDO,
-    }*/
+    void buildInterpreterPrototypes() {
+        interpreters[ServerCommand::Command::GET_STATE] = std::shared_ptr<GetStateInterpreter>(new GetStateInterpreter());
+        interpreters[ServerCommand::Command::SET_STATE] = std::shared_ptr<SetStateInterpreter>(new SetStateInterpreter());
+        interpreters[ServerCommand::Command::GET_SECRET_COMBINATION] = std::shared_ptr<GetSecretCombinationInterpreter>(new GetSecretCombinationInterpreter);
+        interpreters[ServerCommand::Command::GET_PROPOSED_COMBINATIONS] = std::shared_ptr<GetProposedCombinationsInterpreter>(new GetProposedCombinationsInterpreter);
+        interpreters[ServerCommand::Command::START] = std::shared_ptr<StartInterpreter>(new StartInterpreter);
+        interpreters[ServerCommand::Command::SET_PROPOSED_COMBINATION] = std::shared_ptr<SetProposedCombinationInterpreter>(new SetProposedCombinationInterpreter);
+        interpreters[ServerCommand::Command::SET_SECRET_COMBINATION] = std::shared_ptr<SetSecretCombinationInterpreter>(new SetSecretCombinationInterpreter);
+        interpreters[ServerCommand::Command::CREATE_MEMENTO] = std::shared_ptr<CreateMementoInterpreter>(new CreateMementoInterpreter);
+        interpreters[ServerCommand::Command::RESTORE_MEMENTO] = std::shared_ptr<RestoreMementoInterpreter>(new RestoreMementoInterpreter);
+        interpreters[ServerCommand::Command::ADD_UNDO] = std::shared_ptr<AddUndoInterpreter>(new AddUndoInterpreter);
+        interpreters[ServerCommand::Command::CAN_UNDO] = std::shared_ptr<CanUndoInterpreter>(new CanUndoInterpreter);
+        interpreters[ServerCommand::Command::CAN_REDO] = std::shared_ptr<CanRedoInterpreter>(new CanRedoInterpreter);
+        interpreters[ServerCommand::Command::UNDO] = std::shared_ptr<UndoInterpreter>(new UndoInterpreter);
+        interpreters[ServerCommand::Command::REDO] = std::shared_ptr<RedoInterpreter>(new RedoInterpreter);
+        interpreters[ServerCommand::Command::CLEAR_UNDO_REDO] = std::shared_ptr<ClearUndoRedoInterpreter>(new ClearUndoRedoInterpreter);
+    }
 };
 
 }
