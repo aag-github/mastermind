@@ -49,7 +49,7 @@ public:
         proposedCombinations.clear();
         proposedCombinations.resize(MAX_PROPOSED_COMBINATION);
 
-        auto values = ServerCommand::splitList(reply);
+        auto values = ServerCommand::splitArgs(reply);
         int count = 0;
         int current = 0;
         for (auto value = values.begin(); value != values.end(); value++) {

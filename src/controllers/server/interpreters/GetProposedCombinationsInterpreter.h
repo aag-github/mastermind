@@ -19,10 +19,10 @@ public:
         for(auto combination : combinations) {
             if(combination.isSet()) {
                 count++;
-                reply = ServerCommand::addListElement(reply, combination.getString());
+                reply = ServerCommand::concatArgs(reply, combination.getString());
             }
         }
-        reply = ServerCommand::addListElement(std::to_string(count), reply);
+        reply = ServerCommand::concatArgs(std::to_string(count), reply);
         context->setReply(reply);
     }
 };

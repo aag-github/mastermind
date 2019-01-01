@@ -60,30 +60,21 @@ public:
     }
 
     static std::string concatArgs(std::string s1, std::string s2) {
-        return s1 + ARG_SEPARATOR + s2;
+        if (s1.empty()) {
+            return s2;
+        } else {
+            return s1 + ARG_SEPARATOR + s2;
+        }
     }
 
     static std::vector<std::string> splitArgs(std::string args) {
         return split(args, *ARG_SEPARATOR.c_str());
     }
 
-    static std::vector<std::string> splitList(std::string list) {
-        return split(list, *LIST_SEPARATOR.c_str());
-    }
-
-    static std::string addListElement(std::string list, std::string newElement) {
-        if (list.empty()) {
-            return newElement;
-        } else {
-            return list + LIST_SEPARATOR + newElement;
-        }
-    }
-
 private:
     static std::map<Command, std::string> commandMap ;
 
     static std::string CMD_SEPARATOR;
-    static std::string LIST_SEPARATOR;
     static std::string ARG_SEPARATOR;
     static std::string ARG_TRUE;
     static std::string ARG_FALSE;
@@ -122,8 +113,7 @@ std::map<ServerCommand::Command, std::string> ServerCommand::commandMap = {
 };
 
 std::string ServerCommand::CMD_SEPARATOR = ":";
-std::string ServerCommand::LIST_SEPARATOR = "\n";
-std::string ServerCommand::ARG_SEPARATOR = "|";
+std::string ServerCommand::ARG_SEPARATOR = "\n";
 std::string ServerCommand::ARG_TRUE = "1";
 std::string ServerCommand::ARG_FALSE = "0";
 
