@@ -18,6 +18,8 @@ public:
         assert(controller != nullptr);
 
         controller->restart(DialogYesNoView().read("Are you sure you want to restart (Y/N)?"));
+
+        std::cout << std::endl;
     }
 };
 

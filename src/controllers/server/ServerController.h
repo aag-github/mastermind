@@ -42,8 +42,6 @@ private:
     TCPServer tcpServer;
 
     std::string Interpret(std::string request) {
-        std::cout << "got:" << request << "\n";
-
         auto separator = request.find(':');
         std::string command = request.substr(0, separator);
         std::string value = request.substr(separator +1);
@@ -68,7 +66,10 @@ void * ServerController::loop(void * m)
         std::string str = tcpServer.getMessage();
         if(str != "")
         {
-            tcpServer.Send(serverController->Interpret(str));
+            std::cout << "got: '" << str << "'\n";
+            std::string send = serverController->Interpret(str);
+            std::cout << "sent: '" << send << "'\n";
+            tcpServer.Send(send);
             tcpServer.clean();
         }
         usleep(1000);
