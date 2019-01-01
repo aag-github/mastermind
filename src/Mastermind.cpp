@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "Mastermind.h"
 #include "ExecMode.h"
 #include "OperationController.h"
@@ -26,6 +27,8 @@ Mastermind* Mastermind::build(const ArgParser &parser) {
             game = new GameLocal();
             mastermind = new Mastermind(new ServerLogic(game, parser.getPort()), new MastermindView());
             break;
+        default:
+            assert(false);
     }
     return mastermind;
 }
