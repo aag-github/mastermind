@@ -9,8 +9,9 @@ namespace Mastermind {
 
 class ServerLogic : public Logic {
 public:
-    ServerLogic(int port) :
-        serverController(game, port)
+    ServerLogic(Game* game, int port) :
+        Logic(game),
+        serverController(*game, port)
     {
     }
 
@@ -22,8 +23,6 @@ public:
     }
 
 private:
-    GameLocal game;
-
     ServerController serverController;
 };
 

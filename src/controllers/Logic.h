@@ -3,17 +3,21 @@
 
 namespace Mastermind {
 
+class Game;
+
 class OperationController;
 
 class Logic {
 public:
-    Logic()
+    Logic(Game* game) : game(game)
     {
     }
     virtual ~Logic() {
     }
 
     virtual OperationController* getController() = 0;
+protected:
+    Game* game;
 };
 
 }

@@ -18,25 +18,25 @@ namespace Mastermind {
 
 class ClientLogic : public Logic {
 public:
-    ClientLogic(std::string ip, int port) :
-        game(ip, port),
-        startController(game),
-        readCombinationController(game),
-        continueController(game),
-        menuController(game),
-        quitController(game),
-        restartController(game),
-        loadGameController(game),
-        saveGameController(game),
-        undoController(game),
-        redoController(game)
+    ClientLogic(Game* game) :
+        Logic(game),
+        startController(*game),
+        readCombinationController(*game),
+        continueController(*game),
+        menuController(*game),
+        quitController(*game),
+        restartController(*game),
+        loadGameController(*game),
+        saveGameController(*game),
+        undoController(*game),
+        redoController(*game)
     {
     }
     virtual ~ClientLogic() {
     }
 
     virtual OperationController* getController() override final {
-        switch (game.getState()){
+        switch (game->getState()){
         case State::INITIAL:
             return &startController;
         case State::MENU:
@@ -58,7 +58,7 @@ public:
         case State::REDO:
             return &redoController;
         case State::EXIT:
-            game.setState(State::INITIAL);
+            game->setState(State::INITIAL);
             return nullptr;
         default:
             assert(false);
@@ -66,8 +66,6 @@ public:
         }
 }
 private:
-    GameProxy game;
-
     StartController startController;
 
     ReadCombinationController readCombinationController;
