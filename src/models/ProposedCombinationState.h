@@ -2,6 +2,7 @@
 #define SRC_MODELS_PROPOSEDCOMBINATIONSTATE_H_
 
 #include <map>
+#include <assert.h>
 
 namespace Mastermind
 {
