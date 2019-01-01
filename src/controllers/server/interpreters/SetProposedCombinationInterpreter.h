@@ -13,7 +13,7 @@ public:
     virtual void interpret(ServerInterpreterContext* context) override final {
         Game *game = context->getGame();
 
-        auto args = ServerCommand::splitArgs(context->getValue());
+        auto args = ServerCommand::splitArgs(context->getArgs());
         assert(args.size() == 2);
         Combination combination;
         combination = args[0];

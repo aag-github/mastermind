@@ -24,6 +24,7 @@ public:
     }
 
     int read(int min, int max) {
+        assert(min <= max);
         int value;
         do {
             value = read();

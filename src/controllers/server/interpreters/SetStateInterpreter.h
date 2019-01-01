@@ -13,7 +13,7 @@ public:
     virtual void interpret(ServerInterpreterContext* context) override final {
         Game *game = context->getGame();
 
-        game->setState(StateMap::getState(atoi(context->getValue().c_str())));
+        game->setState(StateMap::getState(atoi(context->getArgs().c_str())));
         context->setReply(ServerCommand::getCommandString(ServerCommand::Command::OK));
     }
 };

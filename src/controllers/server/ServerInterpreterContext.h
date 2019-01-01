@@ -17,7 +17,7 @@ public:
     ServerInterpreterContext(Game *game, std::string command, std::string value) :
         game(game),
         command(command),
-        value(value)
+        args(value)
     {
     }
 
@@ -33,8 +33,8 @@ public:
         return command;
     }
 
-    std::string getValue() {
-        return value;
+    std::string getArgs() {
+        return args;
     }
 
     std::string getReply() {
@@ -49,7 +49,7 @@ private:
 
     std::string command;
 
-    std::string value;
+    std::string args;
 
     std::string reply;
 };
