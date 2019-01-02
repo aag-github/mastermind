@@ -1,19 +1,13 @@
 #ifndef SRC_VIEWS_MENUVIEW_H_
 #define SRC_VIEWS_MENUVIEW_H_
 
+#include <commands/ShowMenuView.h>
 #include <vector>
 #include <iostream>
 #include "CharReader.h"
 #include "MenuController.h"
 #include "commands/CommandView.h"
-#include "commands/CommandUndoView.h"
-#include "commands/CommandRedoView.h"
-#include "commands/CommandLoadView.h"
-#include "commands/CommandSaveView.h"
-#include "commands/CommandContinueGameView.h"
-#include "commands/CommandRestartGameView.h"
-#include "commands/CommandQuitView.h"
-#include "ui/ShowMenuView.h"
+#include "commands/OptionalCommandView.h"
 
 namespace Mastermind {
 
@@ -35,15 +29,13 @@ public:
     virtual void setCommands(bool undo, bool redo) {
         deleteCommands();
 
-        commands.push_back(new CommandUndoView("Undo", State::UNDO));
-        commands.back()->setEnabled(undo);
-        commands.push_back(new CommandRedoView("Redo", State::REDO));
-        commands.back()->setEnabled(redo);
-        commands.push_back(new CommandLoadView("Load", State::LOAD_GAME));
-        commands.push_back(new CommandSaveView("Save", State::SAVE_GAME));
-        commands.push_back(new CommandContinueGameView("Type new combination", State::READ_PROPOSED_COMBINATION));
-        commands.push_back(new CommandRestartGameView("Restart game", State::RESTART));
-        commands.push_back(new CommandQuitView("Quit", State::QUIT));
+        commands.push_back(new OptionalCommandView("Undo", State::UNDO, undo));
+        commands.push_back(new OptionalCommandView("Redo", State::REDO, redo));
+        commands.push_back(new CommandView("Load", State::LOAD_GAME));
+        commands.push_back(new CommandView("Save", State::SAVE_GAME));
+        commands.push_back(new CommandView("Type new combination", State::READ_PROPOSED_COMBINATION));
+        commands.push_back(new CommandView("Restart game", State::RESTART));
+        commands.push_back(new CommandView("Quit", State::QUIT));
     }
 
     void interact(MenuController* controller) {
@@ -51,9 +43,7 @@ public:
 
         BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(true);
 
-        showMenuView.show();
-
-        int option = showMenuView.read();
+        int option = showMenuView.execute();
 
         commands[option - 1]->execute(controller);
     }

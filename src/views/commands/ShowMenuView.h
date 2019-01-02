@@ -1,5 +1,5 @@
-#ifndef SRC_VIEWS_UI_SHOWMENUVIEW_H_
-#define SRC_VIEWS_UI_SHOWMENUVIEW_H_
+#ifndef SRC_VIEWS_COMMANDS_SHOWMENUVIEW_H_
+#define SRC_VIEWS_COMMANDS_SHOWMENUVIEW_H_
 
 #include "commands/CommandView.h"
 
@@ -15,17 +15,20 @@ public:
 
     virtual ~ShowMenuView() {}
 
+    int execute() const {
+        show();
+        return read();
+    }
+private:
+    std::vector<CommandView*> *commands;
+
+
     void show() const {
         int i = 1;
         std::cout << std::endl << SECTION_BREAK << std::endl;
         for(auto command : *commands) {
             std::stringstream itemNumber;
-            if (command->isEnabled()) {
-                itemNumber << i;
-            } else {
-                itemNumber << "*";
-            }
-            std::cout << itemNumber.str() << ".- " << command->getTitle() << std::endl;
+            command->show(std::to_string(i));
             i++;
         }
         std::cout << std::endl;
@@ -41,9 +44,6 @@ public:
         option = option - '0';
         return option;
     }
-private:
-    std::vector<CommandView*> *commands;
-
 };
 
 }
