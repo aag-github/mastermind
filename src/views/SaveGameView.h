@@ -3,7 +3,7 @@
 
 #include <algorithm>
 #include <iostream>
-#include "SaveGameController.h"
+#include "client/SaveGameController.h"
 #include "DialogReadString.h"
 #include "ui/DialogYesNoView.h"
 #include "ui/AvailableGamesView.h"

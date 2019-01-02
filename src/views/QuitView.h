@@ -1,7 +1,7 @@
 #ifndef SRC_VIEWS_QUITVIEW_H_
 #define SRC_VIEWS_QUITVIEW_H_
 
-#include "QuitController.h"
+#include "client/QuitController.h"
 #include "./ui/DialogYesNoView.h"
 
 namespace Mastermind {

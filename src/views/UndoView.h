@@ -1,7 +1,7 @@
 #ifndef SRC_VIEWS_UNDOVIEW_H_
 #define SRC_VIEWS_UNDOVIEW_H_
 
-#include "UndoController.h"
+#include "client/UndoController.h"
 #include "ui/BoardView.h"
 
 namespace Mastermind {

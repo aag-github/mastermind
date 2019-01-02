@@ -1,7 +1,7 @@
 #ifndef SRC_VIEWS_LOADGAMEVIEW_H_
 #define SRC_VIEWS_LOADGAMEVIEW_H_
 
-#include "LoadGameController.h"
+#include "client/LoadGameController.h"
 #include "ViewConst.h"
 #include "ui/AvailableGamesView.h"
 

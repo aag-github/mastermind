@@ -1,7 +1,7 @@
 #ifndef SRC_VIEWS_RESTARTVIEW_H_
 #define SRC_VIEWS_RESTARTVIEW_H_
 
-#include "RestartController.h"
+#include "client/RestartController.h"
 #include "./ui/DialogYesNoView.h"
 
 namespace Mastermind {

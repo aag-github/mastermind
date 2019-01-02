@@ -5,7 +5,7 @@
 #include <vector>
 #include <iostream>
 #include "CharReader.h"
-#include "MenuController.h"
+#include "client/MenuController.h"
 #include "commands/CommandView.h"
 #include "commands/OptionalCommandView.h"
 
