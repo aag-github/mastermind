@@ -56,11 +56,14 @@ public:
             if (value == values.begin()){
                 count = atoi(value->c_str());
             } else if (current < count) {
-            Combination combination;
-            combination = *value;
-            ProposedCombination proposed;
-            proposed = combination;
-            proposedCombinations[current++] = proposed;
+                Combination combination;
+                combination = *value;
+                value++;
+                int dead = atoi(value->c_str());
+                value++;
+                int injured = atoi(value->c_str());
+                Result result(dead,injured);
+                proposedCombinations[current++] = ProposedCombination(combination, result);
             }
         }
         return proposedCombinations;

@@ -19,7 +19,10 @@ public:
         for(auto combination : combinations) {
             if(combination.isSet()) {
                 count++;
+                Result result = combination.getResult();
                 reply = ServerCommand::concatArgs(reply, combination.getString());
+                reply = ServerCommand::concatArgs(reply, std::to_string(result.getDead()));
+                reply = ServerCommand::concatArgs(reply, std::to_string(result.getInjured()));
             }
         }
         reply = ServerCommand::concatArgs(std::to_string(count), reply);

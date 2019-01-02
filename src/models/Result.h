@@ -7,6 +7,12 @@ namespace Mastermind {
 
 class Result {
 public:
+    Result(int dead, int injured) :
+        dead(dead),
+        injured(injured)
+    {
+    }
+
     Result() :
         dead(0),
         injured(0)

@@ -9,6 +9,11 @@ namespace Mastermind {
 
 class ProposedCombination : public Combination {
 public:
+    ProposedCombination(const Combination& combination, const Result &result):Combination() {
+        *this = combination;
+        this->result = result;
+    }
+
     ProposedCombination():Combination() {
     }
 

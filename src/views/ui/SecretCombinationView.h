@@ -15,9 +15,9 @@ public:
     virtual ~SecretCombinationView(){
     };
 
- /*   virtual void showColor(const ColorList::Color &color) const {
+    virtual void showColor(const ColorList::Color &color) const {
         printf("X ");
-    }*/
+    }
 };
 
 }
