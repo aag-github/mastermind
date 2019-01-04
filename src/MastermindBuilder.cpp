@@ -11,7 +11,7 @@
 
 namespace Mastermind {
 
-MastermindBuilder* MastermindBuilder::builderInstance;
+MastermindBuilder* MastermindBuilder::builderInstance(nullptr);
 
 MastermindBuilder* MastermindBuilder::instance() {
     if (builderInstance == nullptr) {
@@ -21,7 +21,6 @@ MastermindBuilder* MastermindBuilder::instance() {
 }
 
 MastermindBuilder::MastermindBuilder() {
-    builderInstance = nullptr;
 }
 
 Mastermind* MastermindBuilder::build(const ArgParser &parser) const {
