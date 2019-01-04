@@ -15,10 +15,10 @@ class UndoController;
 class RedoController;
 class ServerController;
 
-class OperationControllerVisitor {
+class ClientOperationControllerVisitor {
 public:
-    OperationControllerVisitor(){};
-    virtual ~OperationControllerVisitor(){};
+    ClientOperationControllerVisitor(){};
+    virtual ~ClientOperationControllerVisitor(){};
 
     virtual void visit(StartController *startController) = 0;
 
@@ -39,6 +39,15 @@ public:
     virtual void visit(UndoController *undoController) = 0;
 
     virtual void visit(RedoController *redoController) = 0;
+
+    virtual void visit(ServerController *serverController) = 0;
+
+};
+
+class ServerOperationControllerVisitor {
+public:
+    ServerOperationControllerVisitor(){};
+    virtual ~ServerOperationControllerVisitor(){};
 
     virtual void visit(ServerController *serverController) = 0;
 

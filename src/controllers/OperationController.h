@@ -6,17 +6,31 @@
 
 namespace Mastermind {
 
-class OperationController : public Controller {
+class ClientOperationController : public Controller {
 public:
-    OperationController(Game &game) :
+    ClientOperationController(Game &game) :
         Controller(game)
     {
     }
 
-    virtual ~OperationController() {
+    virtual ~ClientOperationController() {
     }
 
-    virtual void accept(OperationControllerVisitor *operationControllerVisitor) = 0;
+    virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) = 0;
+
+};
+
+class ServerOperationController : public Controller {
+public:
+    ServerOperationController(Game &game) :
+        Controller(game)
+    {
+    }
+
+    virtual ~ServerOperationController() {
+    }
+
+    virtual void accept(ServerOperationControllerVisitor *operationControllerVisitor) = 0;
 
 };
 

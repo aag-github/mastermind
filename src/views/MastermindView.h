@@ -30,13 +30,13 @@ class UndoController;
 class RedoController;
 class ServerController;
 
-class MastermindView : public OperationControllerVisitor {
+class ClientMastermindView : public ClientOperationControllerVisitor {
 public:
-    MastermindView(){};
-    virtual ~MastermindView(){};
+    ClientMastermindView(){};
+    virtual ~ClientMastermindView(){};
 
 
-    void interact(OperationController *operationController) {
+    void interact(ClientOperationController *operationController) {
         assert(operationController != nullptr);
         operationController->accept(this);
     }
@@ -117,6 +117,25 @@ private:
 
     RedoView redoView;
 
+    ServerView serverView;
+};
+
+class ServerMastermindView : public ServerOperationControllerVisitor {
+public:
+    ServerMastermindView(){};
+    virtual ~ServerMastermindView(){};
+
+
+    void interact(ServerOperationController *operationController) {
+        assert(operationController != nullptr);
+        operationController->accept(this);
+    }
+
+    virtual void visit(ServerController *serverController) override final {
+        assert(serverController != nullptr);
+        serverView.interact(serverController);
+    }
+private:
     ServerView serverView;
 };
 

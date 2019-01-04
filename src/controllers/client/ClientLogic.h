@@ -16,7 +16,7 @@
 
 namespace Mastermind {
 
-class ClientLogic : public Logic {
+class ClientLogic : public Logic<ClientOperationController> {
 public:
     ClientLogic(Game* game) :
         Logic(game),
@@ -35,7 +35,7 @@ public:
     virtual ~ClientLogic() {
     }
 
-    virtual OperationController* getController() override final {
+    virtual ClientOperationController* getController() override final {
         switch (game->getState()){
         case State::INITIAL:
             return &startController;

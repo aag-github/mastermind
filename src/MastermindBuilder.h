@@ -6,7 +6,7 @@
 namespace Mastermind
 {
 
-class Mastermind;
+class MastermindPlayer;
 
 class MastermindBuilder {
 private:
@@ -20,7 +20,7 @@ public:
 
     static MastermindBuilder* instance();
 
-    Mastermind* build(const ArgParser &parser) const;
+    MastermindPlayer* build(const ArgParser &parser) const;
 
     static void cleanup() {
         delete builderInstance;

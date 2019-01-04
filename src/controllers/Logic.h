@@ -5,16 +5,18 @@ namespace Mastermind {
 
 class Game;
 
-class OperationController;
+class ClientOperationController;
 
-class Logic {
+template <class OPERATION_CONTROLLER> class Logic {
 public:
-    Logic(Game* game);
+    Logic(Game* game) : game(game){
+
+    };
 
     virtual ~Logic() {
     }
 
-    virtual OperationController* getController() = 0;
+    virtual OPERATION_CONTROLLER* getController() = 0;
 protected:
     Game* game;
 };

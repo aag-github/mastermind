@@ -5,10 +5,10 @@
 
 namespace Mastermind {
 
-class RedoController: public OperationController {
+class RedoController: public ClientOperationController {
 public:
     RedoController(Game &game) :
-        OperationController(game)
+        ClientOperationController(game)
     {
     }
 
@@ -23,7 +23,7 @@ public:
         game.setState(State::MENU);
     }
 
-    virtual void accept(OperationControllerVisitor *operationControllerVisitor) override final
+    virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
     {
         assert(operationControllerVisitor != nullptr);
 

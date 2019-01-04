@@ -7,7 +7,7 @@
 
 namespace Mastermind {
 
-class ServerLogic : public Logic {
+class ServerLogic : public Logic<ServerOperationController> {
 public:
     ServerLogic(Game* game, int port) :
         Logic(game),
@@ -18,7 +18,7 @@ public:
     virtual ~ServerLogic() {
     }
 
-    virtual OperationController* getController() override final {
+    virtual ServerOperationController* getController() override final {
         return &serverController;
     }
 

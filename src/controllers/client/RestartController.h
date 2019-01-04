@@ -5,10 +5,10 @@
 
 namespace Mastermind {
 
-class RestartController: public OperationController {
+class RestartController: public ClientOperationController {
 public:
     RestartController(Game &game) :
-        OperationController(game)
+        ClientOperationController(game)
     {
     }
 
@@ -25,7 +25,7 @@ public:
         }
     }
 
-    virtual void accept(OperationControllerVisitor *operationControllerVisitor) override final
+    virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
     {
         assert(operationControllerVisitor != nullptr);
 

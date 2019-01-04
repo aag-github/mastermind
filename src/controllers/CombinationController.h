@@ -5,10 +5,10 @@
 
 namespace Mastermind {
 
-class CombinationController : public OperationController {
+class CombinationController : public ClientOperationController {
 public:
     CombinationController(Game &game) :
-        OperationController(game)
+        ClientOperationController(game)
     {
     }
 

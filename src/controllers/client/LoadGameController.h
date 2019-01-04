@@ -6,10 +6,10 @@
 
 namespace Mastermind {
 
-class LoadGameController: public OperationController {
+class LoadGameController: public ClientOperationController {
 public:
     LoadGameController(Game &game) :
-        OperationController(game)
+        ClientOperationController(game)
     {
     }
 
@@ -36,7 +36,7 @@ public:
         return gameLoader.getAvailableGames();
     }
 
-    virtual void accept(OperationControllerVisitor *operationControllerVisitor) override final
+    virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
     {
         assert(operationControllerVisitor != nullptr);
 

@@ -8,10 +8,10 @@
 
 namespace Mastermind {
 
-class ServerController: public OperationController {
+class ServerController: public ServerOperationController {
 public:
     ServerController(Game &game, int port) :
-        OperationController(game)
+        ServerOperationController(game)
     {
         tcpServer.setup(port);
     }
@@ -28,7 +28,7 @@ public:
         }
     };
 
-    virtual void accept(OperationControllerVisitor *operationControllerVisitor) override final
+    virtual void accept(ServerOperationControllerVisitor *operationControllerVisitor) override final
     {
         assert(operationControllerVisitor != nullptr);
 

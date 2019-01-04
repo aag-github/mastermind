@@ -2,41 +2,63 @@
 #define _MASTERMIND_H
 
 #include "ArgParser.h"
+#include "OperationController.h"
+#include "client/ClientLogic.h"
+#include "server/ServerLogic.h"
 #include "MastermindView.h"
-#include "Logic.h"
 
 namespace Mastermind
 {
 
-class Logic;
+class MastermindPlayer {
+public:
+    virtual ~MastermindPlayer(){};
 
-class Mastermind {
+    virtual void play() = 0;
+};
+
+template <class LOGIC, class VIEW, class OPERATION_CONTROLLER> class MastermindTemplate : public MastermindPlayer {
 private:
-    Logic *logic;
+    LOGIC *logic;
 
-    MastermindView view;
+    VIEW view;
 
 public:
-    Mastermind(Logic *logic) :
+    MastermindTemplate(LOGIC *logic) :
         logic(logic)
     {
     }
 
-public:
-    virtual ~Mastermind()
+    virtual ~MastermindTemplate()
     {
         delete logic;
     }
 
-    void play()
-    {
-        OperationController* controller;
+    virtual void play() override final {
+        OPERATION_CONTROLLER* controller;
         do {
             controller = logic->getController();
             if (controller != nullptr){
                 view.interact(controller);
             }
         } while (controller != nullptr);
+    }
+
+};
+
+class ClientMastermind : public MastermindTemplate<ClientLogic, ClientMastermindView, ClientOperationController> {
+public:
+    ClientMastermind(ClientLogic *logic) :
+        MastermindTemplate(logic) {
+
+    }
+};
+
+class ServerMastermind : public MastermindTemplate<ServerLogic, ServerMastermindView, ServerOperationController> {
+public:
+    ServerMastermind(ServerLogic *logic) :
+        MastermindTemplate(logic) {
+
     }
 };
 

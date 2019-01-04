@@ -23,21 +23,21 @@ MastermindBuilder* MastermindBuilder::instance() {
 MastermindBuilder::MastermindBuilder() {
 }
 
-Mastermind* MastermindBuilder::build(const ArgParser &parser) const {
-    Mastermind *mastermind = nullptr;
+MastermindPlayer* MastermindBuilder::build(const ArgParser &parser) const {
+    MastermindPlayer *mastermind = nullptr;
     Game* game = nullptr;
     switch(parser.getExecMode()) {
         case ExecMode::STANDALONE:
             game = new GameLocal();
-            mastermind = new Mastermind(new ClientLogic(game));
+            mastermind = new ClientMastermind(new ClientLogic(game));
             break;
         case ExecMode::CLIENT:
             game = new GameProxy(parser.getIp(), parser.getPort());
-            mastermind = new Mastermind(new ClientLogic(game));
+            mastermind = new ClientMastermind(new ClientLogic(game));
             break;
         case ExecMode::SERVER:
             game = new GameLocal();
-            mastermind = new Mastermind(new ServerLogic(game, parser.getPort()));
+            mastermind = new ServerMastermind(new ServerLogic(game, parser.getPort()));
             break;
         default:
             assert(false);
