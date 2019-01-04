@@ -1,7 +1,16 @@
-MastermindBuilder.h: Builder and Singleton
-MenuView.h: Commamnd
-Undo/Redo/Persistence: Memento
-OperationControllerVisitor.h: Visitor
-ServerInterpreter.h: Interpreter
-GamePersistence.h: Bridge
-GameProxy.h: Proxy
+MastermindBuilder.h: Builder 
+MastermindBuilder.h: Singleton
+
+views/client/MenuView.h: Command
+
+model/memento: Memento (used in undo/redo/file game persistence)
+
+controllers/client/ClientOperationControllerVisitor.h: Visitor
+controllers/server/ServerOperationControllerVisitor.h: Visitor
+
+controllers/server/ServerInterpreter.h: Interpreter
+controllers/server/ServerInterpreter.h: Prototype
+
+model/persistence: Bridge
+
+model/GameProxy.h: Proxy
