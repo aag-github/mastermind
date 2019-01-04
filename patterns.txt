@@ -1,0 +1,7 @@
+MastermindBuilder.h: Builder and Singleton
+MenuView.h: Commamnd
+Undo/Redo/Persistence: Memento
+OperationControllerVisitor.h: Visitor
+ServerInterpreter.h: Interpreter
+GamePersistence.h: Bridge
+GameProxy.h: Proxy
