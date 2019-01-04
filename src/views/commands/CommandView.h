@@ -2,6 +2,7 @@
 #define SRC_VIEWS_COMMANDS_COMMANDVIEW_H_
 
 #include "State.h"
+#include "client/MenuController.h"
 
 namespace Mastermind {
 

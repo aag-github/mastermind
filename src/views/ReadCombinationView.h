@@ -3,6 +3,7 @@
 
 #include "./ui/BoardView.h"
 #include "./ui/GameEndView.h"
+#include "client/ReadCombinationController.h"
 
 namespace Mastermind {
 

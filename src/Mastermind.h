@@ -2,23 +2,22 @@
 #define _MASTERMIND_H
 
 #include "ArgParser.h"
+#include "MastermindView.h"
 
 namespace Mastermind
 {
 
 class Logic;
-class MastermindView;
 
 class Mastermind {
 private:
     Logic *logic;
 
-    MastermindView *view;
+    MastermindView view;
 
 public:
-    Mastermind(Logic *logic, MastermindView *view) :
-        logic(logic),
-        view(view)
+    Mastermind(Logic *logic) :
+        logic(logic)
     {
     }
 

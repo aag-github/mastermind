@@ -14,7 +14,6 @@ namespace Mastermind {
 Mastermind::~Mastermind()
 {
     delete logic;
-    delete view;
 }
 
 void Mastermind::play()
@@ -23,7 +22,7 @@ void Mastermind::play()
     do {
         controller = logic->getController();
         if (controller != nullptr){
-            view->interact(controller);
+            view.interact(controller);
         }
     } while (controller != nullptr);
 }

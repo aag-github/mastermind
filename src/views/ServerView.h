@@ -1,7 +1,7 @@
 #ifndef SRC_VIEWS_SERVERVIEW_H_
 #define SRC_VIEWS_SERVERVIEW_H_
 
-#include "OperationController.h"
+#include "server/ServerController.h"
 
 namespace Mastermind {
 

@@ -1,7 +1,7 @@
 #ifndef SRC_VIEWS_STARTVIEW_H_
 #define SRC_VIEWS_STARTVIEW_H_
 
-#include "OperationController.h"
+#include "client/StartController.h"
 #include "./ui/BoardView.h"
 
 namespace Mastermind {

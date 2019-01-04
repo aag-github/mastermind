@@ -30,15 +30,15 @@ Mastermind* MastermindBuilder::build(const ArgParser &parser) const {
     switch(parser.getExecMode()) {
         case ExecMode::STANDALONE:
             game = new GameLocal();
-            mastermind = new Mastermind(new ClientLogic(game), new MastermindView());
+            mastermind = new Mastermind(new ClientLogic(game));
             break;
         case ExecMode::CLIENT:
             game = new GameProxy(parser.getIp(), parser.getPort());
-            mastermind = new Mastermind(new ClientLogic(game), new MastermindView());
+            mastermind = new Mastermind(new ClientLogic(game));
             break;
         case ExecMode::SERVER:
             game = new GameLocal();
-            mastermind = new Mastermind(new ServerLogic(game, parser.getPort()), new MastermindView());
+            mastermind = new Mastermind(new ServerLogic(game, parser.getPort()));
             break;
         default:
             assert(false);
