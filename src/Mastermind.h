@@ -3,6 +3,7 @@
 
 #include "ArgParser.h"
 #include "MastermindView.h"
+#include "Logic.h"
 
 namespace Mastermind
 {
@@ -22,10 +23,21 @@ public:
     }
 
 public:
-    ~Mastermind();
+    virtual ~Mastermind()
+    {
+        delete logic;
+    }
 
-    void play();
-
+    void play()
+    {
+        OperationController* controller;
+        do {
+            controller = logic->getController();
+            if (controller != nullptr){
+                view.interact(controller);
+            }
+        } while (controller != nullptr);
+    }
 };
 
 }
