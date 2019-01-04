@@ -15,7 +15,7 @@ private:
 
     MastermindView *view;
 
-protected:
+public:
     Mastermind(Logic *logic, MastermindView *view) :
         logic(logic),
         view(view)
@@ -27,7 +27,6 @@ public:
 
     void play();
 
-    static Mastermind* build(const ArgParser &parser);
 };
 
 }

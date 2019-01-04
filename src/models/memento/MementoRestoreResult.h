@@ -34,11 +34,6 @@ private:
     static std::map<MementoRestoreResult, std::string> map ;
 };
 
-std::map<MementoRestoreResult, std::string> MementoRestoreResultMap::map = {
-        { MementoRestoreResult::OK, "0" },
-        { MementoRestoreResult::SECRET_COMBINATION_ERROR, "1" },
-        { MementoRestoreResult::PROPOSED_COMBINATION_ERROR, "2" },
-};
 }
 
 #endif /* SRC_MODELS_MEMENTO_MEMENTORESTORERESULT_H_ */

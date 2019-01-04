@@ -1,6 +1,7 @@
 #ifndef SRC_MODELS_COLORLIST_H_
 #define SRC_MODELS_COLORLIST_H_
 
+#include <assert.h>
 #include <map>
 #include <vector>
 
@@ -59,15 +60,6 @@ public:
 
 private :
     static std::map<Color, char> colors;
-};
-
-std::map<ColorList::Color, char> ColorList::colors = {
-        { ColorList::Color::RED, 'R' },
-        { ColorList::Color::GREEN, 'G' },
-        { ColorList::Color::BLUE, 'B' },
-        { ColorList::Color::YELLOW, 'Y' },
-        { ColorList::Color::ORANGE, 'O' },
-        { ColorList::Color::MAGENTA, 'M' }
 };
 
 }

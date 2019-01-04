@@ -2,6 +2,7 @@
 #define SRC_CONTROLLERS_SERVER_INTERPRETERS_CANREDOINTERPRETER_H_
 
 #include <server/ServerExpression.h>
+#include <server/ServerCommand.h>
 
 namespace Mastermind {
 

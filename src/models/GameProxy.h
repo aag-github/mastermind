@@ -2,6 +2,7 @@
 #define SRC_MODELS_GAMEPROXY_H_
 
 #include <sstream>
+#include "Game.h"
 #include <memento/MementoManager.h>
 #include "State.h"
 #include "server/ServerCommand.h"

@@ -9,9 +9,8 @@ class OperationController;
 
 class Logic {
 public:
-    Logic(Game* game) : game(game)
-    {
-    }
+    Logic(Game* game);
+
     virtual ~Logic() {
     }
 

@@ -2,7 +2,7 @@
 #define SRC_CONTROLLERS_SERVERLOGIC_H_
 
 #include "Logic.h"
-#include "GameLocal.h"
+#include "Game.h"
 #include "ServerController.h"
 
 namespace Mastermind {
