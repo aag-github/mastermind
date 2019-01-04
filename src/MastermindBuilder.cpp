@@ -1,10 +1,10 @@
 #include <assert.h>
 #include "MastermindBuilder.h"
-#include "Mastermind.h"
+#include "ClientMastermind.h"
+#include "ServerMastermind.h"
 #include "ExecMode.h"
 #include "client/ClientLogic.h"
 #include "server/ServerLogic.h"
-#include "MastermindView.h"
 #include "Game.h"
 #include "GameProxy.h"
 #include "GameLocal.h"

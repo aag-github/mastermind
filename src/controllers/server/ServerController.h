@@ -1,7 +1,7 @@
 #ifndef SRC_CONTROLLERS_SERVER_SERVERCONTROLLER_H_
 #define SRC_CONTROLLERS_SERVER_SERVERCONTROLLER_H_
 
-#include "OperationController.h"
+#include "ServerOperationController.h"
 #include "TCPServer.h"
 #include "Game.h"
 #include "ServerInterpreter.h"

@@ -1,9 +1,9 @@
-#ifndef SRC_VIEWS_MASTERMINDVIEW_H_
-#define SRC_VIEWS_MASTERMINDVIEW_H_
+#ifndef SRC_VIEWS_CLIENTMASTERMINDVIEW_H_
+#define SRC_VIEWS_CLIENTMASTERMINDVIEW_H_
 
 #include <assert.h>
-#include "OperationController.h"
-#include "OperationControllerVisitor.h"
+#include "client/ClientOperationController.h"
+#include "client/ClientOperationControllerVisitor.h"
 #include "StartView.h"
 #include "ContinueView.h"
 #include "ReadCombinationView.h"
@@ -14,7 +14,6 @@
 #include "SaveGameView.h"
 #include "UndoView.h"
 #include "RedoView.h"
-#include "ServerView.h"
 
 namespace Mastermind {
 
@@ -28,7 +27,6 @@ class LoadGameController;
 class SaveGameController;
 class UndoController;
 class RedoController;
-class ServerController;
 
 class ClientMastermindView : public ClientOperationControllerVisitor {
 public:
@@ -92,10 +90,6 @@ public:
         redoView.interact(redoController);
     }
 
-    virtual void visit(ServerController *serverController) override final {
-        assert(serverController != nullptr);
-        serverView.interact(serverController);
-    }
 private:
     StartView startView;
 
@@ -116,27 +110,6 @@ private:
     UndoView undoView;
 
     RedoView redoView;
-
-    ServerView serverView;
-};
-
-class ServerMastermindView : public ServerOperationControllerVisitor {
-public:
-    ServerMastermindView(){};
-    virtual ~ServerMastermindView(){};
-
-
-    void interact(ServerOperationController *operationController) {
-        assert(operationController != nullptr);
-        operationController->accept(this);
-    }
-
-    virtual void visit(ServerController *serverController) override final {
-        assert(serverController != nullptr);
-        serverView.interact(serverController);
-    }
-private:
-    ServerView serverView;
 };
 
 }

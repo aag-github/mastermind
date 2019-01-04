@@ -2,7 +2,7 @@
 #define SRC_CONTROLLERS_LOADGAMECONTROLLER_H_
 
 #include "persistence/GameFilePersistence.h"
-#include "OperationController.h"
+#include "ClientOperationController.h"
 
 namespace Mastermind {
 

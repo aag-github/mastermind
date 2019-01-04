@@ -1,7 +1,7 @@
 #ifndef SRC_CONTROLLERS_RESTARTCONTROLLER_H_
 #define SRC_CONTROLLERS_RESTARTCONTROLLER_H_
 
-#include "OperationController.h"
+#include "ClientOperationController.h"
 
 namespace Mastermind {
 

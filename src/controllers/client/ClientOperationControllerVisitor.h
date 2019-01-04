@@ -1,5 +1,5 @@
-#ifndef SRC_CONTROLLERS_OPERATIONCONTROLLERVISITOR_H_
-#define SRC_CONTROLLERS_OPERATIONCONTROLLERVISITOR_H_
+#ifndef SRC_CONTROLLERS_CLIENTOPERATIONCONTROLLERVISITOR_H_
+#define SRC_CONTROLLERS_CLIENTOPERATIONCONTROLLERVISITOR_H_
 
 namespace Mastermind {
 
@@ -13,7 +13,6 @@ class LoadGameController;
 class SaveGameController;
 class UndoController;
 class RedoController;
-class ServerController;
 
 class ClientOperationControllerVisitor {
 public:
@@ -39,17 +38,6 @@ public:
     virtual void visit(UndoController *undoController) = 0;
 
     virtual void visit(RedoController *redoController) = 0;
-
-    virtual void visit(ServerController *serverController) = 0;
-
-};
-
-class ServerOperationControllerVisitor {
-public:
-    ServerOperationControllerVisitor(){};
-    virtual ~ServerOperationControllerVisitor(){};
-
-    virtual void visit(ServerController *serverController) = 0;
 
 };
 

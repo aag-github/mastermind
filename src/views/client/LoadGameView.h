@@ -2,7 +2,7 @@
 #define SRC_VIEWS_LOADGAMEVIEW_H_
 
 #include "client/LoadGameController.h"
-#include "ViewConst.h"
+#include "ui/ViewConst.h"
 #include "ui/AvailableGamesView.h"
 
 namespace Mastermind {

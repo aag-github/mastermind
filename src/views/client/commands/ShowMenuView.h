@@ -1,7 +1,7 @@
 #ifndef SRC_VIEWS_COMMANDS_SHOWMENUVIEW_H_
 #define SRC_VIEWS_COMMANDS_SHOWMENUVIEW_H_
 
-#include "commands/CommandView.h"
+#include "client/commands/CommandView.h"
 
 namespace Mastermind {
 

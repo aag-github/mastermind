@@ -1,12 +1,6 @@
 #ifndef _MASTERMIND_H
 #define _MASTERMIND_H
 
-#include "ArgParser.h"
-#include "OperationController.h"
-#include "client/ClientLogic.h"
-#include "server/ServerLogic.h"
-#include "MastermindView.h"
-
 namespace Mastermind
 {
 
@@ -44,22 +38,6 @@ public:
         } while (controller != nullptr);
     }
 
-};
-
-class ClientMastermind : public MastermindTemplate<ClientLogic, ClientMastermindView, ClientOperationController> {
-public:
-    ClientMastermind(ClientLogic *logic) :
-        MastermindTemplate(logic) {
-
-    }
-};
-
-class ServerMastermind : public MastermindTemplate<ServerLogic, ServerMastermindView, ServerOperationController> {
-public:
-    ServerMastermind(ServerLogic *logic) :
-        MastermindTemplate(logic) {
-
-    }
 };
 
 }
