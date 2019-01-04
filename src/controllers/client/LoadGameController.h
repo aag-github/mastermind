@@ -27,6 +27,8 @@ public:
     }
 
     void noGamesAvailable() {
+        assert(game.getState() == State::LOAD_GAME);
+
         game.setState(State::MENU);
     }
 
