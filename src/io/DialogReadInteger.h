@@ -1,18 +1,19 @@
 #ifndef SRC_INTREADER_H_
 #define SRC_INTREADER_H_
 
+#include "CharHandlers/ConcreteCharHandlers/IntegerSignHandler.h"
 #include "DialogReadString.h"
-#include <stdio.h>
 
 namespace IO
 {
 
 class DialogReadInteger : public DialogReadString {
 public:
-    DialogReadInteger(std::string title) :
+    DialogReadInteger(std::string title = "") :
         DialogReadString(title, &integerCharChecker),
         integerCharChecker("+-0123456789")
     {
+        charHandler = new IntegerSignHandler(charHandler);
     }
 
     virtual ~DialogReadInteger() {
@@ -35,10 +36,6 @@ public:
             }
         } while (true);
         return value;
-    }
-
-    virtual bool isCharValid(std::string current, int newChar) {
-        return (current.empty() || (newChar != '-' && newChar != '+'));
     }
 
 private:

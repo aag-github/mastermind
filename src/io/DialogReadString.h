@@ -1,11 +1,16 @@
 #ifndef SRC_STRINGREADER_H_
 #define SRC_STRINGREADER_H_
 
-#include "CharReader.h"
 #include <stdio.h>
 #include <functional>
 #include <map>
 
+#include "CharHandlers/AbstractStringCharHandler.h"
+#include "CharHandlers/ConcreteCharHandlers/AddCharHandler.h"
+#include "CharHandlers/ConcreteCharHandlers/BackspaceHandler.h"
+#include "CharHandlers/ConcreteCharHandlers/CarriageReturnHandler.h"
+#include "CharHandlers/ConcreteCharHandlers/MaxLengthHandler.h"
+#include "CharReader.h"
 
 namespace IO
 {
@@ -15,6 +20,10 @@ public:
     DialogReadString(std::string title = "", CharChecker* charChecker = nullptr) {
         this->title = title;
         this->charChecker = charChecker;
+        this->charHandler = new BackspaceHandler(
+                            new MaxLengthHandler(
+                            new CarriageReturnHandler(
+                            new AddCharHandler())));
     }
 
     virtual ~DialogReadString() {};
@@ -28,50 +37,24 @@ public:
         }
         std::string returnString;
         int c = 0;
-        unsigned count = len;
+        CharHandlerContext context(&c, len, &returnString);
         while (c != '\n') {
             c = IO::CharReader::read(charChecker);
 
-            if (!isCharValid(returnString, c)) {
-                continue;
-            }
-
-            if (c == BACKSPACE) {
-                if (returnString.size() > 0) {
-                    returnString.pop_back();
-                    printf("\b \b");
-                    count++;
-                }
-                continue;
-            }
-
-            if (count == 0 && len > 0) {
-                continue;
-            }
-
-            if (c == '\n') {
-                if (count > 0 && len > 0) {
-                    c = 0;
-                    continue;
-                }
-            } else {
-                returnString += char(c);
-                printf("%c", c);
-                count--;
-            }
+            charHandler->handle(&context);
         };
         printf("\n");
         return returnString;
     }
 
 private:
-    virtual bool isCharValid(std::string current, int newChar) {
-        return true;
-    }
 
     std::string title;
 
     CharChecker* charChecker;
+
+protected:
+    IO::AbstractStringCharHandler *charHandler;
 };
 
 }
