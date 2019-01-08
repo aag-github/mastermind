@@ -17,7 +17,7 @@ public:
     void interact(QuitController* controller){
         assert(controller != nullptr);
 
-        controller->quit(DialogYesNoView().read("Are you sure you want to quit (Y/N)?"));
+        controller->quit(DialogYesNoView().read("\nAre you sure you want to quit (Y/N)?"));
         printf("\n");
     }
 };
