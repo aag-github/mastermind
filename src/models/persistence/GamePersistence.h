@@ -34,9 +34,6 @@ protected:
     }
 
     GamePersistenceImpl *implementation;
-
-private:
-    GamePersistenceImpl* create();
 };
 
 }
