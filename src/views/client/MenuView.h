@@ -26,11 +26,11 @@ public:
         }
         commands.clear();
     }
-    virtual void setCommands(bool undo, bool redo) {
+    virtual void setCommands(MenuController* controller) {
         deleteCommands();
 
-        commands.push_back(new OptionalCommandView("Undo", State::UNDO, undo));
-        commands.push_back(new OptionalCommandView("Redo", State::REDO, redo));
+        commands.push_back(new OptionalCommandView("Undo", State::UNDO, controller->canUndo()));
+        commands.push_back(new OptionalCommandView("Redo", State::REDO, controller->canRedo()));
         commands.push_back(new CommandView("Load", State::LOAD_GAME));
         commands.push_back(new CommandView("Save", State::SAVE_GAME));
         commands.push_back(new CommandView("Type new combination", State::READ_PROPOSED_COMBINATION));
@@ -39,6 +39,8 @@ public:
     }
 
     void interact(MenuController* controller) {
+        setCommands(controller);
+
         ShowMenuView showMenuView(&commands);
 
         BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(true);
@@ -46,10 +48,6 @@ public:
         int option = showMenuView.execute();
 
         commands[option - 1]->execute(controller);
-    }
-
-    void build(bool undo, bool redo) {
-        this->setCommands(undo, redo);
     }
 
 protected:
