@@ -16,11 +16,15 @@ public:
     }
 
     void undo() {
-        assert(game.getState() == State::UNDO);
+        assert(game.getState() == State::MAIN_MENU);
 
         game.Undo();
 
-        game.setState(State::MENU);
+        game.setState(State::MAIN_MENU);
+    }
+
+    bool canUndo() {
+        return game.canUndo();
     }
 
     virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final

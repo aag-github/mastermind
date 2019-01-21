@@ -5,7 +5,6 @@
 #include "GameProxy.h"
 #include "StartController.h"
 #include "ReadCombinationController.h"
-#include "ContinueController.h"
 #include "MenuController.h"
 #include "QuitController.h"
 #include "RestartController.h"
@@ -21,15 +20,7 @@ public:
     ClientLogic(Game* game) :
         Logic(game),
         startController(*game),
-        readCombinationController(*game),
-        continueController(*game),
-        menuController(*game),
-        quitController(*game),
-        restartController(*game),
-        loadGameController(*game),
-        saveGameController(*game),
-        undoController(*game),
-        redoController(*game)
+        menuController(*game)
     {
     }
     virtual ~ClientLogic() {
@@ -39,24 +30,8 @@ public:
         switch (game->getState()){
         case State::INITIAL:
             return &startController;
-        case State::MENU:
+        case State::MAIN_MENU:
             return &menuController;
-        case State::READ_PROPOSED_COMBINATION:
-            return &readCombinationController;
-        case State::QUIT:
-            return &quitController;
-        case State::RESTART:
-            return &restartController;
-        case State::LOAD_GAME:
-            return &loadGameController;
-        case State::SAVE_GAME:
-            return &saveGameController;
-        case State::GAME_END:
-            return &continueController;
-        case State::UNDO:
-            return &undoController;
-        case State::REDO:
-            return &redoController;
         case State::EXIT:
             game->setState(State::INITIAL);
             return nullptr;
@@ -68,23 +43,7 @@ public:
 private:
     StartController startController;
 
-    ReadCombinationController readCombinationController;
-
-    ContinueController continueController;
-
     MenuController menuController;
-
-    QuitController quitController;
-
-    RestartController restartController;
-
-    LoadGameController loadGameController;
-
-    SaveGameController saveGameController;
-
-    UndoController undoController;
-
-    RedoController redoController;
 };
 
 }

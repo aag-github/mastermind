@@ -9,6 +9,14 @@
 #include "commands/CommandView.h"
 #include "commands/OptionalCommandView.h"
 
+#include "ReadCombinationView.h"
+#include "QuitView.h"
+#include "RestartView.h"
+#include "LoadGameView.h"
+#include "SaveGameView.h"
+#include "UndoView.h"
+#include "RedoView.h"
+
 namespace Mastermind {
 
 class MenuView {
@@ -29,13 +37,20 @@ public:
     virtual void setCommands(MenuController* controller) {
         deleteCommands();
 
-        commands.push_back(new OptionalCommandView("Undo", State::UNDO, controller->canUndo()));
-        commands.push_back(new OptionalCommandView("Redo", State::REDO, controller->canRedo()));
-        commands.push_back(new CommandView("Load", State::LOAD_GAME));
-        commands.push_back(new CommandView("Save", State::SAVE_GAME));
-        commands.push_back(new CommandView("Type new combination", State::READ_PROPOSED_COMBINATION));
-        commands.push_back(new CommandView("Restart game", State::RESTART));
-        commands.push_back(new CommandView("Quit", State::QUIT));
+        commands.push_back(new OptionalCommandView<UndoView, UndoController>(
+                "Undo", &undoView, controller->getUndoController(), controller->getUndoController()->canUndo()));
+        commands.push_back(new OptionalCommandView<RedoView, RedoController>(
+                "Redo", &redoView, controller->getRedoController(), controller->getRedoController()->canRedo()));
+        commands.push_back(new CommandViewTemplate<LoadGameView, LoadGameController>(
+                "Load", &loadGameView, controller->getLoadGameController()));
+        commands.push_back(new CommandViewTemplate<SaveGameView, SaveGameController>(
+                "Save", &saveGameView, controller->getSaveGameController()));
+        commands.push_back(new CommandViewTemplate<ReadCombinationView, ReadCombinationController>(
+                "Type new combination", &readCombinationView, controller->getReadCombinationController()));
+        commands.push_back(new CommandViewTemplate<RestartView, RestartController>(
+                "Restart game", &restartView, controller->getRestartController()));
+        commands.push_back(new CommandViewTemplate<QuitView, QuitController>(
+                "Quit", &quitView, controller->getQuitController()));
     }
 
     void interact(MenuController* controller) {
@@ -47,11 +62,25 @@ public:
 
         int option = showMenuView.execute();
 
-        commands[option - 1]->execute(controller);
+        commands[option - 1]->execute();
     }
 
 protected:
     std::vector<CommandView*> commands;
+
+    ReadCombinationView readCombinationView;
+
+    QuitView quitView;
+
+    RestartView restartView;
+
+    LoadGameView loadGameView;
+
+    SaveGameView saveGameView;
+
+    UndoView undoView;
+
+    RedoView redoView;
 };
 
 }

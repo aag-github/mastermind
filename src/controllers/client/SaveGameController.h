@@ -17,11 +17,11 @@ public:
     }
 
     GamePersistenceResult save(std::string name) {
-        assert(game.getState() == State::SAVE_GAME);
+        assert(game.getState() == State::MAIN_MENU);
 
         GamePersistenceResult ok = gameSaver.save(&game, name);
 
-        game.setState(State::MENU);
+        game.setState(State::MAIN_MENU);
 
         return ok;
     }

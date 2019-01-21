@@ -16,12 +16,12 @@ public:
     }
 
     void quit(bool quit) {
-        assert(game.getState() == State::QUIT);
+        assert(game.getState() == State::MAIN_MENU);
 
         if (quit) {
             game.setState(State::EXIT);
         } else {
-            game.setState(State::MENU);
+            game.setState(State::MAIN_MENU);
         }
 
     }

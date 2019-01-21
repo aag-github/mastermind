@@ -17,7 +17,7 @@ public:
 
     virtual std::vector<std::string> getAvailableGames() const override final {
         std::vector<std::string> availableGames;
-        const std::string extension("\n.mm");
+        const std::string extension(".mm");
         DIR *dir;
         struct dirent *ent;
         if ((dir = opendir (".")) != nullptr) {

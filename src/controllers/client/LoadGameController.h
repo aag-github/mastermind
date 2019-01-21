@@ -17,19 +17,19 @@ public:
     }
 
     GamePersistenceResult load(std::string name) {
-        assert(game.getState() == State::LOAD_GAME);
+        assert(game.getState() == State::MAIN_MENU);
 
         GamePersistenceResult ok = gameLoader.load(&game, name);
 
-        game.setState(State::MENU);
+        game.setState(State::MAIN_MENU);
 
         return ok;
     }
 
     void noGamesAvailable() {
-        assert(game.getState() == State::LOAD_GAME);
+        assert(game.getState() == State::MAIN_MENU);
 
-        game.setState(State::MENU);
+        game.setState(State::MAIN_MENU);
     }
 
     std::vector<std::string> getAvailableGames(){

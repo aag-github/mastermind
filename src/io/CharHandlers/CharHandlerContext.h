@@ -30,10 +30,6 @@ public:
         return *newChar;
     }
 
-    void setNewChar(int newChar) {
-        *this->newChar = newChar;
-    }
-
 private:
     int *newChar;
     size_t maxLength;

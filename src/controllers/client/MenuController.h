@@ -6,12 +6,27 @@
 #include <functional>
 #include "CombinationController.h"
 
+#include "ReadCombinationController.h"
+#include "QuitController.h"
+#include "RestartController.h"
+#include "LoadGameController.h"
+#include "SaveGameController.h"
+#include "UndoController.h"
+#include "RedoController.h"
+
 namespace Mastermind {
 
 class MenuController: public CombinationController {
 public:
     MenuController(Game &game) :
-        CombinationController(game)
+        CombinationController(game),
+        readCombinationController(game),
+        quitController(game),
+        restartController(game),
+        loadGameController(game),
+        saveGameController(game),
+        undoController(game),
+        redoController(game)
     {
     }
 
@@ -19,17 +34,9 @@ public:
     }
 
     void setNextState(State newState) {
-        assert(game.getState() == State::MENU);
+        assert(game.getState() == State::MAIN_MENU);
         game.setState(newState);
     };
-
-    bool canUndo() {
-        return game.canUndo();
-    }
-
-    bool canRedo() {
-        return game.canRedo();
-    }
 
     virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
     {
@@ -38,6 +45,48 @@ public:
         operationControllerVisitor->visit(this);
     };
 
+    ReadCombinationController* getReadCombinationController() {
+        return &readCombinationController;
+    }
+
+    QuitController* getQuitController() {
+        return &quitController;
+    }
+
+    RestartController* getRestartController() {
+        return &restartController;
+    }
+
+    LoadGameController* getLoadGameController() {
+        return &loadGameController;
+    }
+
+    SaveGameController* getSaveGameController() {
+        return &saveGameController;
+    }
+
+    UndoController* getUndoController() {
+        return &undoController;
+    }
+
+    RedoController* getRedoController() {
+        return &redoController;
+    }
+
+private:
+    ReadCombinationController readCombinationController;
+
+    QuitController quitController;
+
+    RestartController restartController;
+
+    LoadGameController loadGameController;
+
+    SaveGameController saveGameController;
+
+    UndoController undoController;
+
+    RedoController redoController;
 };
 
 }

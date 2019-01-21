@@ -16,11 +16,15 @@ public:
     }
 
     void redo() {
-        assert(game.getState() == State::REDO);
+        assert(game.getState() == State::MAIN_MENU);
 
         game.Redo();
 
-        game.setState(State::MENU);
+        game.setState(State::MAIN_MENU);
+    }
+
+    bool canRedo() {
+        return game.canRedo();
     }
 
     virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final

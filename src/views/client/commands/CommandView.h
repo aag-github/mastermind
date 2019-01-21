@@ -1,7 +1,6 @@
 #ifndef SRC_VIEWS_COMMANDS_COMMANDVIEW_H_
 #define SRC_VIEWS_COMMANDS_COMMANDVIEW_H_
 
-#include "State.h"
 #include "client/MenuController.h"
 
 namespace Mastermind {
@@ -10,22 +9,30 @@ class MenuController;
 
 class CommandView {
 public:
-    CommandView(std::string title, State nextState) :
+    virtual ~CommandView(){};
+    virtual void execute() = 0 ;
+    virtual void show(std::string prefix) = 0;
+};
+
+template <class VIEW, class CONTROLLER> class CommandViewTemplate : public CommandView {
+public:
+    CommandViewTemplate(std::string title, VIEW *view, CONTROLLER *controller) :
         title(title),
-        nextState(nextState)
+        view(view),
+        controller(controller)
     {
 
     };
 
-    virtual ~CommandView(){};
+    virtual ~CommandViewTemplate(){};
 
-    virtual void execute(MenuController *controller) {
-        assert(controller != nullptr);
+    virtual void execute() override final {
+           assert(controller != nullptr);
 
-        controller->setNextState(nextState);
-    }
+           view->interact(controller);
+       }
 
-    virtual void show(std::string prefix) {
+    virtual void show(std::string prefix) override {
         std::cout << " ";
         if (!prefix.empty()) {
             std::cout << prefix << ".- ";
@@ -34,8 +41,8 @@ public:
     }
 private:
     std::string title;
-
-    State nextState;
+    VIEW *view;
+    CONTROLLER *controller;
 };
 
 }

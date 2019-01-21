@@ -16,12 +16,12 @@ public:
     }
 
     void restart(bool restart) {
-        assert(game.getState() == State::RESTART);
+        assert(game.getState() == State::MAIN_MENU);
 
         if (restart) {
             game.setState(State::INITIAL);
         } else {
-            game.setState(State::MENU);
+            game.setState(State::MAIN_MENU);
         }
     }
 

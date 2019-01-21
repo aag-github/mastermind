@@ -5,7 +5,6 @@ namespace Mastermind {
 
 class StartController;
 class ReadCombinationController;
-class ContinueController;
 class MenuController;
 class QuitController;
 class RestartController;
@@ -22,8 +21,6 @@ public:
     virtual void visit(StartController *startController) = 0;
 
     virtual void visit(ReadCombinationController *readCombinationController) = 0;
-
-    virtual void visit(ContinueController *continueController) = 0;
 
     virtual void visit(MenuController *menuController) = 0;
 

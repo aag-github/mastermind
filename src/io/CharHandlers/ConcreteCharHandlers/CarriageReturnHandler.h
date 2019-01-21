@@ -11,12 +11,10 @@ public:
     virtual ~CarriageReturnHandler(){};
 
     virtual HandlerResult handleImpl(CharHandlerContext *context) override final {
-        constexpr char CR = '\n';
-
+        constexpr int CR = '\n';
+        const bool maxLengthReached = context->getString().size() != context->getMaxLength();
         if (context->getNewChar() == CR
-            && context->getString().size() != context->getMaxLength()
-            && context->getMaxLength() > 0) {
-            context->getNewChar() = 0;
+            && (maxLengthReached || context->getMaxLength() == 0)) {
             return HandlerResult::STOP_PROCESSING;
         }
         return HandlerResult::CONTINUE_TO_NEXT_HANDLER;

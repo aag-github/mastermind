@@ -22,7 +22,7 @@ public:
 
         game.start();
 
-        game.setState(State::MENU);
+        game.setState(State::MAIN_MENU);
     };
 
     virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final

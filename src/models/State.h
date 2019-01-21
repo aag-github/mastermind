@@ -8,15 +8,7 @@ namespace Mastermind {
 
 enum class State {
     INITIAL,
-    MENU,
-    READ_PROPOSED_COMBINATION,
-    GAME_END,
-    QUIT,
-    RESTART,
-    LOAD_GAME,
-    SAVE_GAME,
-    UNDO,
-    REDO,
+    MAIN_MENU,
     EXIT,
 };
 

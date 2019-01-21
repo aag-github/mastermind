@@ -23,13 +23,9 @@ public:
     };
 
     void gameEnd(bool end) {
-        assert(game.getState() == State::READ_PROPOSED_COMBINATION);
+        assert(game.getState() == State::MAIN_MENU);
 
-        if (end) {
-            game.setState(State::GAME_END);
-        } else {
-            game.setState(State::MENU);
-        }
+        game.setState(State::MAIN_MENU);
     }
 
     ProposedCombinationState setProposedCombination (const Combination& proposedCombination) {

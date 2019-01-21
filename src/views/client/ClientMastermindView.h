@@ -5,7 +5,6 @@
 #include "client/ClientOperationController.h"
 #include "client/ClientOperationControllerVisitor.h"
 #include "StartView.h"
-#include "ContinueView.h"
 #include "ReadCombinationView.h"
 #include "MenuView.h"
 #include "QuitView.h"
@@ -49,11 +48,6 @@ public:
         readCombinationView.interact(readCombinationController);
     }
 
-    virtual void visit(ContinueController *continueController) override final {
-        assert(continueController != nullptr);
-        continueView.interact(continueController);
-    }
-
     virtual void visit(MenuController *menuController) override final {
         assert(menuController != nullptr);
         menuView.interact(menuController);
@@ -93,8 +87,6 @@ private:
     StartView startView;
 
     ReadCombinationView readCombinationView;
-
-    ContinueView continueView;
 
     MenuView menuView;
 

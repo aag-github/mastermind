@@ -7,10 +7,10 @@ namespace Mastermind {
 
 class MenuController;
 
-class OptionalCommandView : public CommandView {
+template <class VIEW, class CONTROLLER> class OptionalCommandView : public CommandViewTemplate<VIEW, CONTROLLER> {
 public:
-    OptionalCommandView(std::string title, State nextState, bool enabled) :
-        CommandView(title, nextState),
+    OptionalCommandView(std::string title, VIEW *view, CONTROLLER *controller, bool enabled) :
+        CommandViewTemplate<VIEW, CONTROLLER>(title, view, controller),
         enabled(enabled)
     {
     };
@@ -19,9 +19,9 @@ public:
 
     virtual void show(std::string prefix) override final {
         if (enabled) {
-            CommandView::show(prefix);
+            CommandViewTemplate<VIEW, CONTROLLER>::show(prefix);
         } else {
-            CommandView::show("*");
+            CommandViewTemplate<VIEW, CONTROLLER>::show("*");
         }
     }
 private:

@@ -2,7 +2,6 @@
 #define SRC_VIEWS_STARTVIEW_H_
 
 #include "client/StartController.h"
-#include "./ui/BoardView.h"
 
 namespace Mastermind {
 
