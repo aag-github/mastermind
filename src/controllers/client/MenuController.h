@@ -1,9 +1,7 @@
 #ifndef SRC_CONTROLLERS_MENUCONTROLLER_H_
 #define SRC_CONTROLLERS_MENUCONTROLLER_H_
 
-#include <iostream>
 #include <assert.h>
-#include <functional>
 #include "CombinationController.h"
 
 #include "ReadCombinationController.h"
@@ -16,10 +14,10 @@
 
 namespace Mastermind {
 
-class MenuController: public CombinationController {
+class MenuController: public ClientOperationController {
 public:
     MenuController(Game &game) :
-        CombinationController(game),
+        ClientOperationController(game),
         readCombinationController(game),
         quitController(game),
         restartController(game),

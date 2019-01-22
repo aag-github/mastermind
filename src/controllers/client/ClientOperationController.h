@@ -1,15 +1,15 @@
 #ifndef SRC_CONTROLLERS_CLIENTOPERATIONCONTROLLER_H_
 #define SRC_CONTROLLERS_CLIENTOPERATIONCONTROLLER_H_
 
-#include "Controller.h"
+#include "CombinationController.h"
 #include "ClientOperationControllerVisitor.h"
 
 namespace Mastermind {
 
-class ClientOperationController : public Controller {
+class ClientOperationController : public CombinationController {
 public:
     ClientOperationController(Game &game) :
-        Controller(game)
+        CombinationController(game)
     {
     }
 

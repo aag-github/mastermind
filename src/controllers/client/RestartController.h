@@ -5,10 +5,10 @@
 
 namespace Mastermind {
 
-class RestartController: public ClientOperationController {
+class RestartController : public Controller{
 public:
     RestartController(Game &game) :
-        ClientOperationController(game)
+        Controller(game)
     {
     }
 
@@ -24,14 +24,6 @@ public:
             game.setState(State::MAIN_MENU);
         }
     }
-
-    virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
-    {
-        assert(operationControllerVisitor != nullptr);
-
-        operationControllerVisitor->visit(this);
-    };
-
 };
 
 }

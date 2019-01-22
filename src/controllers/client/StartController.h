@@ -2,8 +2,7 @@
 #define SRC_CONTROLLERS_STARTCONTROLLER_H_
 
 #include <assert.h>
-#include <functional>
-#include "CombinationController.h"
+#include "ClientOperationController.h"
 
 namespace Mastermind {
 

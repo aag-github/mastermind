@@ -1,14 +1,14 @@
 #ifndef SRC_CONTROLLERS_UNDOCONTROLLER_H_
 #define SRC_CONTROLLERS_UNDOCONTROLLER_H_
 
-#include "CombinationController.h"
+#include "Controller.h"
 
 namespace Mastermind {
 
-class UndoController: public ClientOperationController {
+class UndoController: public Controller {
 public:
     UndoController(Game &game) :
-        ClientOperationController(game)
+        Controller(game)
     {
     }
 
@@ -26,13 +26,6 @@ public:
     bool canUndo() {
         return game.canUndo();
     }
-
-    virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
-    {
-        assert(operationControllerVisitor != nullptr);
-
-        operationControllerVisitor->visit(this);
-    };
 
 };
 

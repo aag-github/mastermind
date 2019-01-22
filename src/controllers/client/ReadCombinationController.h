@@ -15,13 +15,6 @@ public:
     virtual ~ReadCombinationController(){
     }
 
-    virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
-    {
-        assert(operationControllerVisitor != nullptr);
-
-        operationControllerVisitor->visit(this);
-    };
-
     void gameEnd(bool end) {
         assert(game.getState() == State::MAIN_MENU);
 

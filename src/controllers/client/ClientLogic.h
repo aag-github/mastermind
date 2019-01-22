@@ -4,14 +4,7 @@
 #include "Logic.h"
 #include "GameProxy.h"
 #include "StartController.h"
-#include "ReadCombinationController.h"
 #include "MenuController.h"
-#include "QuitController.h"
-#include "RestartController.h"
-#include "LoadGameController.h"
-#include "SaveGameController.h"
-#include "UndoController.h"
-#include "RedoController.h"
 
 namespace Mastermind {
 

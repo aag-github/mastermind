@@ -1,14 +1,14 @@
 #ifndef SRC_CONTROLLERS_REDOCONTROLLER_H_
 #define SRC_CONTROLLERS_REDOCONTROLLER_H_
 
-#include "CombinationController.h"
+#include "Controller.h"
 
 namespace Mastermind {
 
-class RedoController: public ClientOperationController {
+class RedoController: public Controller {
 public:
     RedoController(Game &game) :
-        ClientOperationController(game)
+        Controller(game)
     {
     }
 
@@ -26,13 +26,6 @@ public:
     bool canRedo() {
         return game.canRedo();
     }
-
-    virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
-    {
-        assert(operationControllerVisitor != nullptr);
-
-        operationControllerVisitor->visit(this);
-    };
 
 };
 

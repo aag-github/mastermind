@@ -6,10 +6,10 @@
 
 namespace Mastermind {
 
-class LoadGameController: public ClientOperationController {
+class LoadGameController: public Controller {
 public:
     LoadGameController(Game &game) :
-        ClientOperationController(game)
+        Controller(game)
     {
     }
 
@@ -35,13 +35,6 @@ public:
     std::vector<std::string> getAvailableGames(){
         return gameLoader.getAvailableGames();
     }
-
-    virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
-    {
-        assert(operationControllerVisitor != nullptr);
-
-        operationControllerVisitor->visit(this);
-    };
 private:
     GameFilePersistence gameLoader;
 };

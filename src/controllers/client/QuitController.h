@@ -5,10 +5,9 @@
 
 namespace Mastermind {
 
-class QuitController: public ClientOperationController {
+class QuitController : public Controller{
 public:
-    QuitController(Game &game) :
-        ClientOperationController(game)
+    QuitController(Game &game) : Controller(game)
     {
     }
 
@@ -25,14 +24,6 @@ public:
         }
 
     }
-
-    virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
-    {
-        assert(operationControllerVisitor != nullptr);
-
-        operationControllerVisitor->visit(this);
-    };
-
 };
 
 }
