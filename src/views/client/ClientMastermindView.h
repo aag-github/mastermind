@@ -4,8 +4,8 @@
 #include <assert.h>
 #include "client/ClientOperationController.h"
 #include "client/ClientOperationControllerVisitor.h"
-#include "StartView.h"
-#include "MenuView.h"
+#include "commands/StartView.h"
+#include "MainMenuView.h"
 #include "StartMenuView.h"
 
 namespace Mastermind {
@@ -32,7 +32,7 @@ public:
 
     virtual void visit(MenuController *menuController) override final {
         assert(menuController != nullptr);
-        menuView.interact(menuController);
+        mainMenuView.interact(menuController);
     }
 
     virtual void visit(StartMenuController *menuController) override final {
@@ -43,7 +43,7 @@ public:
 private:
     StartView startView;
 
-    MenuView menuView;
+    MainMenuView mainMenuView;
 
     StartMenuView startMenuView;
 };

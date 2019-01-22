@@ -1,46 +1,29 @@
 #ifndef SRC_VIEWS_STARTMENUVIEW_H_
 #define SRC_VIEWS_STARTMENUVIEW_H_
 
-#include <ui/ShowMenuView.h>
 #include <vector>
 #include <iostream>
+#include "MenuView.h"
 #include "CharReader.h"
 #include "client/StartMenuController.h"
 #include "ui/CommandView.h"
+#include "ui/ShowMenuView.h"
 
-#include "QuitView.h"
-#include "StartView.h"
-#include "LoadGameView.h"
+#include "commands/QuitView.h"
+#include "commands/StartView.h"
+#include "commands/LoadGameView.h"
 
 namespace Mastermind {
 
-class StartMenuView {
+class StartMenuView : public MenuView<StartMenuController> {
 public:
-    StartMenuView(){
+    StartMenuView() : MenuView() {
     };
 
     virtual ~StartMenuView(){
-        deleteCommands();
     };
 
-    void deleteCommands() {
-        for (auto command : commands ){
-            delete command;
-        }
-        commands.clear();
-    }
-    virtual void setCommands(StartMenuController* controller) {
-        deleteCommands();
-
-        commands.push_back(new CommandViewTemplate<StartView, StartController>(
-                "Start", &startView, controller->getStartController()));
-        commands.push_back(new CommandViewTemplate<LoadGameView, LoadGameController>(
-                "Load", &loadGameView, controller->getLoadGameController()));
-        commands.push_back(new CommandViewTemplate<QuitView, QuitController>(
-                "Quit", &quitView, controller->getQuitController()));
-    }
-
-    void interact(StartMenuController* controller) {
+    virtual void interact(StartMenuController* controller) override final {
         setCommands(controller);
 
         ShowMenuView showMenuView(&commands, "Pick an option");
@@ -51,13 +34,25 @@ public:
     }
 
 protected:
-    std::vector<CommandView*> commands;
-
     QuitView quitView;
 
     StartView startView;
 
     LoadGameView loadGameView;
+
+private:
+    virtual void setCommands(StartMenuController* controller) override final {
+        deleteCommands();
+
+        commands.push_back(new CommandViewTemplate<StartView, StartController>(
+                "Start", &startView, controller->getStartController()));
+        commands.push_back(new CommandViewTemplate<LoadGameView, LoadGameController>(
+                "Load", &loadGameView, controller->getLoadGameController()));
+        commands.push_back(new CommandViewTemplate<QuitView, QuitController>(
+                "Quit", &quitView, controller->getQuitController()));
+    }
+
+
 };
 
 }
