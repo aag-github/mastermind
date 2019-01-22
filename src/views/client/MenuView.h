@@ -6,8 +6,8 @@
 #include <iostream>
 #include "CharReader.h"
 #include "client/MenuController.h"
-#include "commands/CommandView.h"
-#include "commands/OptionalCommandView.h"
+#include "ui/CommandView.h"
+#include "ui/OptionalCommandView.h"
 
 #include "ReadCombinationView.h"
 #include "QuitView.h"
@@ -48,7 +48,7 @@ public:
         commands.push_back(new CommandViewTemplate<ReadCombinationView, ReadCombinationController>(
                 "Type new combination", &readCombinationView, controller->getReadCombinationController()));
         commands.push_back(new CommandViewTemplate<RestartView, RestartController>(
-                "Restart game", &restartView, controller->getRestartController()));
+                "Restart", &restartView, controller->getRestartController()));
         commands.push_back(new CommandViewTemplate<QuitView, QuitController>(
                 "Quit", &quitView, controller->getQuitController()));
     }

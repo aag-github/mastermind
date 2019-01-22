@@ -18,7 +18,9 @@ public:
     void gameEnd(bool end) {
         assert(game.getState() == State::MAIN_MENU);
 
-        game.setState(State::MAIN_MENU);
+        if (end) {
+            game.setState(State::START_MENU);
+        }
     }
 
     ProposedCombinationState setProposedCombination (const Combination& proposedCombination) {

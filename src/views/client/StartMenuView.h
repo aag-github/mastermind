@@ -6,7 +6,7 @@
 #include <iostream>
 #include "CharReader.h"
 #include "client/StartMenuController.h"
-#include "commands/CommandView.h"
+#include "ui/CommandView.h"
 
 #include "QuitView.h"
 #include "StartView.h"
@@ -33,7 +33,7 @@ public:
         deleteCommands();
 
         commands.push_back(new CommandViewTemplate<StartView, StartController>(
-                "Start game", &startView, controller->getStartController()));
+                "Start", &startView, controller->getStartController()));
         commands.push_back(new CommandViewTemplate<LoadGameView, LoadGameController>(
                 "Load", &loadGameView, controller->getLoadGameController()));
         commands.push_back(new CommandViewTemplate<QuitView, QuitController>(

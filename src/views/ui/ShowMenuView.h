@@ -2,7 +2,7 @@
 #define SRC_VIEWS_COMMANDS_SHOWMENUVIEW_H_
 
 #include "ui/ViewConst.h"
-#include "client/commands/CommandView.h"
+#include "ui/CommandView.h"
 
 namespace Mastermind {
 

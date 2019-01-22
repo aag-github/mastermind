@@ -20,8 +20,6 @@ public:
         if (DialogYesNoView().read("\nAre you sure you want to restart (Y/N)?")) {
             controller->restart();
         }
-
-        std::cout << std::endl;
     }
 };
 
