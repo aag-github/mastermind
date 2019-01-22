@@ -56,7 +56,9 @@ public:
     void interact(MenuController* controller) {
         setCommands(controller);
 
-        ShowMenuView showMenuView(&commands);
+        ShowMenuView showMenuView(&commands,
+                                  "Pick an option or press 'Enter' to type a new combination",
+                                  5);
 
         BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(true);
 

@@ -17,19 +17,19 @@ public:
     }
 
     GamePersistenceResult load(std::string name) {
-        assert(game.getState() == State::MAIN_MENU);
+        assert(game.getState() == State::MAIN_MENU || game.getState() == State::START_MENU);
 
         GamePersistenceResult ok = gameLoader.load(&game, name);
 
-        game.setState(State::MAIN_MENU);
+        if(game.getState() == State::START_MENU && ok == GamePersistenceResult::OK) {
+            game.setState(State::MAIN_MENU);
+        }
 
         return ok;
     }
 
     void noGamesAvailable() {
-        assert(game.getState() == State::MAIN_MENU);
-
-        game.setState(State::MAIN_MENU);
+        assert(game.getState() == State::MAIN_MENU || game.getState() == State::START_MENU);
     }
 
     std::vector<std::string> getAvailableGames(){

@@ -1,14 +1,17 @@
 #ifndef SRC_VIEWS_COMMANDS_SHOWMENUVIEW_H_
 #define SRC_VIEWS_COMMANDS_SHOWMENUVIEW_H_
 
+#include "ui/ViewConst.h"
 #include "client/commands/CommandView.h"
 
 namespace Mastermind {
 
 class ShowMenuView {
 public:
-    ShowMenuView(std::vector<CommandView*> *commands) :
-        commands(commands)
+    ShowMenuView(std::vector<CommandView*> *commands, std::string title, unsigned defaultOption = 0) :
+        commands(commands),
+        title(title),
+        defaultOption(defaultOption)
     {
 
     }
@@ -22,6 +25,9 @@ public:
 private:
     std::vector<CommandView*> *commands;
 
+    std::string title;
+
+    int defaultOption;
 
     void show() const {
         int i = 1;
@@ -32,16 +38,22 @@ private:
             i++;
         }
         std::cout << std::endl;
-        std::cout << "Pick an option or press 'Enter' to type a new combination" << std::endl;
+        std::cout << title << std::endl;
     }
 
     int read() const {
-        IO::CharChecker charChecker("1234567\n");
-        int option = IO::CharReader::read(&charChecker);
-        if (option == '\n') {
-            option = '5';
+        std::string options = "1234567";
+        if (defaultOption > 0) {
+            options += "\n";
         }
-        option = option - '0';
+        IO::CharChecker charChecker(options);
+        int option = IO::CharReader::read(&charChecker);
+
+        if (option == '\n') {
+            option = defaultOption;
+        } else {
+            option = option - '0';
+        }
         return option;
     }
 };

@@ -5,6 +5,7 @@
 #include "GameProxy.h"
 #include "StartController.h"
 #include "MenuController.h"
+#include "StartMenuController.h"
 
 namespace Mastermind {
 
@@ -13,7 +14,8 @@ public:
     ClientLogic(Game* game) :
         Logic(game),
         startController(*game),
-        menuController(*game)
+        menuController(*game),
+        startMenuController(*game)
     {
     }
     virtual ~ClientLogic() {
@@ -23,6 +25,8 @@ public:
         switch (game->getState()){
         case State::INITIAL:
             return &startController;
+        case State::START_MENU:
+            return &startMenuController;
         case State::MAIN_MENU:
             return &menuController;
         case State::EXIT:
@@ -37,6 +41,8 @@ private:
     StartController startController;
 
     MenuController menuController;
+
+    StartMenuController startMenuController;
 };
 
 }

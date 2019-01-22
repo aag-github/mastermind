@@ -15,7 +15,7 @@ public:
 
     GameLocal() :
         Game(),
-        state(State::INITIAL),
+        state(State::START_MENU),
         currentProposedCombination(0),
         undoRedoManager(this)
     {

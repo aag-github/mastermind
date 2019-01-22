@@ -7,8 +7,9 @@ namespace Mastermind {
 
 class RestartController : public Controller{
 public:
-    RestartController(Game &game) :
-        Controller(game)
+    RestartController(Game &game, bool ask) :
+        Controller(game),
+        ask(ask)
     {
     }
 
@@ -16,14 +17,22 @@ public:
     }
 
     void restart(bool restart) {
-        assert(game.getState() == State::MAIN_MENU);
+        assert(game.getState() == State::MAIN_MENU || game.getState() == State::START_MENU);
 
         if (restart) {
             game.setState(State::INITIAL);
-        } else {
+        } else if (game.getState() == State::START_MENU){
             game.setState(State::MAIN_MENU);
+        } else if (game.getState() == State::MAIN_MENU){
+            game.setState(State::START_MENU);
         }
     }
+
+    bool askEnabled() {
+        return ask;
+    }
+private:
+    bool ask;
 };
 
 }

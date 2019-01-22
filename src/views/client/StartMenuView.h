@@ -1,0 +1,65 @@
+#ifndef SRC_VIEWS_STARTMENUVIEW_H_
+#define SRC_VIEWS_STARTMENUVIEW_H_
+
+#include <client/commands/ShowMenuView.h>
+#include <vector>
+#include <iostream>
+#include "CharReader.h"
+#include "client/StartMenuController.h"
+#include "commands/CommandView.h"
+
+#include "QuitView.h"
+#include "RestartView.h"
+#include "LoadGameView.h"
+
+namespace Mastermind {
+
+class StartMenuView {
+public:
+    StartMenuView(){
+    };
+
+    virtual ~StartMenuView(){
+        deleteCommands();
+    };
+
+    void deleteCommands() {
+        for (auto command : commands ){
+            delete command;
+        }
+        commands.clear();
+    }
+    virtual void setCommands(StartMenuController* controller) {
+        deleteCommands();
+
+        commands.push_back(new CommandViewTemplate<RestartView, RestartController>(
+                "Start game", &restartView, controller->getRestartController()));
+        commands.push_back(new CommandViewTemplate<LoadGameView, LoadGameController>(
+                "Load", &loadGameView, controller->getLoadGameController()));
+        commands.push_back(new CommandViewTemplate<QuitView, QuitController>(
+                "Quit", &quitView, controller->getQuitController()));
+    }
+
+    void interact(StartMenuController* controller) {
+        setCommands(controller);
+
+        ShowMenuView showMenuView(&commands, "Pick an option");
+
+        int option = showMenuView.execute();
+
+        commands[option - 1]->execute();
+    }
+
+protected:
+    std::vector<CommandView*> commands;
+
+    QuitView quitView;
+
+    RestartView restartView;
+
+    LoadGameView loadGameView;
+};
+
+}
+
+#endif

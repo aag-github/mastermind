@@ -5,19 +5,14 @@
 #include "client/ClientOperationController.h"
 #include "client/ClientOperationControllerVisitor.h"
 #include "StartView.h"
-#include "ReadCombinationView.h"
 #include "MenuView.h"
-#include "QuitView.h"
-#include "RestartView.h"
-#include "LoadGameView.h"
-#include "SaveGameView.h"
-#include "UndoView.h"
-#include "RedoView.h"
+#include "StartMenuView.h"
 
 namespace Mastermind {
 
 class StartController;
 class MenuController;
+class StartMenuController;
 
 class ClientMastermindView : public ClientOperationControllerVisitor {
 public:
@@ -40,11 +35,17 @@ public:
         menuView.interact(menuController);
     }
 
+    virtual void visit(StartMenuController *menuController) override final {
+        assert(menuController != nullptr);
+        startMenuView.interact(menuController);
+    }
 
 private:
     StartView startView;
 
     MenuView menuView;
+
+    StartMenuView startMenuView;
 };
 
 }

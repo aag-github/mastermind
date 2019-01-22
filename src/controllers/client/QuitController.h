@@ -15,14 +15,11 @@ public:
     }
 
     void quit(bool quit) {
-        assert(game.getState() == State::MAIN_MENU);
+        assert(game.getState() == State::MAIN_MENU || game.getState() == State::START_MENU);
 
         if (quit) {
             game.setState(State::EXIT);
-        } else {
-            game.setState(State::MAIN_MENU);
         }
-
     }
 };
 

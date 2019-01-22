@@ -8,6 +8,7 @@ namespace Mastermind {
 
 enum class State {
     INITIAL,
+    START_MENU,
     MAIN_MENU,
     EXIT,
 };

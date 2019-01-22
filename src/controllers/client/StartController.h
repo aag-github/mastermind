@@ -9,7 +9,8 @@ namespace Mastermind {
 class StartController: public ClientOperationController {
 public:
     StartController(Game &game) :
-        ClientOperationController(game)
+        ClientOperationController(game),
+        nextState(State::MAIN_MENU)
     {
     }
 
@@ -24,13 +25,18 @@ public:
         game.setState(State::MAIN_MENU);
     };
 
+    void setNextState(State nextState) {
+        this->nextState = nextState;
+    }
+
     virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
     {
         assert(operationControllerVisitor != nullptr);
 
         operationControllerVisitor->visit(this);
     };
-
+private:
+    State nextState;
 };
 
 }

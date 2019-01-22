@@ -20,7 +20,7 @@ public:
         ClientOperationController(game),
         readCombinationController(game),
         quitController(game),
-        restartController(game),
+        restartController(game, true),
         loadGameController(game),
         saveGameController(game),
         undoController(game),
@@ -30,11 +30,6 @@ public:
 
     virtual ~MenuController(){
     }
-
-    void setNextState(State newState) {
-        assert(game.getState() == State::MAIN_MENU);
-        game.setState(newState);
-    };
 
     virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
     {
