@@ -28,6 +28,7 @@ public:
 
     virtual void execute() override final {
            assert(controller != nullptr);
+           assert(view != nullptr);
 
            view->interact(controller);
        }
