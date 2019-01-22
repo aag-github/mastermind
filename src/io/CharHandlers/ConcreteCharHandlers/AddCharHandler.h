@@ -12,8 +12,10 @@ public:
     virtual ~AddCharHandler(){};
 
     virtual void handleImpl(CharHandlerContext *context) override final {
-        context->getString() += context->getNewChar();
-        printf("%c", context->getNewChar());
+        if (context->getNewChar() != '\n') {
+            context->getString() += context->getNewChar();
+            printf("%c", context->getNewChar());
+        }
     }
 };
 

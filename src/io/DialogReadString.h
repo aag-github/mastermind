@@ -8,8 +8,8 @@
 #include "CharHandlers/AbstractStringCharHandler.h"
 #include "CharHandlers/ConcreteCharHandlers/AddCharHandler.h"
 #include "CharHandlers/ConcreteCharHandlers/BackspaceHandler.h"
-#include "CharHandlers/ConcreteCharHandlers/CarriageReturnHandler.h"
 #include "CharHandlers/ConcreteCharHandlers/MaxLengthHandler.h"
+#include "CharHandlers/ConcreteCharHandlers/CarriageReturnHandler.h"
 #include "CharReader.h"
 
 namespace IO
@@ -41,7 +41,9 @@ public:
         while (c != '\n') {
             c = IO::CharReader::read(charChecker);
 
-            charHandler->handle(&context);
+            if (HandlerResult::DISCARD_CHAR == charHandler->handle(&context)) {
+                c = 0;
+            }
         };
         printf("\n");
         return returnString;

@@ -14,7 +14,7 @@ public:
         bool validChar = (context->getString().empty()
                 || (context->getNewChar() != '-' && context->getNewChar() != '+'));
 
-        return validChar ? HandlerResult::CONTINUE_TO_NEXT_HANDLER : HandlerResult::STOP_PROCESSING;
+        return validChar ? HandlerResult::CONTINUE_TO_NEXT_HANDLER : HandlerResult::DISCARD_CHAR;
     }
 
 };

@@ -14,7 +14,7 @@ public:
 
     virtual HandlerResult handle(CharHandlerContext *context) {
         handleImpl(context);
-        return HandlerResult::STOP_PROCESSING;
+        return HandlerResult::DONE;
     }
 
     virtual void handleImpl(CharHandlerContext *context) = 0;

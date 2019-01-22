@@ -6,8 +6,9 @@
 namespace IO {
 
 enum class HandlerResult {
-    STOP_PROCESSING,
+    DISCARD_CHAR,
     CONTINUE_TO_NEXT_HANDLER,
+    DONE
 };
 
 class AbstractStringCharHandler {

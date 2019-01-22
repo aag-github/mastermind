@@ -18,7 +18,7 @@ public:
                 context->getString().pop_back();
                 printf("\b \b");
             }
-            return HandlerResult::STOP_PROCESSING;
+            return HandlerResult::DISCARD_CHAR;
         }
         return HandlerResult::CONTINUE_TO_NEXT_HANDLER;
     }

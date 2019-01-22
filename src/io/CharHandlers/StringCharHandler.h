@@ -13,10 +13,11 @@ public:
     virtual ~StringCharHandler(){};
 
     virtual HandlerResult handle(CharHandlerContext *context) {
-        if (handleImpl(context) == HandlerResult::STOP_PROCESSING) {
-            return HandlerResult::STOP_PROCESSING;
-        } else {
+        HandlerResult result = handleImpl(context);
+        if ( result == HandlerResult::CONTINUE_TO_NEXT_HANDLER) {
             return successor->handle(context);
+        } else {
+            return result;
         }
     }
 

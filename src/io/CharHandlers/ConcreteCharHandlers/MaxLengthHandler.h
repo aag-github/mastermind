@@ -13,7 +13,9 @@ public:
     virtual HandlerResult handleImpl(CharHandlerContext *context) override final {
         bool maxLengthReached = (context->getString().size() == context->getMaxLength() &&
                 context->getMaxLength() > 0) ;
-        return maxLengthReached ? HandlerResult::STOP_PROCESSING : HandlerResult::CONTINUE_TO_NEXT_HANDLER;
+        return maxLengthReached && context->getNewChar() != '\n'
+               ? HandlerResult::DISCARD_CHAR
+               : HandlerResult::CONTINUE_TO_NEXT_HANDLER;
     }
 
 };
