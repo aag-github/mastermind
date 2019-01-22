@@ -9,7 +9,7 @@
 #include "commands/CommandView.h"
 
 #include "QuitView.h"
-#include "RestartView.h"
+#include "StartView.h"
 #include "LoadGameView.h"
 
 namespace Mastermind {
@@ -32,8 +32,8 @@ public:
     virtual void setCommands(StartMenuController* controller) {
         deleteCommands();
 
-        commands.push_back(new CommandViewTemplate<RestartView, RestartController>(
-                "Start game", &restartView, controller->getRestartController()));
+        commands.push_back(new CommandViewTemplate<StartView, StartController>(
+                "Start game", &startView, controller->getStartController()));
         commands.push_back(new CommandViewTemplate<LoadGameView, LoadGameController>(
                 "Load", &loadGameView, controller->getLoadGameController()));
         commands.push_back(new CommandViewTemplate<QuitView, QuitController>(
@@ -55,7 +55,7 @@ protected:
 
     QuitView quitView;
 
-    RestartView restartView;
+    StartView startView;
 
     LoadGameView loadGameView;
 };

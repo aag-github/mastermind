@@ -20,7 +20,7 @@ public:
         ClientOperationController(game),
         readCombinationController(game),
         quitController(game),
-        restartController(game, true),
+        restartController(game),
         loadGameController(game),
         saveGameController(game),
         undoController(game),

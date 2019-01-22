@@ -18,16 +18,12 @@ public:
     }
 
     void start() {
-        assert(game.getState() == State::INITIAL);
+        assert(game.getState() == State::START_MENU);
 
         game.start();
 
         game.setState(State::MAIN_MENU);
     };
-
-    void setNextState(State nextState) {
-        this->nextState = nextState;
-    }
 
     virtual void accept(ClientOperationControllerVisitor *operationControllerVisitor) override final
     {

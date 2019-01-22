@@ -13,7 +13,6 @@ class ClientLogic : public Logic<ClientOperationController> {
 public:
     ClientLogic(Game* game) :
         Logic(game),
-        startController(*game),
         menuController(*game),
         startMenuController(*game)
     {
@@ -23,14 +22,12 @@ public:
 
     virtual ClientOperationController* getController() override final {
         switch (game->getState()){
-        case State::INITIAL:
-            return &startController;
         case State::START_MENU:
             return &startMenuController;
         case State::MAIN_MENU:
             return &menuController;
         case State::EXIT:
-            game->setState(State::INITIAL);
+            game->setState(State::START_MENU);
             return nullptr;
         default:
             assert(false);
@@ -38,8 +35,6 @@ public:
         }
 }
 private:
-    StartController startController;
-
     MenuController menuController;
 
     StartMenuController startMenuController;

@@ -17,10 +17,8 @@ public:
     void interact(RestartController* controller){
         assert(controller != nullptr);
 
-        if (controller->askEnabled()) {
-            controller->restart(DialogYesNoView().read("\nAre you sure you want to restart (Y/N)?"));
-        } else {
-            controller->restart(true);
+        if (DialogYesNoView().read("\nAre you sure you want to restart (Y/N)?")) {
+            controller->restart();
         }
 
         std::cout << std::endl;

@@ -5,7 +5,7 @@
 #include "CombinationController.h"
 
 #include "QuitController.h"
-#include "RestartController.h"
+#include "StartController.h"
 #include "LoadGameController.h"
 
 namespace Mastermind {
@@ -15,7 +15,7 @@ public:
     StartMenuController(Game &game) :
         ClientOperationController(game),
         quitController(game),
-        restartController(game, false),
+        startController(game),
         loadGameController(game)
     {
     }
@@ -34,8 +34,8 @@ public:
         return &quitController;
     }
 
-    RestartController* getRestartController() {
-        return &restartController;
+    StartController* getStartController() {
+        return &startController;
     }
 
     LoadGameController* getLoadGameController() {
@@ -45,7 +45,7 @@ public:
 private:
     QuitController quitController;
 
-    RestartController restartController;
+    StartController startController;
 
     LoadGameController loadGameController;
 };
