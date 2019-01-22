@@ -1,7 +1,7 @@
 #ifndef SRC_VIEWS_STARTMENUVIEW_H_
 #define SRC_VIEWS_STARTMENUVIEW_H_
 
-#include <client/commands/ShowMenuView.h>
+#include <ui/ShowMenuView.h>
 #include <vector>
 #include <iostream>
 #include "CharReader.h"
