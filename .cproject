@@ -20,7 +20,7 @@
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.target.gnu.platform.base.642437989" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
 							<builder buildPath="${workspace_loc:/up}/build" enableAutoBuild="true" id="cdt.managedbuild.target.gnu.builder.base.156421057" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1421892669" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
-							<tool commandLinePattern="${COMMAND} ${FLAGS} -MT ${OUTPUT_PREFIX}${OUTPUT} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" id="cdt.managedbuild.tool.gnu.cpp.compiler.base.2138202376" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
+							<tool commandLinePattern="${COMMAND} ${FLAGS} -MT ${OUTPUT_PREFIX}${OUTPUT} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS} -O0" id="cdt.managedbuild.tool.gnu.cpp.compiler.base.2138202376" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
 								<option id="gnu.cpp.compiler.option.dialect.std.233333206" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" value="gnu.cpp.compiler.dialect.c++11" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.include.paths.663958535" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mastermind/src/io}&quot;"/>
@@ -46,16 +46,6 @@
 							<tool id="cdt.managedbuild.tool.gnu.assembler.base.1481012448" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.base">
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.36235818" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
-						</toolChain>
-					</folderInfo>
-					<folderInfo id="cdt.managedbuild.toolchain.gnu.base.1193354024.917471898" name="/" resourcePath="src/network">
-						<toolChain id="cdt.managedbuild.toolchain.gnu.base.732514194" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.base" unusedChildren="">
-							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1569763779" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base.1421892669"/>
-							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.80579204" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base.2138202376"/>
-							<tool id="cdt.managedbuild.tool.gnu.c.compiler.base.1847845966" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base.1800185010"/>
-							<tool id="cdt.managedbuild.tool.gnu.c.linker.base.1318216839" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base.965942559"/>
-							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.base.468102494" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.base.1753224238"/>
-							<tool id="cdt.managedbuild.tool.gnu.assembler.base.1691052573" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.base.1481012448"/>
 						</toolChain>
 					</folderInfo>
 				</configuration>

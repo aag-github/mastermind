@@ -94,8 +94,9 @@ public:
         memento->add("S:" + getSecretCombination().getString());
         auto combination = getProposedCombinations().cbegin();
         auto endCombination = getProposedCombinations().cend();
-        for (;combination != endCombination, combination->isSet(); combination++) {
+        while(combination != endCombination && combination->isSet()) {
             memento->add("P:" + combination->getString());
+            combination++;
         }
         return memento;
     }
