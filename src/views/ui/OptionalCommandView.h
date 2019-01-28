@@ -17,11 +17,11 @@ public:
 
     virtual ~OptionalCommandView(){};
 
-    virtual void show(std::string prefix) override final {
+    virtual void show(std::string prefix, bool defaultOption) override final {
         if (enabled) {
-            CommandViewTemplate<VIEW, CONTROLLER>::show(prefix);
+            CommandViewTemplate<VIEW, CONTROLLER>::show(prefix, defaultOption);
         } else {
-            CommandViewTemplate<VIEW, CONTROLLER>::show("*");
+            CommandViewTemplate<VIEW, CONTROLLER>::show("*", false);
         }
     }
 private:

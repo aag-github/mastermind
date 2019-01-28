@@ -11,7 +11,7 @@ class CommandView {
 public:
     virtual ~CommandView(){};
     virtual void execute() = 0 ;
-    virtual void show(std::string prefix) = 0;
+    virtual void show(std::string prefix, bool defaultOption ) = 0;
 };
 
 template <class VIEW, class CONTROLLER> class CommandViewTemplate : public CommandView {
@@ -33,12 +33,16 @@ public:
            view->interact(controller);
        }
 
-    virtual void show(std::string prefix) override {
+    virtual void show(std::string prefix, bool defaultOption) override {
         std::cout << " ";
         if (!prefix.empty()) {
             std::cout << prefix << ".- ";
         }
-        std::cout << title << std::endl;
+        if (defaultOption) {
+            std::cout << "[" << title << "]" << std::endl;
+        } else {
+            std::cout << title << std::endl;
+        }
     }
 private:
     std::string title;

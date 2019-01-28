@@ -18,7 +18,7 @@ public:
     void restart() {
         assert(game.getState() == State::MAIN_MENU);
 
-        game.start();
+        game.setState(State::START_MENU);
     }
 };
 

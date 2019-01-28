@@ -8,6 +8,7 @@ namespace Mastermind {
 template <class CONTROLER_PROVIDER> class MenuView {
 public:
     MenuView(){
+        defaultCommand = nullptr;
     };
 
     virtual ~MenuView(){
@@ -17,6 +18,8 @@ public:
     virtual void interact(CONTROLER_PROVIDER* controller) = 0;
 protected:
     std::vector<CommandView*> commands;
+
+    CommandView* defaultCommand;
 
     void deleteCommands() {
         for (auto command : commands ){

@@ -35,7 +35,7 @@ public:
 
         ShowMenuView showMenuView(&commands,
                                   "Pick an option or press 'Enter' to type a new combination",
-                                  5);
+                                  defaultCommand);
 
         BoardView(&controller->getProposedCombinations(), &controller->getSecretCombination()).show(true);
 
@@ -66,12 +66,13 @@ private:
                 "Undo", &undoView, controller->getUndoController(), controller->getUndoController()->canUndo()));
         commands.push_back(new OptionalCommandView<RedoView, RedoController>(
                 "Redo", &redoView, controller->getRedoController(), controller->getRedoController()->canRedo()));
-        commands.push_back(new CommandViewTemplate<LoadGameView, LoadGameController>(
-                "Load", &loadGameView, controller->getLoadGameController()));
         commands.push_back(new CommandViewTemplate<SaveGameView, SaveGameController>(
                 "Save", &saveGameView, controller->getSaveGameController()));
+
         commands.push_back(new CommandViewTemplate<ReadCombinationView, ReadCombinationController>(
-                "Type new combination", &readCombinationView, controller->getReadCombinationController()));
+                "Enter new combination", &readCombinationView, controller->getReadCombinationController()));
+        defaultCommand = commands.back();
+
         commands.push_back(new CommandViewTemplate<RestartView, RestartController>(
                 "Restart", &restartView, controller->getRestartController()));
         commands.push_back(new CommandViewTemplate<QuitView, QuitController>(
