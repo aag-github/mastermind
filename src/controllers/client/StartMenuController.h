@@ -4,21 +4,22 @@
 #include <assert.h>
 #include "CombinationController.h"
 
-#include "QuitController.h"
+#include "CommonMenuController.h"
+
 #include "StartController.h"
 #include "LoadGameController.h"
 
 namespace Mastermind {
 
 class StartMenuController: public ClientOperationController,
-                           public QuitController,
+                           public CommonMenuController,
                            public StartController,
                            public LoadGameController
 {
 public:
     StartMenuController(Game &game) :
         ClientOperationController(game),
-        quitController(game),
+        CommonMenuController(game),
         startController(game),
         loadGameController(game)
     {
@@ -33,10 +34,6 @@ public:
 
         operationControllerVisitor->visit(this);
     };
-
-    virtual void quit(bool quit) override final {
-        quitController.quit(quit);
-    }
 
     virtual GamePersistenceResult load(std::string name) override final {
         return loadGameController.load(name);
@@ -54,8 +51,6 @@ public:
         startController.start();
     }
 private:
-    QuitControllerImpl quitController;
-
     StartControllerImpl startController;
 
     LoadGameControllerImpl loadGameController;

@@ -4,6 +4,8 @@
 #include <assert.h>
 #include "CombinationController.h"
 
+#include "CommonMenuController.h"
+
 #include "ReadCombinationController.h"
 #include "QuitController.h"
 #include "RestartController.h"
@@ -15,7 +17,7 @@
 namespace Mastermind {
 
 class MainMenuController: public ClientOperationController,
-                      public QuitController,
+                      public CommonMenuController,
                       public UndoController,
                       public RedoController,
                       public RestartController,
@@ -25,8 +27,8 @@ class MainMenuController: public ClientOperationController,
 public:
     MainMenuController(Game &game) :
         ClientOperationController(game),
+        CommonMenuController(game),
         readCombinationController(game),
-        quitController(game),
         restartController(game),
         saveGameController(game),
         undoController(game),
@@ -43,10 +45,6 @@ public:
 
         operationControllerVisitor->visit(this);
     };
-
-    virtual void quit(bool quit) override final {
-        quitController.quit(quit);
-    }
 
     virtual void undo() override final {
         undoController.undo();
@@ -94,8 +92,6 @@ public:
 
 private:
     ReadCombinationControllerImpl readCombinationController;
-
-    QuitControllerImpl quitController;
 
     RestartControllerImpl restartController;
 
