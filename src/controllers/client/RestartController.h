@@ -5,17 +5,24 @@
 
 namespace Mastermind {
 
-class RestartController : public Controller{
+class RestartController {
 public:
-    RestartController(Game &game) :
+    virtual ~RestartController() {};
+
+    virtual void restart() = 0;
+};
+
+class RestartControllerImpl : public Controller, public RestartController {
+public:
+    RestartControllerImpl(Game &game) :
         Controller(game)
     {
     }
 
-    virtual ~RestartController(){
+    virtual ~RestartControllerImpl(){
     }
 
-    void restart() {
+    virtual void restart() override final {
         assert(game.getState() == State::MAIN_MENU);
 
         game.setState(State::START_MENU);

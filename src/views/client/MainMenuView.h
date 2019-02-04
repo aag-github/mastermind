@@ -1,12 +1,12 @@
 #ifndef SRC_VIEWS_MAINMENUVIEW_H_
 #define SRC_VIEWS_MAINMENUVIEW_H_
 
+#include <client/MainMenuController.h>
 #include <vector>
 #include <iostream>
 
 #include "MenuView.h"
 #include "CharReader.h"
-#include "client/MenuController.h"
 #include "ui/CommandView.h"
 #include "ui/OptionalCommandView.h"
 
@@ -22,7 +22,7 @@
 
 namespace Mastermind {
 
-class MainMenuView : public MenuView<MenuController> {
+class MainMenuView : public MenuView<MainMenuController> {
 public:
     MainMenuView() : MenuView() {
     };
@@ -30,7 +30,7 @@ public:
     virtual ~MainMenuView(){
     };
 
-    virtual void interact(MenuController* controller) override final {
+    virtual void interact(MainMenuController* controller) override final {
         setCommands(controller);
 
         ShowMenuView showMenuView(&commands,
@@ -59,24 +59,24 @@ private:
 
     RedoView redoView;
 
-    virtual void setCommands(MenuController* controller) override {
+    virtual void setCommands(MainMenuController* controller) override {
         deleteCommands();
 
         commands.push_back(new OptionalCommandView<UndoView, UndoController>(
-                "Undo", &undoView, controller->getUndoController(), controller->getUndoController()->canUndo()));
+                "Undo", &undoView, controller, controller->canUndo()));
         commands.push_back(new OptionalCommandView<RedoView, RedoController>(
-                "Redo", &redoView, controller->getRedoController(), controller->getRedoController()->canRedo()));
+                "Redo", &redoView, controller, controller->canRedo()));
         commands.push_back(new CommandViewTemplate<SaveGameView, SaveGameController>(
-                "Save", &saveGameView, controller->getSaveGameController()));
+                "Save", &saveGameView, controller));
 
         commands.push_back(new CommandViewTemplate<ReadCombinationView, ReadCombinationController>(
-                "Enter new combination", &readCombinationView, controller->getReadCombinationController()));
+                "Enter new combination", &readCombinationView, controller));
         defaultCommand = commands.back();
 
         commands.push_back(new CommandViewTemplate<RestartView, RestartController>(
-                "Restart", &restartView, controller->getRestartController()));
+                "Restart", &restartView, controller));
         commands.push_back(new CommandViewTemplate<QuitView, QuitController>(
-                "Quit", &quitView, controller->getQuitController()));
+                "Quit", &quitView, controller));
     }
 };
 

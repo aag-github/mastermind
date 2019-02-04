@@ -5,13 +5,22 @@
 
 namespace Mastermind {
 
-class QuitController : public Controller{
+class QuitController{
 public:
-    QuitController(Game &game) : Controller(game)
+    virtual ~QuitController(){
+    }
+
+    virtual void quit(bool quit) = 0;
+};
+
+
+class QuitControllerImpl : public Controller, public QuitController{
+public:
+    QuitControllerImpl(Game &game) : Controller(game)
     {
     }
 
-    virtual ~QuitController(){
+    virtual ~QuitControllerImpl(){
     }
 
     void quit(bool quit) {

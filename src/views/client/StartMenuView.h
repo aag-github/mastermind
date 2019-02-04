@@ -45,11 +45,11 @@ private:
         deleteCommands();
 
         commands.push_back(new CommandViewTemplate<StartView, StartController>(
-                "Start", &startView, controller->getStartController()));
+                "Start", &startView, controller));
         commands.push_back(new CommandViewTemplate<LoadGameView, LoadGameController>(
-                "Load", &loadGameView, controller->getLoadGameController()));
+                "Load", &loadGameView, controller));
         commands.push_back(new CommandViewTemplate<QuitView, QuitController>(
-                "Quit", &quitView, controller->getQuitController()));
+                "Quit", &quitView, controller));
     }
 
 

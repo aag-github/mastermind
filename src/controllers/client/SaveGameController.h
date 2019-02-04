@@ -6,17 +6,26 @@
 
 namespace Mastermind {
 
-class SaveGameController: public Controller {
+class SaveGameController {
 public:
-    SaveGameController(Game &game) :
+    virtual ~SaveGameController() {};
+
+    virtual GamePersistenceResult save(std::string name) = 0;
+
+    virtual std::vector<std::string> getAvailableGames() = 0;
+};
+
+class SaveGameControllerImpl: public Controller, public SaveGameController{
+public:
+    SaveGameControllerImpl(Game &game) :
         Controller(game)
     {
     }
 
-    virtual ~SaveGameController(){
+    virtual ~SaveGameControllerImpl(){
     }
 
-    GamePersistenceResult save(std::string name) {
+    virtual GamePersistenceResult save(std::string name) override final {
         assert(game.getState() == State::MAIN_MENU);
 
         GamePersistenceResult ok = gameSaver.save(&game, name);
@@ -26,7 +35,7 @@ public:
         return ok;
     }
 
-    std::vector<std::string> getAvailableGames(){
+    virtual std::vector<std::string> getAvailableGames() override final {
         return gameSaver.getAvailableGames();
     }
 

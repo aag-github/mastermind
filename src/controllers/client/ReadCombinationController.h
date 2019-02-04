@@ -5,17 +5,30 @@
 
 namespace Mastermind {
 
-class ReadCombinationController : public CombinationController {
+class ReadCombinationController {
 public:
-    ReadCombinationController(Game &game) :
+    virtual ~ReadCombinationController() {};
+
+    virtual void gameEnd(bool end) = 0;
+
+    virtual ProposedCombinationState setProposedCombination (const Combination& proposedCombination) = 0;
+
+    virtual const ProposedCombinationList& getProposedCombinations() const = 0;
+
+    virtual const SecretCombination& getSecretCombination() const = 0;
+};
+
+class ReadCombinationControllerImpl : public CombinationController, public ReadCombinationController {
+public:
+    ReadCombinationControllerImpl(Game &game) :
         CombinationController(game)
     {
     }
 
-    virtual ~ReadCombinationController(){
+    virtual ~ReadCombinationControllerImpl(){
     }
 
-    void gameEnd(bool end) {
+    virtual void gameEnd(bool end) override final {
         assert(game.getState() == State::MAIN_MENU);
 
         if (end) {
@@ -23,8 +36,16 @@ public:
         }
     }
 
-    ProposedCombinationState setProposedCombination (const Combination& proposedCombination) {
+    virtual ProposedCombinationState setProposedCombination (const Combination& proposedCombination) override final {
         return game.setProposedCombination(proposedCombination);
+    }
+
+    virtual const ProposedCombinationList& getProposedCombinations() const {
+        return CombinationController::getProposedCombinations();
+    }
+
+    virtual const SecretCombination& getSecretCombination() const {
+        return CombinationController::getSecretCombination();
     }
 
 };

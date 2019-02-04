@@ -10,7 +10,11 @@
 
 namespace Mastermind {
 
-class StartMenuController: public ClientOperationController {
+class StartMenuController: public ClientOperationController,
+                           public QuitController,
+                           public StartController,
+                           public LoadGameController
+{
 public:
     StartMenuController(Game &game) :
         ClientOperationController(game),
@@ -30,24 +34,31 @@ public:
         operationControllerVisitor->visit(this);
     };
 
-    QuitController* getQuitController() {
-        return &quitController;
+    virtual void quit(bool quit) override final {
+        quitController.quit(quit);
     }
 
-    StartController* getStartController() {
-        return &startController;
+    virtual GamePersistenceResult load(std::string name) override final {
+        return loadGameController.load(name);
     }
 
-    LoadGameController* getLoadGameController() {
-        return &loadGameController;
+    virtual void noGamesAvailable() override final {
+        loadGameController.noGamesAvailable();
     }
 
+    virtual std::vector<std::string> getAvailableGames() override final {
+        return loadGameController.getAvailableGames();
+    }
+
+    virtual void start() override final {
+        startController.start();
+    }
 private:
-    QuitController quitController;
+    QuitControllerImpl quitController;
 
-    StartController startController;
+    StartControllerImpl startController;
 
-    LoadGameController loadGameController;
+    LoadGameControllerImpl loadGameController;
 };
 
 }

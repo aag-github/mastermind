@@ -5,7 +5,7 @@
 
 namespace Mastermind {
 
-class MenuController;
+class MainMenuController;
 
 template <class VIEW, class CONTROLLER> class OptionalCommandView : public CommandViewTemplate<VIEW, CONTROLLER> {
 public:

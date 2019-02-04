@@ -6,18 +6,25 @@
 
 namespace Mastermind {
 
-class StartController: public ClientOperationController {
+class StartController {
 public:
-    StartController(Game &game) :
+    virtual ~StartController() {}
+
+    virtual void start() = 0;
+};
+
+class StartControllerImpl: public ClientOperationController, public StartController {
+public:
+    StartControllerImpl(Game &game) :
         ClientOperationController(game),
         nextState(State::MAIN_MENU)
     {
     }
 
-    virtual ~StartController(){
+    virtual ~StartControllerImpl(){
     }
 
-    void start() {
+    virtual void start() override final {
         assert(game.getState() == State::START_MENU);
 
         game.start();

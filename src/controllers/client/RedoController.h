@@ -5,17 +5,26 @@
 
 namespace Mastermind {
 
-class RedoController: public Controller {
+class RedoController {
 public:
-    RedoController(Game &game) :
+    virtual ~RedoController() {};
+
+    virtual void redo() = 0;
+
+    virtual bool canRedo() = 0;
+};
+
+class RedoControllerImpl: public Controller, public RedoController {
+public:
+    RedoControllerImpl(Game &game) :
         Controller(game)
     {
     }
 
-    virtual ~RedoController(){
+    virtual ~RedoControllerImpl(){
     }
 
-    void redo() {
+    virtual void redo() override final {
         assert(game.getState() == State::MAIN_MENU);
 
         game.Redo();
@@ -23,7 +32,7 @@ public:
         game.setState(State::MAIN_MENU);
     }
 
-    bool canRedo() {
+    virtual bool canRedo() override final {
         return game.canRedo();
     }
 

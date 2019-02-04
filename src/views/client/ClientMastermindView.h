@@ -11,7 +11,7 @@
 namespace Mastermind {
 
 class StartController;
-class MenuController;
+class MainMenuController;
 class StartMenuController;
 
 class ClientMastermindView : public ClientOperationControllerVisitor {
@@ -30,7 +30,7 @@ public:
         startView.interact(startController);
     }
 
-    virtual void visit(MenuController *menuController) override final {
+    virtual void visit(MainMenuController *menuController) override final {
         assert(menuController != nullptr);
         mainMenuView.interact(menuController);
     }

@@ -1,10 +1,10 @@
 #ifndef SRC_CONTROLLERS_CLIENTLOGIC_H_
 #define SRC_CONTROLLERS_CLIENTLOGIC_H_
 
+#include <client/MainMenuController.h>
 #include "Logic.h"
 #include "GameProxy.h"
 #include "StartController.h"
-#include "MenuController.h"
 #include "StartMenuController.h"
 
 namespace Mastermind {
@@ -35,7 +35,7 @@ public:
         }
 }
 private:
-    MenuController menuController;
+    MainMenuController menuController;
 
     StartMenuController startMenuController;
 };

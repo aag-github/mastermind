@@ -1,11 +1,11 @@
 #ifndef SRC_VIEWS_COMMANDS_COMMANDVIEW_H_
 #define SRC_VIEWS_COMMANDS_COMMANDVIEW_H_
 
-#include "client/MenuController.h"
+#include <client/MainMenuController.h>
 
 namespace Mastermind {
 
-class MenuController;
+class MainMenuController;
 
 class CommandView {
 public:

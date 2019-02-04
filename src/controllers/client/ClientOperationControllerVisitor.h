@@ -5,7 +5,7 @@ namespace Mastermind {
 
 class StartController;
 class StartMenuController;
-class MenuController;
+class MainMenuController;
 
 class ClientOperationControllerVisitor {
 public:
@@ -14,7 +14,7 @@ public:
 
     virtual void visit(StartController *startController) = 0;
 
-    virtual void visit(MenuController *menuController) = 0;
+    virtual void visit(MainMenuController *menuController) = 0;
 
     virtual void visit(StartMenuController *menuController) = 0;
 };

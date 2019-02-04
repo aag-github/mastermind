@@ -5,17 +5,26 @@
 
 namespace Mastermind {
 
-class UndoController: public Controller {
+class UndoController {
 public:
-    UndoController(Game &game) :
+    virtual ~UndoController() {};
+
+    virtual void undo() = 0;
+
+    virtual bool canUndo() = 0;
+};
+
+class UndoControllerImpl: public Controller, public UndoController {
+public:
+    UndoControllerImpl(Game &game) :
         Controller(game)
     {
     }
 
-    virtual ~UndoController(){
+    virtual ~UndoControllerImpl(){
     }
 
-    void undo() {
+    virtual void undo() override final {
         assert(game.getState() == State::MAIN_MENU);
 
         game.Undo();
@@ -23,7 +32,7 @@ public:
         game.setState(State::MAIN_MENU);
     }
 
-    bool canUndo() {
+    virtual bool canUndo() override final {
         return game.canUndo();
     }
 
