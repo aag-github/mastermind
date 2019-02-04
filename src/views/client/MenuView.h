@@ -15,7 +15,7 @@ public:
         deleteCommands();
     };
 
-    virtual void interact(CONTROLLER_PROVIDER* controller) = 0;
+    virtual void interact(CONTROLLER_PROVIDER* controllerProvider) = 0;
 protected:
     std::vector<CommandView*> commands;
 
@@ -29,7 +29,7 @@ protected:
     }
 
 private:
-    virtual void setCommands(CONTROLLER_PROVIDER* controller) = 0 ;
+    virtual void setCommands(CONTROLLER_PROVIDER* controllerProvider) = 0 ;
 
 };
 
