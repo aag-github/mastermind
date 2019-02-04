@@ -5,7 +5,7 @@
 
 namespace Mastermind {
 
-template <class CONTROLER_PROVIDER> class MenuView {
+template <class CONTROLLER_PROVIDER> class MenuView {
 public:
     MenuView(){
         defaultCommand = nullptr;
@@ -15,7 +15,7 @@ public:
         deleteCommands();
     };
 
-    virtual void interact(CONTROLER_PROVIDER* controller) = 0;
+    virtual void interact(CONTROLLER_PROVIDER* controller) = 0;
 protected:
     std::vector<CommandView*> commands;
 
@@ -29,7 +29,7 @@ protected:
     }
 
 private:
-    virtual void setCommands(CONTROLER_PROVIDER* controller) = 0 ;
+    virtual void setCommands(CONTROLLER_PROVIDER* controller) = 0 ;
 
 };
 
